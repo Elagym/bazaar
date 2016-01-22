@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <!-- Context -->
+
+    <context:component-scan base-package="bt.formation" />
+
+    <!-- MVC -->
+
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+
+    <!--pour trouver les vues-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!--resource mapping pour que des indique ressources, trouve le fichier-->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <!-- JPA -->
+
+    <jpa:repositories base-package="bt.formation.repository" />
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="bt.formation.entity" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="jdbc:mysql://localhost:3306/hiberspring" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- Transaction -->
+
+    <tx:annotation-driven />
+
+    <!-- Security -->
+
+    <security:http auto-config="true" use-expressions="true">
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/**" access="permitAll" />
+        <security:form-login login-page="/login"
+                             authentication-failure-url="/login"
+                             username-parameter="username"
+                             password-parameter="password" />
+        <security:logout logout-url="/logout"
+                         logout-success-url="/" />
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="UserServiceImp">
+            <security:password-encoder ref="encoder" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+    <bean id="UserServiceImp" class="bt.formation.service.imp.UserServiceImp" />
+
+</beans>
