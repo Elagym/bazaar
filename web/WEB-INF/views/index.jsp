@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Student
@@ -9,8 +10,10 @@
 <html>
 <head>
     <title>Title</title>
+    <c:import url="includes/head.jsp"/>
 </head>
 <body>
+    <c:import url="includes/menu.jsp"/>
 body of index.jsp
 </body>
 </html>
