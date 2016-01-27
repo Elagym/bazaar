@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">--%>
@@ -18,9 +18,17 @@
             <ul class="nav navbar-nav">
                 <li <c:if test="${uri[3].equals(\"index.jsp\")}"> class="active" </c:if>><a href="<c:url value="/"/>">Index</a></li>
                 <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a href="<c:url value="/offers"/>">Offers</a></li>
-                <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/profile"/>">My profile</a></li>
-                </sec:authorize>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Category 1</a></li>
+                        <li><a href="#">Category 2</a></li>
+                        <li><a href="#">Category 3</a></li>
+                        <%--<li role="separator" class="divider"></li>--%>
+                        <li><a href="#">Category 4</a></li>
+                        <li><a href="#">Category 5</a></li>
+                    </ul>
+                </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if>><a href="<c:url value="/admin/"/>">Admin</a></li>--%>
                     <li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if> class="dropdown">
@@ -36,6 +44,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAuthenticated()">
+                    <li><a href="<c:url value="/profile"/>">My profile</a></li>
                     <li><a href="<c:url value="/logout"/>">Log out</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
