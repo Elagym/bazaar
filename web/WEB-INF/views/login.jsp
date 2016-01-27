@@ -6,7 +6,7 @@
     <c:import url="includes/head.jsp"/>
 </head>
 <body>
-    <c:import url="includes/menu.jsp"/>
-body of index.jsp
+<c:import url="includes/menu.jsp"/>
+body of login.jsp
 </body>
 </html>

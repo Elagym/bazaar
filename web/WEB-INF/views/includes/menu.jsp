@@ -17,6 +17,10 @@
             <c:set var="uri" value="${fn:split(pageContext.request.requestURI, '/')}"/>
             <ul class="nav navbar-nav">
                 <li <c:if test="${uri[3].equals(\"index.jsp\")}"> class="active" </c:if>><a href="<c:url value="/"/>">Index</a></li>
+                <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a href="<c:url value="/offers"/>">Offers</a></li>
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="<c:url value="/profile"/>">My profile</a></li>
+                </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if>><a href="<c:url value="/admin/"/>">Admin</a></li>--%>
                     <li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if> class="dropdown">
@@ -35,7 +39,7 @@
                     <li><a href="<c:url value="/logout"/>">Log out</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
-                    <%--<li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a href="<c:url value="/signup"/>">Sign up</a></li>--%>
+                    <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a href="<c:url value="/signup"/>">Sign up</a></li>
                     <li <c:if test="${uri[3].equals(\"login.jsp\")}"> class="active" </c:if>><a href="<c:url value="/login"/>">Log in</a></li>
                 </sec:authorize>
             </ul>

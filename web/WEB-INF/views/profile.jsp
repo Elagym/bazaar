@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>My Profile</title>
     <c:import url="includes/head.jsp"/>
 </head>
 <body>
-    <c:import url="includes/menu.jsp"/>
-body of index.jsp
+<c:import url="includes/menu.jsp"/>
+body of profile.jsp
 </body>
 </html>
