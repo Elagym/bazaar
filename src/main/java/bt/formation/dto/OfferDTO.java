@@ -1,6 +1,10 @@
 package bt.formation.dto;
 
+import bt.formation.entity.Category;
+
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Student on 27-01-16.
@@ -18,6 +22,7 @@ public class OfferDTO {
     private int zipCode;
     private double estimation;
     private Date expirationdate;
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -105,5 +110,15 @@ public class OfferDTO {
 
     public void setExpirationdate(Date expirationdate) {
         this.expirationdate = expirationdate;
+    }
+
+    public Set<Category> getCategories() {
+        if(categories == null)
+            categories = new HashSet<>();
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
