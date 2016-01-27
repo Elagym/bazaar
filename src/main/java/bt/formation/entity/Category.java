@@ -1,5 +1,7 @@
 package bt.formation.entity;
 
+import bt.formation.dto.CategoryDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,5 +36,12 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CategoryDTO toDto() {
+        CategoryDTO dto = new CategoryDTO();
+        dto.setId(id);
+        dto.setName(name);
+        return dto;
     }
 }

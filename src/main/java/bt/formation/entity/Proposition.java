@@ -1,5 +1,7 @@
 package bt.formation.entity;
 
+import bt.formation.dto.PropositionDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -63,5 +65,11 @@ public class Proposition {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    public PropositionDTO toDto(){
+        PropositionDTO dto = new PropositionDTO();
+        dto.setId(id);
+        return dto;
     }
 }

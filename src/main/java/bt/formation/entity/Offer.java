@@ -1,5 +1,7 @@
 package bt.formation.entity;
 
+import bt.formation.dto.OfferDTO;
+
 import javax.annotation.Generated;
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +13,7 @@ public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String title;
     private String description;
     private String imageUrl;
@@ -44,11 +46,11 @@ public class Offer {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -138,5 +140,23 @@ public class Offer {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public OfferDTO toDto(){
+        OfferDTO dto = new OfferDTO();
+        dto.setId(id);
+        dto.setTitle(title);
+        dto.setDescription(description);
+        dto.setAddress(address);
+        dto.setCreationDate(creationDate);
+        dto.setEstimation(estimation);
+        dto.setExpirationdate(expirationDate);
+        dto.setImageUrl(imageUrl);
+        dto.setModifDate(modifDate);
+        dto.setPopularity(popularity);
+        dto.setZipCode(zipCode);
+        dto.setCategories(categories);
+        return dto;
+
     }
 }
