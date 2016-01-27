@@ -78,13 +78,13 @@
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider user-service-ref="UserServiceImp">
+        <security:authentication-provider user-service-ref="userServiceImpl">
             <security:password-encoder ref="encoder" />
         </security:authentication-provider>
     </security:authentication-manager>
 
     <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-    <bean id="UserServiceImp" class="bt.formation.service.impl.UserServiceImpl" />
+    <bean id="userServiceImpl" class="bt.formation.service.impl.UserServiceImpl"/>
 
 </beans>

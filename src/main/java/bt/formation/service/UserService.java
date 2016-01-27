@@ -1,7 +1,13 @@
 package bt.formation.service;
 
-/**
- * Created by Student on 14-01-16.
- */
+
+import bt.formation.entity.Authority;
+import bt.formation.entity.User;
+
+import java.util.Collection;
+
 public interface UserService {
+    User signUpUser(User user);
+
+    Collection<User> getUsers();
 }

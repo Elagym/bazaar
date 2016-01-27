@@ -227,4 +227,8 @@ public class User {
         }
         return dto;
     }
+
+    public String getPassword() {
+        return password;
+    }
 }

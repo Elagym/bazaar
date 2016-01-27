@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="Bazaar:Web exploded">
+  <artifact type="exploded-war" build-on-make="true" name="Bazaar:Web exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/Bazaar_Web_exploded</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="BazaarTemplate/web/Web" />
