@@ -7,9 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * Created by Student on 14-01-16.
- */
 @Entity
 public class Authority implements GrantedAuthority {
 
