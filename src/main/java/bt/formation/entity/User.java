@@ -9,17 +9,20 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Student on 14-01-16.
- */
 @Entity
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToMany
     private Set<Authority> authorities;
+    @OneToMany
+    private Set<Proposition> propositions;
+    @OneToMany
+    private Set<Comment> comments;
+
     private String password;
     private String username;
     private String email;
@@ -30,8 +33,9 @@ public class User implements UserDetails{
     private String imageUrl;
     @Column(nullable = true)
     private String description;
-    private String name;
-    private String firstname;
+    private String lastName;
+    private String firstName;
+    private Date birthDate;
 
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -41,14 +45,31 @@ public class User implements UserDetails{
     public User() {
     }
 
+    public User(String password, String username, String email, String phoneNumber, Date creationDate, String imageUrl, String description, String name, String firstname, Date birthDate, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+        this.password = password;
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.creationDate = creationDate;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.lastName = name;
+        this.firstName = firstname;
+        this.birthDate = birthDate;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+    }
+
     public Long getId() {
         return id;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(authorities==null){
-            authorities=new HashSet<>();
+    public Collection<Authority> getAuthorities() {
+        if (authorities == null) {
+            authorities = new HashSet<>();
         }
         return authorities;
     }
@@ -103,20 +124,12 @@ public class User implements UserDetails{
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     @Override
@@ -169,5 +182,39 @@ public class User implements UserDetails{
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Set<Proposition> getPropositions() {
+        if (propositions == null) propositions = new HashSet<>();
+        return propositions;
+    }
+
+    public void setPropositions(Set<Proposition> propositions) {
+        this.propositions = propositions;
+    }
+
+    public Set<Comment> getComments() {
+        if (comments == null) comments = new HashSet<>();
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
