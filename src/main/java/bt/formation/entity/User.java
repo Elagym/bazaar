@@ -133,7 +133,7 @@ public class User {
     }
 
     public Set<Authority> getAuthorities() {
-        if(authorities == null) authorities = new HashSet<>();
+        if (authorities == null) authorities = new HashSet<>();
         return authorities;
     }
 
@@ -199,9 +199,32 @@ public class User {
         this.lastName = lastName;
     }
 
-    public UserDTO toDto(){
+    public UserDTO toDto() {
         UserDTO dto = new UserDTO();
         dto.setId(id);
+        dto.setEmail(email);
+        dto.setAccountNonExpired(accountNonExpired);
+        dto.setAccountNonLocked(accountNonLocked);
+        dto.setBirthdate(birthDate);
+        dto.setCreationDate(creationDate);
+        dto.setCredentialsNonExpired(credentialsNonExpired);
+        dto.setDescription(description);
+        dto.setEnabled(enabled);
+        dto.setFirstname(firstName);
+        dto.setLastname(lastName);
+        dto.setImageUrl(imageUrl);
+        dto.setPhoneNumber(phoneNumber);
+        dto.setPassword(password);
+        dto.setUsername(username);
+        for (Authority aut : authorities) {
+            dto.getAuthorities().add(aut.toDto());
+        }
+        for (Comment com : comments) {
+            dto.getComments().add(com.toDto());
+        }
+        for (Proposition prop : propositions) {
+            dto.getPropositions().add(prop.toDto());
+        }
         return dto;
     }
 }
