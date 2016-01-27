@@ -1,5 +1,7 @@
 package bt.formation.entity;
 
+import bt.formation.dto.ReportDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -85,5 +87,17 @@ public class Report {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    public ReportDTO toDto() {
+        ReportDTO dto = new ReportDTO();
+        dto.setId(id);
+        dto.setDetails(details);
+        dto.setEmail(email);
+        dto.setName(name);
+        dto.setType(type);
+        dto.setOffer(offer.toDto());
+        dto.setUser(user.toDto());
+        return dto;
     }
 }

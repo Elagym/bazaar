@@ -70,6 +70,9 @@ public class Proposition {
     public PropositionDTO toDto(){
         PropositionDTO dto = new PropositionDTO();
         dto.setId(id);
+        dto.setEstimation(estimation);
+        dto.setDescription(description);
+        dto.setTitle(title);
         return dto;
     }
 }

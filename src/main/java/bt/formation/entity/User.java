@@ -1,5 +1,6 @@
 package bt.formation.entity;
 
+import bt.formation.dto.UserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -196,5 +197,11 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public UserDTO toDto(){
+        UserDTO dto = new UserDTO();
+        dto.setId(id);
+        return dto;
     }
 }

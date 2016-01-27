@@ -150,12 +150,14 @@ public class Offer {
         dto.setAddress(address);
         dto.setCreationDate(creationDate);
         dto.setEstimation(estimation);
-        dto.setExpirationdate(expirationDate);
+        dto.setExpirationDate(expirationDate);
         dto.setImageUrl(imageUrl);
         dto.setModifDate(modifDate);
         dto.setPopularity(popularity);
         dto.setZipCode(zipCode);
-        dto.setCategories(categories);
+        for (Category cat : categories) {
+            dto.getCategories().add(cat.toDto());
+        }
         return dto;
 
     }
