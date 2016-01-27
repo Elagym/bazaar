@@ -4,13 +4,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +16,9 @@ public class User implements UserDetails {
     @ManyToMany
     private Set<Authority> authorities;
     @OneToMany
-    private Set<Proposition> propositions;
+    private List<Proposition> propositions;
     @OneToMany
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     private String password;
     private String username;
@@ -64,24 +61,6 @@ public class User implements UserDetails {
 
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public Collection<Authority> getAuthorities() {
-        if (authorities == null) {
-            authorities = new HashSet<>();
-        }
-        return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     public String getEmail() {
@@ -132,28 +111,29 @@ public class User implements UserDetails {
         this.firstName = firstName;
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
-    @Override
     public boolean isEnabled() {
         return enabled;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Authority> getAuthorities() {
+        if(authorities == null) authorities = new HashSet<>();
+        return authorities;
     }
 
     public void setAuthorities(Set<Authority> authorities) {
@@ -192,21 +172,21 @@ public class User implements UserDetails {
         this.birthDate = birthDate;
     }
 
-    public Set<Proposition> getPropositions() {
-        if (propositions == null) propositions = new HashSet<>();
+    public List<Proposition> getPropositions() {
+        if (propositions == null) propositions = new ArrayList<>();
         return propositions;
     }
 
-    public void setPropositions(Set<Proposition> propositions) {
+    public void setPropositions(List<Proposition> propositions) {
         this.propositions = propositions;
     }
 
-    public Set<Comment> getComments() {
-        if (comments == null) comments = new HashSet<>();
+    public List<Comment> getComments() {
+        if (comments == null) comments = new ArrayList<>();
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

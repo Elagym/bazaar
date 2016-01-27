@@ -1,5 +1,7 @@
 package bt.formation.entity;
 
+import bt.formation.dto.CommentDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,5 +56,14 @@ public class Comment {
 
     public void setLike(Boolean like) {
         this.like = like;
+    }
+
+    public CommentDTO toDto(){
+        CommentDTO dto = new CommentDTO();
+        dto.setId(id);
+        dto.setDescription(description);
+        dto.setLike(like);
+        dto.setTitle(title);
+        return dto;
     }
 }
