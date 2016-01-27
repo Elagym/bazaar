@@ -1,5 +1,6 @@
 package bt.formation.service.impl;
 
+import bt.formation.dto.UserDTO;
 import bt.formation.entity.User;
 import bt.formation.repository.UserRepository;
 import bt.formation.service.UserService;
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(s);
+        UserDTO user = userRepository.findByUsername(s).toDto();
         return user;
     }
 }
