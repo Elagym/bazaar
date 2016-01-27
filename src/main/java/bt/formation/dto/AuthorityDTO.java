@@ -12,7 +12,10 @@ public class AuthorityDTO implements GrantedAuthority {
     private String authority;
 
     public Authority toEntity(){
-        return null;
+        Authority auth = new Authority();
+        auth.setId(id);
+        auth.setAuthority(authority);
+        return auth;
     }
 
     @Override

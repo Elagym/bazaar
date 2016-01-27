@@ -22,8 +22,8 @@ public class OfferDTO {
     private String address;
     private int zipCode;
     private double estimation;
-    private Date expirationdate;
-    private Set<Category> categories;
+    private Date expirationDate;
+    private Set<CategoryDTO> categories;
 
     public Offer toEntity(){
         Offer offer = new Offer();
@@ -31,7 +31,16 @@ public class OfferDTO {
         offer.setTitle(title);
         offer.setDescription(description);
         offer.setImageUrl(imageUrl);
-
+        offer.setCreationDate(creationDate);
+        offer.setModifDate(modifDate);
+        offer.setPopularity(popularity);
+        offer.setAddress(address);
+        offer.setZipCode(zipCode);
+        offer.setEstimation(estimation);
+        offer.setExpirationDate(expirationDate);
+        for (CategoryDTO category : categories) {
+            offer.getCategories().add(category.toEntity());
+        }
         return offer;
     }
 
@@ -115,21 +124,21 @@ public class OfferDTO {
         this.estimation = estimation;
     }
 
-    public Date getExpirationdate() {
-        return expirationdate;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpirationdate(Date expirationdate) {
-        this.expirationdate = expirationdate;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
-    public Set<Category> getCategories() {
+    public Set<CategoryDTO> getCategories() {
         if(categories == null)
             categories = new HashSet<>();
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(Set<CategoryDTO> categories) {
         this.categories = categories;
     }
 }
