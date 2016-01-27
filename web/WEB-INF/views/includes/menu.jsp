@@ -11,7 +11,7 @@
             <%--<span class="icon-bar"></span>--%>
             <%--<span class="icon-bar"></span>--%>
             <%--</button>--%>
-            <a class="navbar-brand" href="<c:url value="/"/>"><span style="color:white;font-weight:bold;">Trok</span><span style="color:red;font-style: italic;">Tube</span></a>
+            <a class="navbar-brand" href="<c:url value="/"/>"><span style="color:red;font-style: italic;">Bazaar</span></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <c:set var="uri" value="${fn:split(pageContext.request.requestURI, '/')}"/>
