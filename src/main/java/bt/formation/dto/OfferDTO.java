@@ -1,6 +1,7 @@
 package bt.formation.dto;
 
 import bt.formation.entity.Category;
+import bt.formation.entity.Offer;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,6 +24,16 @@ public class OfferDTO {
     private double estimation;
     private Date expirationdate;
     private Set<Category> categories;
+
+    public Offer toEntity(){
+        Offer offer = new Offer();
+        offer.setId(id);
+        offer.setTitle(title);
+        offer.setDescription(description);
+        offer.setImageUrl(imageUrl);
+
+        return offer;
+    }
 
     public Long getId() {
         return id;

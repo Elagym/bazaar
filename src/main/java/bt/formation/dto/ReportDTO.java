@@ -1,5 +1,7 @@
 package bt.formation.dto;
 
+import bt.formation.entity.Report;
+
 /**
  * Created by Student on 27-01-16.
  */
@@ -12,6 +14,18 @@ public class ReportDTO {
     private String details;
     private UserDTO user;
     private OfferDTO offer;
+
+    public Report toEntity(){
+        Report report = new Report();
+        report.setId(id);
+        report.setType(type);
+        report.setName(name);
+        report.setEmail(email);
+        report.setDetails(details);
+        report.setUser(user.toEntity());
+        report.setOffer(offer.toEntity());
+        return report;
+    }
 
     public Long getId() {
         return id;
@@ -51,5 +65,21 @@ public class ReportDTO {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public OfferDTO getOffer() {
+        return offer;
+    }
+
+    public void setOffer(OfferDTO offer) {
+        this.offer = offer;
     }
 }

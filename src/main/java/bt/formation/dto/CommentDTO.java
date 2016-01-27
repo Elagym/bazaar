@@ -1,5 +1,7 @@
 package bt.formation.dto;
 
+import bt.formation.entity.Comment;
+
 /**
  * Created by Student on 27-01-16.
  */
@@ -9,6 +11,15 @@ public class CommentDTO {
     private String title;
     private String description;
     private boolean like;
+
+    public Comment toEntity(){
+        Comment comment = new Comment();
+        comment.setId(id);
+        comment.setTitle(title);
+        comment.setDescription(description);
+        comment.setLike(like);
+        return comment;
+    }
 
     public Long getId() {
         return id;

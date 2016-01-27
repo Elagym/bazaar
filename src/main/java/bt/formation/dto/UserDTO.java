@@ -1,12 +1,11 @@
 package bt.formation.dto;
 
 import bt.formation.entity.Authority;
+import bt.formation.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Student on 27-01-16.
@@ -25,11 +24,38 @@ public class UserDTO implements UserDetails{
     private String lastname;
     private String firstname;
     private List<CommentDTO> comments;
-    private List<AuthorityDTO> authorities;
+    private Set<AuthorityDTO> authorities;
+    private List<PropositionDTO> propositions;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+
+    public User toEntity(){
+        User user = new User();
+        user.setId(id);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setCreationDate(creationDate);
+        user.setBirthDate(birthdate);
+        user.setImageUrl(imageUrl);
+        user.setDescription(description);
+        user.setLastName(lastname);
+        user.setFirstName(firstname);
+        for (CommentDTO comment : comments)
+                user.getComments().add(comment.toEntity());
+        for (AuthorityDTO auth : authorities)
+            user.getAuthorities().add(auth.toEntity());
+        for (PropositionDTO proposition : propositions)
+            user.getPropositions().add(proposition.toEntity());
+        user.setAccountNonExpired(accountNonExpired);
+        user.setAccountNonLocked(accountNonLocked);
+        user.setCredentialsNonExpired(credentialsNonExpired);
+        user.setEnabled(enabled);
+        return user;
+    }
 
     public Long getId() {
         return id;
@@ -68,11 +94,13 @@ public class UserDTO implements UserDetails{
     }
 
     @Override
-    public List<AuthorityDTO> getAuthorities() {
+    public Set<AuthorityDTO> getAuthorities() {
+        if(authorities == null)
+            authorities = new HashSet<>();
         return authorities;
     }
 
-    public void setAuthorities(List<AuthorityDTO> authorities) {
+    public void setAuthorities(Set<AuthorityDTO> authorities) {
         this.authorities = authorities;
     }
 
@@ -149,11 +177,23 @@ public class UserDTO implements UserDetails{
     }
 
     public List<CommentDTO> getComments() {
+        if(comments == null)
+            comments = new ArrayList<>();
         return comments;
     }
 
     public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
+    }
+
+    public List<PropositionDTO> getPropositions() {
+        if(propositions == null)
+            propositions = new ArrayList<>();
+        return propositions;
+    }
+
+    public void setPropositions(List<PropositionDTO> propositions) {
+        this.propositions = propositions;
     }
 
     public void setAccountNonExpired(boolean accountNonExpired) {

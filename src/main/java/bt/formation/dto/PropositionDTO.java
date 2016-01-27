@@ -1,5 +1,7 @@
 package bt.formation.dto;
 
+import bt.formation.entity.Proposition;
+
 /**
  * Created by Student on 27-01-16.
  */
@@ -9,6 +11,15 @@ public class PropositionDTO {
     private String title;
     private String description;
     private double estimation;
+
+    public Proposition toEntity(){
+        Proposition proposition = new Proposition();
+        proposition .setId(id);
+        proposition.setTitle(title);
+        proposition.setDescription(description);
+        proposition.setEstimation(estimation);
+        return proposition;
+    }
 
     public Long getId() {
         return id;

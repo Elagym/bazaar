@@ -1,5 +1,6 @@
 package bt.formation.dto;
 
+import bt.formation.entity.Authority;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -9,6 +10,10 @@ public class AuthorityDTO implements GrantedAuthority {
 
     private Long id;
     private String authority;
+
+    public Authority toEntity(){
+        return null;
+    }
 
     @Override
     public String getAuthority() {
