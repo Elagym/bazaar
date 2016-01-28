@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,55 +8,53 @@
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
-<form action="signup" method="post" class="form-horizontal">
-    <fieldset>
-        <legend>Create an account</legend>
-        <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-            <div class="col-lg-4">
-                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputUsername" class="col-lg-2 control-label">Username</label>
-            <div class="col-lg-3">
-                <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="inputUsername">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-            <div class="col-lg-3">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                       name="inputPassword">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="dateOfBirth" class="col-lg-2 control-label">Birth Date</label>
-            <div class="col-lg-2">
-                <input type="date" class="form-control" id="dateOfBirth" min="1979-12-31" max="2005-01-01"
-                       name="inputBirthdate">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="textArea" class="col-lg-2 control-label">Description</label>
-            <div class="col-lg-6">
-                <textarea class="form-control" rows="3" id="textArea"></textarea>
-                <span class="help-block">Describe yourself, what you like, what you're working on, etc.</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputProfilePic" class="col-lg-2 control-label">Profile Picture</label>
-            <div class="col-lg-3">
-                <input type="text" class="form-control" id="inputProfilePic" placeholder="Profile Picture">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-2">
-                <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
+<form:form method="post" action="signup" commandName="signUpForm">
+
+    <label for="usernameInput">Username : </label>
+    <form:input path="username" id="usernameInput"></form:input>
+    <form:errors path="username" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="passwordInput">Password : </label>
+    <form:input path="password" id="passwordInput"></form:input>
+    <form:errors path="password" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="checkPasswordInput">Confirm Password : </label>
+    <form:input path="passwordCheck" id="checkPasswordInput"></form:input>
+    <form:errors path="passwordCheck" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="emailInput">Email: </label>
+    <form:input path="email" id="emailInput"></form:input>
+    <form:errors path="email" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="firstNameInput">First Name : </label>
+    <form:input path="firstName" id="firstNameInput"></form:input>
+    <form:errors path="firstName" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="lastNameInput">Last Name : </label>
+    <form:input path="lastName" id="lastNameInput"></form:input>
+    <form:errors path="lastName" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="dateOfBirth">Date of birth : </label>
+    <form:input path="dateOfBirth" id="dateOfBirth"></form:input>
+    <form:errors path="dateOfBirth" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="phoneInput">Phone: </label>
+    <form:input path="phoneNumber" id="phoneInput"></form:input>
+    <form:errors path="phoneNumber" cssclass="error"></form:errors>
+    <br/>
+
+    <label for="descriptionInput">Description : </label>
+    <form:input path="description" id="descriptionInput" placeholder="Hobbies, occupations, etc."></form:input>
+    <form:errors path="description" cssclass="error"></form:errors>
+    <br/>
+    <input type="submit" value="Submit"/>
+</form:form>
 </body>
 </html>

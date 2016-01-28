@@ -2,6 +2,9 @@ package bt.formation.controller;
 
 import bt.formation.dto.AuthorityDTO;
 import bt.formation.dto.UserDTO;
+import bt.formation.entity.Authority;
+import bt.formation.entity.User;
+import bt.formation.form.SignUpForm;
 import bt.formation.model.PincodeVerify;
 import bt.formation.service.AuthorityService;
 import bt.formation.service.UserService;
@@ -9,11 +12,13 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,26 +51,22 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signup() {
+    public String signup(Model model) {
+        model.addAttribute("signUpForm", new SignUpForm());
         return "signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String processSignup(@RequestParam String inputUsername, @RequestParam String inputPassword, @RequestParam String inputEmail) {
-        UserDTO newUser = new UserDTO();
-        newUser.setUsername(inputUsername);
-        newUser.setPassword(inputPassword);
-        newUser.setEmail(inputEmail);
-
-        AuthorityDTO authority = authorityService.createOrGetIfExists("ROLE_USER");
-        newUser.getAuthorities().add(authority);
-
-        newUser.setAccountNonLocked(true);
-        newUser.setAccountNonExpired(true);
-        newUser.setEnabled(true);
-        newUser.setCredentialsNonExpired(true);
-        userService.signUpUser(newUser.toEntity());
-        return "redirect:/login";
+    public String processSignUp(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/signup";
+        } else {
+            User user = signUpForm.toUser().toEntity();
+            AuthorityDTO authority = authorityService.createOrGetIfExists("ROLE_USER");
+            user.getAuthorities().add(authority.toEntity());
+            userService.signUpUser(user);
+            return "redirect:/login";
+        }
     }
 
     @RequestMapping("/profile")
@@ -125,7 +126,7 @@ public class HomeController {
 
             conn.disconnect();
 
-            return new double[] {lat, lon};
+            return new double[]{lat, lon};
 
         } catch (NullPointerException e) {
             System.out.println("Address, latitude on longitude is null");
