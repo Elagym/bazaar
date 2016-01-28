@@ -44,11 +44,11 @@ public class UserDTO implements UserDetails{
         user.setDescription(description);
         user.setLastName(lastname);
         user.setFirstName(firstname);
-        for (CommentDTO comment : comments)
+        for (CommentDTO comment : getComments())
                 user.getComments().add(comment.toEntity());
-        for (AuthorityDTO auth : authorities)
+        for (AuthorityDTO auth : getAuthorities())
             user.getAuthorities().add(auth.toEntity());
-        for (PropositionDTO proposition : propositions)
+        for (PropositionDTO proposition : getPropositions())
             user.getPropositions().add(proposition.toEntity());
         user.setAccountNonExpired(accountNonExpired);
         user.setAccountNonLocked(accountNonLocked);

@@ -38,7 +38,7 @@ public class OfferDTO {
         offer.setZipCode(zipCode);
         offer.setEstimation(estimation);
         offer.setExpirationDate(expirationDate);
-        for (CategoryDTO category : categories) {
+        for (CategoryDTO category : getCategories()) {
             offer.getCategories().add(category.toEntity());
         }
         return offer;

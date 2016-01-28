@@ -216,13 +216,13 @@ public class User {
         dto.setPhoneNumber(phoneNumber);
         dto.setPassword(password);
         dto.setUsername(username);
-        for (Authority aut : authorities) {
+        for (Authority aut : getAuthorities()) {
             dto.getAuthorities().add(aut.toDto());
         }
-        for (Comment com : comments) {
+        for (Comment com : getComments()) {
             dto.getComments().add(com.toDto());
         }
-        for (Proposition prop : propositions) {
+        for (Proposition prop : getPropositions()) {
             dto.getPropositions().add(prop.toDto());
         }
         return dto;

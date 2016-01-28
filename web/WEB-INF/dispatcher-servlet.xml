@@ -9,7 +9,7 @@
 
     <!-- Context -->
 
-    <context:component-scan base-package="bt.formation" />
+    <context:component-scan base-package="bt.formation"/>
 
     <!-- MVC -->
 
@@ -22,23 +22,23 @@
 
     <!--pour trouver les vues-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <!--resource mapping pour que des indique ressources, trouve le fichier-->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <!-- JPA -->
 
-    <jpa:repositories base-package="bt.formation.repository" />
+    <jpa:repositories base-package="bt.formation.repository"/>
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="bt.formation.entity" />
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="bt.formation.entity"/>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="jpaProperties">
             <props>
@@ -49,42 +49,44 @@
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/bazaar" />
-        <property name="username" value="root" />
-        <property name="password" value="" />
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/bazaar"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
     <!-- Transaction -->
 
-    <tx:annotation-driven />
+    <tx:annotation-driven/>
 
     <!-- Security -->
 
     <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-        <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
-        <security:intercept-url pattern="/**" access="permitAll" />
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/**" access="permitAll"/>
         <security:form-login login-page="/login"
                              authentication-failure-url="/login"
                              username-parameter="username"
-                             password-parameter="password" />
+                             password-parameter="password"/>
         <security:logout logout-url="/logout"
-                         logout-success-url="/" />
+                         logout-success-url="/"/>
+        <security:csrf disabled="true"/>
     </security:http>
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userServiceImpl">
-            <security:password-encoder ref="encoder" />
+            <security:password-encoder ref="encoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
 
-    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <bean id="userServiceImpl" class="bt.formation.service.impl.UserServiceImpl"/>
+
 
 </beans>

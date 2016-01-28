@@ -155,7 +155,7 @@ public class Offer {
         dto.setModifDate(modifDate);
         dto.setPopularity(popularity);
         dto.setZipCode(zipCode);
-        for (Category cat : categories) {
+        for (Category cat : getCategories()) {
             dto.getCategories().add(cat.toDto());
         }
         return dto;

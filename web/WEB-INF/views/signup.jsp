@@ -12,7 +12,7 @@
         <legend>Create an account</legend>
         <div class="form-group">
             <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail">
             </div>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
             <label for="dateOfBirth" class="col-lg-2 control-label">Birth Date</label>
-            <div class="col-lg-1">
+            <div class="col-lg-2">
                 <input type="date" class="form-control" id="dateOfBirth" min="1979-12-31" max="2005-01-01"
                        name="inputBirthdate">
             </div>

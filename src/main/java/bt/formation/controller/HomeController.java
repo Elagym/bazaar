@@ -41,6 +41,7 @@ public class HomeController {
         return "signup";
     }
 
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String processSignup(@RequestParam String inputUsername, @RequestParam String inputPassword, @RequestParam String inputEmail) {
         UserDTO newUser = new UserDTO();
         newUser.setUsername(inputUsername);
