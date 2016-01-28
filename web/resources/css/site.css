@@ -13,3 +13,9 @@
 .offer-height{
     height: 100px;
 }
+
+.index-offer-date{
+    margin-left:10px;
+    font-size: 10px;
+    color:darkgrey;
+}

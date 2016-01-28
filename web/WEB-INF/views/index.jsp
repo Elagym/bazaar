@@ -10,7 +10,7 @@
     body of index.jsp
 
     <div class="container-fluid size">
-        <div class="container-fluid col-sm-7 col-md-8">
+        <div class="container-fluid col-md-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4 style="color:white;">Last offers</h4>
@@ -19,51 +19,51 @@
                     <div class="panel panel-default">
                         <div class="panel-body offer-height">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p>Annonce 1</p>
+                            <p><b>Annonce 1</b> <span class="index-offer-date">27/01/2016</span></p>
                             <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
                         </div>
                         <div class="panel-footer">
-                            <span>Category : cat 1, cat 2, cat 3</span>
-                            <span>Author : Vince</span>
+                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
+                            <span style="float:right;">Author : <a href="#">Vince</a></span>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body offer-height">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p>Annonce 2</p>
+                            <p><b>Annonce 2</b> <span class="index-offer-date">27/01/2016</span></p>
                             <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
                         </div>
                         <div class="panel-footer">
-                            <span>Category : cat 1, cat 2, cat 3</span>
-                            <span>Author : Vince</span>
+                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
+                            <span style="float:right;">Author : <a href="#">Vince</a></span>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body offer-height">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p>Annonce 3</p>
+                            <p><b>Annonce 3</b> <span class="index-offer-date">27/01/2016</span></p>
                             <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
                         </div>
                         <div class="panel-footer">
-                            <span>Category : cat 1, cat 2, cat 3</span>
-                            <span>Author : Vince</span>
+                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
+                            <span style="float:right;">Author : <a href="#">Vince</a></span>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body offer-height">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p>Annonce 4</p>
+                            <p><b>Annonce 4</b> <span class="index-offer-date">27/01/2016</span></p>
                             <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
                         </div>
                         <div class="panel-footer">
-                            <span>Category : cat 1, cat 2, cat 3</span>
-                            <span>Author : Vince</span>
+                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
+                            <span style="float:right;">Author : <a href="#">Vince</a></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="cotnainer-fluid col-sm-5 col-md-4">
+        <div class="cotnainer-fluid col-md-4">
             <div class="panel panel-primary" style="width:100%;">
                 <div class="panel-body">
                     Troquez dans la bonne humeur sur Bazaar :)

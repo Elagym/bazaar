@@ -1,11 +1,11 @@
 package bt.formation.controller;
 
-import bt.formation.controller.map.GoogleResponse;
 import bt.formation.dto.AuthorityDTO;
 import bt.formation.dto.UserDTO;
+import bt.formation.model.PincodeVerify;
 import bt.formation.service.AuthorityService;
 import bt.formation.service.UserService;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.xml.transform.Result;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
+import java.io.InputStreamReader;
+import java.net.*;
 
 
 @Controller
@@ -81,16 +79,12 @@ public class HomeController {
     }
 
     @RequestMapping("/offer/{id}")
-    public String offer(@PathVariable Long id, Model model){
-
-        GoogleResponse gr;
+    public String offer(@PathVariable Long id, Model model) {
 
         try {
-            gr = convertToLatLong("Avenue des tritons 32 Bruxelles");
-
-            for (Result res:gr.getResults()) {
-                System.out.println(res.toString());
-            }
+            double[] locs = convertToLatLong("32 Avenue des tritons Bruxelles");
+            model.addAttribute("lat", locs[0]);
+            model.addAttribute("long", locs[1]);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,29 +95,41 @@ public class HomeController {
 
     private static final String URLl = "http://maps.googleapis.com/maps/api/geocode/json";
 
-    public GoogleResponse convertToLatLong(String fullAddress) throws IOException {
+    public double[] convertToLatLong(String fullAddress) throws IOException {
 
-  /*
-   * Create an java.net.URL object by passing the request URL in
-   * constructor. Here you can see I am converting the fullAddress String
-   * in UTF-8 format. You will get Exception if you don't convert your
-   * address in UTF-8 format. Perhaps google loves UTF-8 format. :) In
-   * parameter we also need to pass "sensor" parameter. sensor (required
-   * parameter) — Indicates whether or not the geocoding request comes
-   * from a device with a location sensor. This value must be either true
-   * or false.
-   */
-        URL url = new URL(URLl + "?address="
-                + URLEncoder.encode(fullAddress, "UTF-8") + "&sensor=false");
-        // Open the Connection
-        URLConnection conn = url.openConnection();
+        String url_address = URLEncoder.encode(fullAddress, "UTF-8");
 
-        InputStream in = conn.getInputStream() ;
-        ObjectMapper mapper = new ObjectMapper();
-        GoogleResponse response = (GoogleResponse)mapper.readValue(in,GoogleResponse.class);
-        in.close();
-        return response;
+        try {
+            URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?address=" + url_address + "&sensor=true");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+            String output = "", full = "";
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+                full += output;
+            }
 
 
+            PincodeVerify gson = new Gson().fromJson(full, PincodeVerify.class);
+
+            double lat = gson.getResults().get(0).getGeometry().getLocation().getLat();
+            double lon = gson.getResults().get(0).getGeometry().getLocation().getLng();
+
+            conn.disconnect();
+
+            return new double[] {lat, lon};
+
+        } catch (NullPointerException e) {
+            System.out.println("Address, latitude on longitude is null");
+            return null;
+        }
     }
 }
