@@ -22,6 +22,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<OfferDTO> findByCategory(List<CategoryDTO> categoriesDTO) {
+        /*
         List<Category> categories = new ArrayList<>();
         for (CategoryDTO cat : categoriesDTO) {
             categories.add(cat.toEntity());
@@ -31,7 +32,8 @@ public class OfferServiceImpl implements OfferService {
         for (Offer o : offerList) {
             dtoList.add(o.toDto());
         }
+        */
 
-        return dtoList;
+        return null;
     }
 }

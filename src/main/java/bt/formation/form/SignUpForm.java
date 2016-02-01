@@ -12,15 +12,15 @@ import java.util.Date;
 public class SignUpForm {
 
     @Size(min = 2, max = 30, message = "Username required.")
-    @Pattern(regexp = "[\\w&&\\S]")
+    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Username must contains alphabetical characters or numbers only.")
     private String username;
 
     @Size(min = 2, max = 30, message = "Password required.")
-    @Pattern(regexp = "[\\w&&\\S]")
+    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Password must contains alphabetical characters or numbers only.")
     private String password;
 
     @Size(min = 2, max = 30, message = "Passwords must match.")
-    @Pattern(regexp = "[\\w&&\\S]")
+    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Password must contains alphabetical characters or numbers only.")
     private String passwordCheck;
 
     @Email
@@ -36,11 +36,11 @@ public class SignUpForm {
     private String phoneNumber;
 
     @Size(min = 4, max = 24, message = "Firstname must be between 4 & 24 characters")
-    @Pattern(regexp = "[a-zA-Z]")
+    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "First name must contains alphabetical characters or numbers only.")
     private String firstName;
 
     @Size(min = 4, max = 24, message = "Lastname must be between 4 & 24 characters")
-    @Pattern(regexp = "[a-zA-Z]")
+    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Last name must contains alphabetical characters or numbers only.")
     private String lastName;
 
     private String imageURL;
