@@ -1,6 +1,7 @@
 package bt.formation.form;
 
 
+import bt.formation.dto.AuthorityDTO;
 import bt.formation.dto.UserDTO;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;

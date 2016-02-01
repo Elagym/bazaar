@@ -15,15 +15,15 @@ public class Comment {
 
     private String title;
     private String description;
-    private Boolean like;
+    private Boolean liked;
 
     public Comment() {
     }
 
-    public Comment(String title, String description, Boolean like) {
+    public Comment(String title, String description, Boolean liked) {
         this.title = title;
         this.description = description;
-        this.like = like;
+        this.liked = liked;
     }
 
     public Long getId() {
@@ -50,19 +50,19 @@ public class Comment {
         this.description = description;
     }
 
-    public Boolean getLike() {
-        return like;
+    public Boolean getLiked() {
+        return liked;
     }
 
-    public void setLike(Boolean like) {
-        this.like = like;
+    public void setLiked(Boolean liked) {
+        this.liked = liked;
     }
 
     public CommentDTO toDto(){
         CommentDTO dto = new CommentDTO();
         dto.setId(id);
         dto.setDescription(description);
-        dto.setLike(like);
+        dto.setLiked(liked);
         dto.setTitle(title);
         return dto;
     }

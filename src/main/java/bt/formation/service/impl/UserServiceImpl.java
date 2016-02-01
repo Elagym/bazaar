@@ -5,6 +5,7 @@ import bt.formation.entity.Authority;
 import bt.formation.entity.User;
 import bt.formation.repository.AuthorityRepository;
 import bt.formation.repository.UserRepository;
+import bt.formation.service.AuthorityService;
 import bt.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,14 +26,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     AuthorityRepository authorityRepository;
+    @Autowired
+    AuthorityService authorityService;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDTO loadUserByUsername(String s) throws UsernameNotFoundException {
         return userRepository.findByUsername(s).toDto();
     }
 
     @Override
-    public User signUpUser(User user) {
+    public UserDTO signUpUser(UserDTO user) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String hash = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(hash);
@@ -42,7 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setAccountNonLocked(true);
         user.setEnabled(true);
 
-        return userRepository.save(user);
+        return userRepository.save(user.toEntity()).toDto();
     }
 
     @Override

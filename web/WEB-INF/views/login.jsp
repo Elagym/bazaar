@@ -11,16 +11,16 @@
     <%--<fieldset>--%>
         <legend>Login Page</legend>
         <div class="form-group">
-            <label for="inputUsername" class="col-lg-2 control-label">Username</label>
+            <label for="inputusername" class="col-lg-2 control-label">Username</label>
             <div class="col-lg-3">
-                <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="inputUsername">
+                <input type="text" class="form-control" id="inputusername" placeholder="Username" name="username">
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+            <label for="inputpassword" class="col-lg-2 control-label">Password</label>
             <div class="col-lg-3">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                       name="inputPassword">
+                <input type="password" class="form-control" id="inputpassword" placeholder="Password"
+                       name="password">
             </div>
         </div>
         <div class="form-group">

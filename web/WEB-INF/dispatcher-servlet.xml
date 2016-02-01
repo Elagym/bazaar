@@ -70,7 +70,8 @@
         <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/**" access="permitAll"/>
         <security:form-login login-page="/login"
-                             authentication-failure-url="/login"
+                             login-processing-url="/login"
+                             authentication-failure-url="/login?error"
                              username-parameter="username"
                              password-parameter="password"/>
         <security:logout logout-url="/logout"
@@ -79,14 +80,14 @@
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider user-service-ref="userServiceImpl">
+        <security:authentication-provider user-service-ref="userService">
             <security:password-encoder ref="encoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
 
     <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
-    <bean id="userServiceImpl" class="bt.formation.service.impl.UserServiceImpl"/>
+    <bean id="userService" class="bt.formation.service.impl.UserServiceImpl"/>
 
 
 </beans>

@@ -39,14 +39,14 @@ public class HomeController {
     @PostConstruct
     public void init(){
         User admin = new User();
-        admin.setEnabled(true);
-        admin.setCredentialsNonExpired(true);
-        admin.setAccountNonLocked(true);
-        admin.setAccountNonExpired(true);
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setEmail("admin@admin.com");
-        userService.signUpUser(admin);
+        Authority authority = new Authority();
+        authority.setAuthority("ROLE_ADMIN");
+        authorityService.createOrGetAuthority(authority);
+        admin.getAuthorities().add(authority);
+        userService.signUpUser(admin.toDto());
     }
 
     @RequestMapping("")
@@ -55,14 +55,15 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(@RequestParam(required = false) String error, Model model) {
+        if(error != null)
+            model.addAttribute("errorMessage", "Wrong credentials");
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String processLogin(Model model) {
-        model.addAttribute("errorMessage", "Wrong credentials");
-        return "login";
+    @RequestMapping("/process")
+    public String loginSuccess(){
+        return "index";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -77,9 +78,11 @@ public class HomeController {
             return "/signup";
         } else {
             User user = signUpForm.toUser().toEntity();
-            AuthorityDTO authority = authorityService.createOrGetIfExists("ROLE_USER");
-            user.getAuthorities().add(authority.toEntity());
-            userService.signUpUser(user);
+            Authority authority = new Authority();
+            authority.setAuthority("ROLE_USER");
+            authorityService.createOrGetAuthority(authority);
+            user.getAuthorities().add(authority);
+            userService.signUpUser(user.toDto());
             return "redirect:/login";
         }
     }

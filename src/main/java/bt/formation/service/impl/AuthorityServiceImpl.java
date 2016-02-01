@@ -16,15 +16,11 @@ public class AuthorityServiceImpl implements AuthorityService {
     AuthorityRepository authorityRepository;
 
     @Override
-    public AuthorityDTO createOrGetIfExists(String role_user) {
-        Authority autho = authorityRepository.findByAuthority(role_user);
-
-        if (autho == null) {
-            autho = new Authority();
-            autho.setAuthority(role_user);
-            autho = authorityRepository.save(autho);
-        }
-
-        return autho.toDto();
+    public AuthorityDTO createOrGetAuthority(Authority authority) {
+        Authority auth = authorityRepository.findByAuthority(authority.getAuthority());
+        if(auth != null)
+            return auth.toDto();
+        auth = authorityRepository.save(authority);
+        return auth.toDto();
     }
 }

@@ -10,14 +10,14 @@ public class CommentDTO {
     private Long id;
     private String title;
     private String description;
-    private boolean like;
+    private boolean liked;
 
     public Comment toEntity(){
         Comment comment = new Comment();
         comment.setId(id);
         comment.setTitle(title);
         comment.setDescription(description);
-        comment.setLike(like);
+        comment.setLiked(liked);
         return comment;
     }
 
@@ -45,11 +45,11 @@ public class CommentDTO {
         this.description = description;
     }
 
-    public boolean isLike() {
-        return like;
+    public boolean isLiked() {
+        return liked;
     }
 
-    public void setLike(boolean like) {
-        this.like = like;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 }

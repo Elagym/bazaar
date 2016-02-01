@@ -1,7 +1,8 @@
 package bt.formation.service;
 
 import bt.formation.dto.AuthorityDTO;
+import bt.formation.entity.Authority;
 
 public interface AuthorityService {
-    AuthorityDTO createOrGetIfExists(String role_user);
+    AuthorityDTO createOrGetAuthority(Authority authority);
 }
