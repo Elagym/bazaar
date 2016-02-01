@@ -45,11 +45,6 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String processLogin() {
-        return "login";
-    }
-
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
         model.addAttribute("signUpForm", new SignUpForm());
