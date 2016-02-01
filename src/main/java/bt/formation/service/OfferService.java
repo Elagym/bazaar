@@ -6,5 +6,5 @@ import bt.formation.dto.OfferDTO;
 import java.util.List;
 
 public interface OfferService {
-    List<OfferDTO> findByCategory(List<CategoryDTO> categoriesDTO);
+    List<OfferDTO> findByCategoryId(Long id);
 }

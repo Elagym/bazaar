@@ -9,4 +9,5 @@
 <c:import url="includes/menu.jsp"/>
 body of profile.jsp
 </body>
+<c:import url="includes/footer.jsp"/>
 </html>

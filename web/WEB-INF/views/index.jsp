@@ -89,4 +89,5 @@
         </div>
     </div>
 </body>
+<c:import url="includes/footer.jsp"/>
 </html>

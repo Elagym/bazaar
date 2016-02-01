@@ -10,6 +10,7 @@
     <div class="container-fluid size">
         <div class="panel panel-primary">
             <div class="panel-heading">
+                <h4 style="font-weight: bold; float: right;">Expect : ******</h4>
                 <h4 style="color:white;">Offer title</h4>
             </div>
             <div class="panel-body">
@@ -68,29 +69,50 @@
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="desc">
+                        <div role="tabpanel" class="tab-pane fade in active" id="desc" style="padding:10px;">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                             ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                             laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
                             in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                             cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </div>
-                        <div role="tabpanel" class="tab-pane fade " id="contact">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                            sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore
-                            et dolore magnam aliquam quaerat voluptatem.
+                        <div role="tabpanel" class="tab-pane fade " id="contact" style="padding:10px;">
+                            <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer, fill this form to contact the owner.</span>
+                            <form style="max-width: 500px;">
+                                <div class="form-group">
+                                    <%--<label for="name">Name</label>--%>
+                                    <input type="name" class="form-control" id="name" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <%--<label for="e-mail">E-mail</label>--%>
+                                    <input type="email" class="form-control" id="e-mail" placeholder="E-mail">
+                                </div>
+                                <div class="form-group">
+                                    <%--<label for="object">Object</label>--%>
+                                    <input type="text" class="form-control" id="object" placeholder="Object" value="Re : Offer title">
+                                </div>
+                                <div class="form-group">
+                                    <%--<label for="message">Message</label>--%>
+                                    <textarea type="" class="form-control" id="message" placeholder="Type your message here" rows="5"></textarea>
+                                </div>
+                                <div>
+                                    /*captcha*/
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade " id="owner">
-                            But I must explain to you how all this mistaken idea of denouncing pleasure
-                            and praising pain was born and I will give you a complete account of the system,
-                            and expound the actual teachings of the great explorer of the truth,
-                            the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself,
-                            because it is pleasure, but because those who do not know how to pursue pleasure
-                            rationally encounter consequences that are extremely painful.
+                        <div role="tabpanel" class="tab-pane fade " id="owner" style="padding:10px;">
+                            <div style="height: 76px;">
+                            <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
+                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="#">Vince</a> </span><br/>
+                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Member since : 01/02/2016</span><br/>
+                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span><a href="#">25</a> <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span><a href="#">4</a> <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span><br/>
+                            </div>
+                            <hr/>
+                            <div>
+                                <h5>Other offers from Vince</h5>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -127,4 +149,5 @@
         </div>
     </div>
 </body>
+<c:import url="includes/footer.jsp"/>
 </html>

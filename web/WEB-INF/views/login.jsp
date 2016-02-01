@@ -32,4 +32,5 @@
     </fieldset>
 </form>
 </body>
+<c:import url="includes/footer.jsp"/>
 </html>

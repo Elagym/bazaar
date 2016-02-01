@@ -21,17 +21,15 @@ public class OfferServiceImpl implements OfferService {
     OfferRepository offerRepository;
 
     @Override
-    public List<OfferDTO> findByCategory(List<CategoryDTO> categoriesDTO) {
-        List<Category> categories = new ArrayList<>();
-        for (CategoryDTO cat : categoriesDTO) {
-            categories.add(cat.toEntity());
-        }
-        List<Offer> offerList = offerRepository.findByCategoryIn(categories);
-        List<OfferDTO> dtoList = new ArrayList<>();
-        for (Offer o : offerList) {
-            dtoList.add(o.toDto());
-        }
+    public List<OfferDTO> findByCategoryId(Long id) {
+//        List<Offer> offerList = offerRepository.findByCategoryId(id);
+//        List<OfferDTO> dtoList = new ArrayList<>();
+//        for (Offer o : offerList) {
+//            dtoList.add(o.toDto());
+//        }
+//
+//        return dtoList;
 
-        return dtoList;
+        return null;
     }
 }

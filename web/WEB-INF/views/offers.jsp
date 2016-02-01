@@ -9,4 +9,5 @@
 <c:import url="includes/menu.jsp"/>
 body of offers.jsp
 </body>
+<c:import url="includes/footer.jsp"/>
 </html>
