@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +36,19 @@ public class HomeController {
     @Autowired
     AuthorityService authorityService;
 
+    @PostConstruct
+    public void init(){
+        User admin = new User();
+        admin.setEnabled(true);
+        admin.setCredentialsNonExpired(true);
+        admin.setAccountNonLocked(true);
+        admin.setAccountNonExpired(true);
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        admin.setEmail("admin@admin.com");
+        userService.signUpUser(admin);
+    }
+
     @RequestMapping("")
     public String index() {
         return "index";
@@ -42,6 +56,12 @@ public class HomeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String processLogin(Model model) {
+        model.addAttribute("errorMessage", "Wrong credentials");
         return "login";
     }
 

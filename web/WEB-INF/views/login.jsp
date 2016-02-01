@@ -7,9 +7,8 @@
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
-<form action=
-      <c:url value="/login"/> method="post" class="form-horizontal">
-    <fieldset>
+<form action="<c:url value="/login"/>" method="post" class="form-horizontal">
+    <%--<fieldset>--%>
         <legend>Login Page</legend>
         <div class="form-group">
             <label for="inputUsername" class="col-lg-2 control-label">Username</label>
@@ -29,8 +28,11 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-    </fieldset>
+    <%--</fieldset>--%>
 </form>
+<div>
+    <span style="color:red;">${errorMessage}</span>
+</div>
 </body>
 <c:import url="includes/footer.jsp"/>
 </html>
