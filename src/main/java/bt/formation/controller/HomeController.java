@@ -92,6 +92,11 @@ public class HomeController {
         return "profile";
     }
 
+    @RequestMapping("/create")
+    public String createOffer(){
+        return "create";
+    }
+
     @RequestMapping("/offers")
     public String offers() {
         return "offers";
@@ -110,9 +115,6 @@ public class HomeController {
 
         return "offer";
     }
-
-
-    private static final String URLl = "http://maps.googleapis.com/maps/api/geocode/json";
 
     public double[] convertToLatLong(String fullAddress) throws IOException {
 
