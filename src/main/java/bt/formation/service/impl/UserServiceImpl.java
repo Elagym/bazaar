@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     AuthorityRepository authorityRepository;
+
     @Autowired
     AuthorityService authorityService;
 

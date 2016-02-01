@@ -1,12 +1,12 @@
 package bt.formation.controller;
 
-import bt.formation.dto.AuthorityDTO;
-import bt.formation.dto.UserDTO;
+import bt.formation.dto.CategoryDTO;
 import bt.formation.entity.Authority;
 import bt.formation.entity.User;
 import bt.formation.form.SignUpForm;
 import bt.formation.model.PincodeVerify;
 import bt.formation.service.AuthorityService;
+import bt.formation.service.CategoryService;
 import bt.formation.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,8 +37,14 @@ public class HomeController {
     @Autowired
     AuthorityService authorityService;
 
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    ServletContext servletContext;
+
     @PostConstruct
-    public void init(){
+    public void init() {
         User admin = new User();
         admin.setUsername("admin");
         admin.setPassword("admin");
@@ -47,22 +54,41 @@ public class HomeController {
         authorityService.createOrGetAuthority(authority);
         admin.getAuthorities().add(authority);
         userService.signUpUser(admin.toDto());
+
+        CategoryDTO cat1 = new CategoryDTO();
+        cat1.setName("Electronique");
+        categoryService.createOrGetIfExists(cat1.getName());
+
+        CategoryDTO cat2 = new CategoryDTO();
+        cat2.setName("Voiture");
+        categoryService.createOrGetIfExists(cat2.getName());
+
+        CategoryDTO cat3 = new CategoryDTO();
+        cat3.setName("Ménager");
+        categoryService.createOrGetIfExists(cat3.getName());
+
+        CategoryDTO cat4 = new CategoryDTO();
+        cat4.setName("Cuisine");
+        categoryService.createOrGetIfExists(cat4.getName());
+
+
     }
 
     @RequestMapping("")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("categories", categoryService.getCategories());
         return "index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestParam(required = false) String error, Model model) {
-        if(error != null)
+        if (error != null)
             model.addAttribute("errorMessage", "Wrong credentials");
         return "login";
     }
 
     @RequestMapping("/process")
-    public String loginSuccess(){
+    public String loginSuccess() {
         return "index";
     }
 
@@ -93,7 +119,7 @@ public class HomeController {
     }
 
     @RequestMapping("/create")
-    public String createOffer(){
+    public String createOffer() {
         return "create";
     }
 
