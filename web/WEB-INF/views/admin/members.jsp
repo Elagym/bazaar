@@ -27,7 +27,7 @@
         <tbody>
         <c:forEach items="${users}" var="user">
             <tr data-toggle="collapse" data-parent="#accordion" href="#collapseOne${user.id}"
-                aria-expanded="true"
+                aria-expanded="false"
                 aria-controls="collapseOne" style="cursor: pointer">
                 <td>
                         ${user.id}

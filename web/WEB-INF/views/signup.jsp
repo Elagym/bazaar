@@ -90,6 +90,16 @@
                     </div>
                     <form:errors path="description" cssclass="error"></form:errors>
                 </div>
+
+                <div class="form-group col-sm-6 col-md-6">
+                    <label for="lastNameInput" class="col-xs-4 col-sm-4 col-md-4"
+                           style="display:inline; margin-top:5px;">Profile picture </label>
+                    <div class="col-xs-8 col-sm-8 col-md-8" style="display:inline; margin-top:5px;">
+                        <form:input path="imageURL" id="imageURLInput"></form:input>
+                    </div>
+                    <form:errors path="imageURL" cssclass="error"></form:errors>
+                </div>
+
                 <div class="row" style="text-align: center;">
                     <button class="btn btn-primary" type="submit" style="width: 100px; margin-top: 15px;">Submit</button>
                     <button class="btn btn-primary" type="reset" style="width: 100px; margin-top: 15px;">Reset</button>
