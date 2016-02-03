@@ -1,18 +1,23 @@
 package bt.formation.controller;
 
 import bt.formation.dto.CategoryDTO;
+import bt.formation.dto.OfferDTO;
 import bt.formation.entity.Authority;
+import bt.formation.entity.Category;
 import bt.formation.entity.User;
+import bt.formation.form.CreateOfferForm;
 import bt.formation.form.SignUpForm;
 import bt.formation.model.PincodeVerify;
 import bt.formation.service.AuthorityService;
 import bt.formation.service.CategoryService;
+import bt.formation.service.OfferService;
 import bt.formation.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +30,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Controller
@@ -42,6 +51,9 @@ public class HomeController {
 
     @Autowired
     ServletContext servletContext;
+
+    @Autowired
+    OfferService offerService;
 
     @PostConstruct
     public void init() {
@@ -118,9 +130,58 @@ public class HomeController {
         return "profile";
     }
 
-    @RequestMapping("/create")
-    public String createOffer() {
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createOffer(Model model) {
+        model.addAttribute("createOfferForm", new CreateOfferForm());
+        model.addAttribute("categorySet", categoryService.findAll());
         return "create";
+    }
+
+//    @RequestMapping(value = "/create", method = RequestMethod.POST)
+//    public String processCreateOffer(@RequestParam String[] categories, @RequestParam String title, @RequestParam String desc, @RequestParam String estimation, @RequestParam String expectation, @RequestParam String address, @RequestParam String zipcode, @RequestParam String keywords /* TODO image */ ) {
+//
+//        OfferDTO offerDTO = new OfferDTO();
+//        offerDTO.setTitle(title);
+//        offerDTO.setDescription(desc);
+//        offerDTO.setEstimation(Double.parseDouble(estimation));
+//        offerDTO.setExpectation(expectation);
+//        offerDTO.setAddress(address);
+//        offerDTO.setZipCode(Integer.parseInt(zipcode));
+//        offerDTO.setCreationDate(new Date(GregorianCalendar.getInstance().getTimeInMillis()));
+//        offerDTO.setModifDate(null);
+//        offerDTO.setPopularity(0);
+//        offerDTO.setExpirationDate(null);
+//        //TODO categories
+//        Set<Category> categorySet = new HashSet<>();
+//        for (String category: categories) {
+//
+//        }
+//        //TODO keywords
+//        //TODO image
+//        offerDTO.setImageUrl("");
+//
+//        return "redirect:/offer/";
+//    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String processCreateOffer(@Valid CreateOfferForm createOfferForm, BindingResult bindingResult){
+
+        if (!bindingResult.hasErrors()) {
+
+
+            OfferDTO offer = createOfferForm.toOffer();
+
+            for (Long id: createOfferForm.getCategories()){
+                offer.getCategories().add(categoryService.findById(id));
+            }
+            Long id = offerService.createOffer(offer).getId();
+            return "redirect:/offer/" + id;
+        } else {
+            for (ObjectError oe : bindingResult.getAllErrors()) {
+                System.out.println(oe.toString());
+            }
+            return "create";
+        }
     }
 
     @RequestMapping("/offers")

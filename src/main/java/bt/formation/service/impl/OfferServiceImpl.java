@@ -32,4 +32,9 @@ public class OfferServiceImpl implements OfferService {
 
         return null;
     }
+
+    @Override
+    public OfferDTO createOffer(OfferDTO offer) {
+        return offerRepository.save(offer.toEntity()).toDto();
+    }
 }

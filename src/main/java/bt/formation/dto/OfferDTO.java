@@ -22,6 +22,7 @@ public class OfferDTO {
     private String address;
     private int zipCode;
     private double estimation;
+    private String expectation;
     private Date expirationDate;
     private Set<CategoryDTO> categories;
 
@@ -140,5 +141,13 @@ public class OfferDTO {
 
     public void setCategories(Set<CategoryDTO> categories) {
         this.categories = categories;
+    }
+
+    public String getExpectation() {
+        return expectation;
+    }
+
+    public void setExpectation(String expectation) {
+        this.expectation = expectation;
     }
 }

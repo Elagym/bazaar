@@ -24,9 +24,11 @@ public class Offer {
     private String address;
     private Integer zipCode;
     private Double estimation;
+    private String expectation;
 
     @ManyToMany
     private Set<Category> categories;
+
 
 
     public Offer() {
@@ -140,6 +142,14 @@ public class Offer {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getExpectation() {
+        return expectation;
+    }
+
+    public void setExpectation(String expectation) {
+        this.expectation = expectation;
     }
 
     public OfferDTO toDto(){

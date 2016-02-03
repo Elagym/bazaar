@@ -29,6 +29,11 @@
                         </c:forEach>
                     </ul>
                 </li>
+                <sec:authorize access="isAuthenticated()">
+                    <li <c:if test="${uri[3].equals(\"create\")}"> class="active" </c:if>>
+                        <a href="<c:url value="/create"/>">Create offer</a>
+                    </li>
+                </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if>><a href="<c:url value="/admin/"/>">Admin</a></li>--%>
                     <li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if> class="dropdown">

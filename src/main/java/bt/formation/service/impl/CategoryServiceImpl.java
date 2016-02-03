@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,5 +34,20 @@ public class CategoryServiceImpl implements CategoryService {
             categoryRepository.save(cat);
         }
         return cat.toDto();
+    }
+
+    @Override
+    public CategoryDTO findById(Long id) {
+        return categoryRepository.findById(id).toDto();
+    }
+
+    @Override
+    public Set<CategoryDTO> findAll() {
+        List<Category> cats = categoryRepository.findAll();
+        Set<CategoryDTO> catsDTO = new HashSet<>();
+        for (Category cat : cats) {
+            catsDTO.add(cat.toDto());
+        }
+        return catsDTO;
     }
 }
