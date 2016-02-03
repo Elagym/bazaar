@@ -7,7 +7,24 @@
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
-body of profile.jsp
+<div class="container-fluid size">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 style="color:white;">Profile overview</h4>
+        </div>
+        <div class="panel-body">
+            <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
+            <label> Username : </label> ${user.username} <br/>
+            <label> Email :</label> ${user.email} <br/>
+            <label> First name :</label> ${user.firstname}<br/>
+            <label> Last name :</label> ${user.lastname} <br/>
+            <label> Date of birth :</label> ${user.birthdate} <br/>
+            <label> Phone number :</label> ${user.phoneNumber} <br/>
+            <label> Description :</label> ${user.description} <br/>
+        </div>
+    </div>
+</div>
+
 </body>
 <c:import url="includes/footer.jsp"/>
 </html>

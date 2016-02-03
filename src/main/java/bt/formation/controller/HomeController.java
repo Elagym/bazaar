@@ -2,8 +2,8 @@ package bt.formation.controller;
 
 import bt.formation.dto.CategoryDTO;
 import bt.formation.dto.OfferDTO;
+import bt.formation.dto.UserDTO;
 import bt.formation.entity.Authority;
-import bt.formation.entity.Category;
 import bt.formation.entity.User;
 import bt.formation.form.CreateOfferForm;
 import bt.formation.form.SignUpForm;
@@ -14,6 +14,7 @@ import bt.formation.service.OfferService;
 import bt.formation.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,10 +31,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Controller
@@ -126,7 +123,8 @@ public class HomeController {
     }
 
     @RequestMapping("/profile")
-    public String profile() {
+    public String profile(@AuthenticationPrincipal UserDTO user, Model model) {
+        model.addAttribute("user", user);
         return "profile";
     }
 
