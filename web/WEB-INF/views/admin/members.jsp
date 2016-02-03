@@ -15,22 +15,41 @@
 <body>
 <c:import url="/WEB-INF/views/includes/menu.jsp"/>
 <div class="container-fluid">
-    <table class="table table-hover">
+    <table class="table table-striped table-hover ">
         <thead>
         <tr>
             <th>ID</th>
             <th>Username</th>
             <th>Enabled</th>
-            <th>Details</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${users}" var="user">
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>${user.enabled}</td>
-                <td><a class="btn btn-success" href="<c:url value="/admin/member/${user.id}"/>">+</a></td>
+            <tr data-toggle="collapse" data-parent="#accordion" href="#collapseOne${user.id}"
+                aria-expanded="true"
+                aria-controls="collapseOne" style="cursor: pointer">
+                <td>
+                        ${user.id}
+                </td>
+                <td>
+                        ${user.username}
+                </td>
+                <td>
+                        ${user.enabled}
+                </td>
+                <td>
+                    actions
+                </td>
+            </tr>
+            <tr id="collapseOne${user.id}" class="panel-collapse collapse" role="tabpanel">
+                <td colspan="4">
+                    <div class="panel-body">
+                            ${user.id}
+                            ${user.username}
+                            ${user.enabled}
+                    </div>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
