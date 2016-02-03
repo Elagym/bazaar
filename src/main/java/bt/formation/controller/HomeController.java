@@ -71,12 +71,12 @@ public class HomeController {
         cat4.setName("Cuisine");
         categoryService.createOrGetIfExists(cat4.getName());
 
+        servletContext.setAttribute("categories", categoryService.getCategories());
 
     }
 
     @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("categories", categoryService.getCategories());
         return "index";
     }
 
