@@ -16,23 +16,24 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <c:set var="uri" value="${fn:split(pageContext.request.requestURI, '/')}"/>
             <ul class="nav navbar-nav">
-                <li <c:if test="${uri[3].equals(\"index.jsp\")}"> class="active" </c:if>><a href="<c:url value="/"/>">Index</a></li>
-                <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a href="<c:url value="/offers"/>">Offers</a></li>
+                <li <c:if test="${uri[3].equals(\"index.jsp\")}"> class="active" </c:if>><a href="<c:url value="/"/>">Index</a>
+                </li>
+                <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a
+                        href="<c:url value="/offers"/>">Offers</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Categories<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Category 1</a></li>
-                        <li><a href="#">Category 2</a></li>
-                        <li><a href="#">Category 3</a></li>
-                        <%--<li role="separator" class="divider"></li>--%>
-                        <li><a href="#">Category 4</a></li>
-                        <li><a href="#">Category 5</a></li>
+                        <c:forEach items="${categories}" var="category">
+                            <li><a href="#">${category.name}</a></li>
+                        </c:forEach>
                     </ul>
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if>><a href="<c:url value="/admin/"/>">Admin</a></li>--%>
                     <li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if> class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<c:url value="/admin/"/>">Index</a></li>
                             <li role="separator" class="divider"></li>
@@ -48,8 +49,10 @@
                     <li><a href="<c:url value="/logout"/>">Log out</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
-                    <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a href="<c:url value="/signup"/>">Sign up</a></li>
-                    <li <c:if test="${uri[3].equals(\"login.jsp\")}"> class="active" </c:if>><a href="<c:url value="/login"/>">Log in</a></li>
+                    <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a
+                            href="<c:url value="/signup"/>">Sign up</a></li>
+                    <li <c:if test="${uri[3].equals(\"login.jsp\")}"> class="active" </c:if>><a
+                            href="<c:url value="/login"/>">Log in</a></li>
                 </sec:authorize>
             </ul>
         </div>
