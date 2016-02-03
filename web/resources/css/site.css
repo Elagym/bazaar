@@ -19,3 +19,13 @@
     font-size: 10px;
     color:darkgrey;
 }
+
+.error-alert{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    border-radius: 4px;
+}
