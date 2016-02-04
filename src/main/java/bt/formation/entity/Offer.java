@@ -1,6 +1,7 @@
 package bt.formation.entity;
 
 import bt.formation.dto.OfferDTO;
+import org.hibernate.annotations.Fetch;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
@@ -25,6 +26,8 @@ public class Offer {
     private Integer zipCode;
     private Double estimation;
     private String expectation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User owner;
 
     @ManyToMany
     private Set<Category> categories;
@@ -152,6 +155,14 @@ public class Offer {
         this.expectation = expectation;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public OfferDTO toDto(){
         OfferDTO dto = new OfferDTO();
         dto.setId(id);
@@ -165,6 +176,7 @@ public class Offer {
         dto.setModifDate(modifDate);
         dto.setPopularity(popularity);
         dto.setZipCode(zipCode);
+        dto.setOwner(owner.toDto());
         for (Category cat : getCategories()) {
             dto.getCategories().add(cat.toDto());
         }

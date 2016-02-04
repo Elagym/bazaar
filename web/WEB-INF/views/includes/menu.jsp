@@ -31,7 +31,7 @@
                 </li>
                 <sec:authorize access="isAuthenticated()">
                     <li <c:if test="${uri[3].equals(\"create\")}"> class="active" </c:if>>
-                        <a href="<c:url value="/create"/>">Create offer</a>
+                        <a href="<c:url value="/user/create"/>">Create offer</a>
                     </li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">

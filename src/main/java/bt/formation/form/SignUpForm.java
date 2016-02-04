@@ -72,10 +72,10 @@ public class SignUpForm {
         u.setFirstname(firstName);
         u.setLastname(lastName);
         u.setImageUrl(imageURL);
-        u.setCredentialsNonExpired(true);
-        u.setAccountNonLocked(true);
-        u.setAccountNonExpired(true);
-        u.setEnabled(true);
+//        u.setCredentialsNonExpired(true);
+//        u.setAccountNonLocked(true);
+//        u.setAccountNonExpired(true);
+//        u.setEnabled(true);
         return u;
     }
 

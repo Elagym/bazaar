@@ -17,20 +17,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 @Controller
@@ -62,7 +65,7 @@ public class HomeController {
         authority.setAuthority("ROLE_ADMIN");
         authorityService.createOrGetAuthority(authority);
         admin.getAuthorities().add(authority);
-        userService.signUpUser(admin.toDto());
+        UserDTO adminDTO = userService.signUpUser(admin.toDto());
 
         CategoryDTO cat1 = new CategoryDTO();
         cat1.setName("Electronique");
@@ -81,6 +84,19 @@ public class HomeController {
         categoryService.createOrGetIfExists(cat4.getName());
 
         servletContext.setAttribute("categories", categoryService.getCategories());
+
+        OfferDTO offer = new OfferDTO();
+        offer.setTitle("Mockup offer");
+        offer.setDescription("description blablabla");
+        offer.setEstimation(150);
+        offer.setExpectation("A huge dildo");
+        offer.setCreationDate(new Date());
+        offer.setOwner(userService.findById(adminDTO.getId()));
+        offer.setExpirationDate(new Date());
+        offer.setAddress("Avenue des Tritons, 32");
+        offer.setZipCode(1170);
+
+        offerService.createOffer(offer);
 
     }
 
@@ -128,11 +144,11 @@ public class HomeController {
         return "profile";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/create", method = RequestMethod.GET)
     public String createOffer(Model model) {
         model.addAttribute("createOfferForm", new CreateOfferForm());
-        model.addAttribute("categorySet", categoryService.findAll());
-        return "create";
+        // model.addAttribute("categorySet", categoryService.findAll());
+        return "user/create";
     }
 
 //    @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -161,25 +177,53 @@ public class HomeController {
 //        return "redirect:/offer/";
 //    }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String processCreateOffer(@Valid CreateOfferForm createOfferForm, BindingResult bindingResult){
+    @RequestMapping(value = "/user/create", method = RequestMethod.POST)
+    public String processCreateOffer(@Valid CreateOfferForm createOfferForm, BindingResult bindingResult, @AuthenticationPrincipal UserDTO user) throws IOException {
 
         if (!bindingResult.hasErrors()) {
-
 
             OfferDTO offer = createOfferForm.toOffer();
 
             for (Long id: createOfferForm.getCategories()){
                 offer.getCategories().add(categoryService.findById(id));
             }
+
+            if(createOfferForm.getImage() != null)
+                offer.setImageUrl(uploadFile(createOfferForm.getImage()));
+
+            offer.setOwner(user);
+
             Long id = offerService.createOffer(offer).getId();
             return "redirect:/offer/" + id;
         } else {
             for (ObjectError oe : bindingResult.getAllErrors()) {
                 System.out.println(oe.toString());
             }
-            return "create";
+            return "user/create";
         }
+    }
+
+    //returns file url
+    public String uploadFile(MultipartFile file) throws IOException {
+        String newFilenameWithoutExtension = GregorianCalendar.getInstance().getTimeInMillis() + file.getOriginalFilename();
+        String url = "C:/tmp/bazaar/" + newFilenameWithoutExtension;
+        FileCopyUtils.copy(file.getBytes(), new File(url));
+
+        return newFilenameWithoutExtension;
+    }
+
+    @RequestMapping("/showimage/{filename:.+}")
+    public void showImage(HttpServletResponse response, @PathVariable String filename) throws IOException {
+        File file = new File("C:/tmp/bazaar/" + filename);
+        String mimeType = URLConnection.guessContentTypeFromName(filename);
+        if(mimeType == null)
+            mimeType = "application/octet-stream";
+        response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
+        response.setContentType(mimeType);
+        response.setContentLength((int)file.length());
+
+        InputStream is = new BufferedInputStream(new FileInputStream(file));
+        FileCopyUtils.copy(is, response.getOutputStream());
     }
 
     @RequestMapping("/offers")
@@ -190,13 +234,22 @@ public class HomeController {
     @RequestMapping("/offer/{id}")
     public String offer(@PathVariable Long id, Model model) {
 
-        try {
-            double[] locs = convertToLatLong("32 Avenue des tritons Bruxelles");
-            model.addAttribute("lat", locs[0]);
-            model.addAttribute("long", locs[1]);
-        } catch (IOException e) {
-            e.printStackTrace();
+        OfferDTO offer = offerService.findById(id);
+        if(offer != null) {
+
+            try {
+//            double[] locs = convertToLatLong("32 Avenue des tritons Bruxelles");
+                double[] locs = convertToLatLong(offer.getAddress() + "," + offer.getZipCode());
+                model.addAttribute("lat", locs[0]);
+                model.addAttribute("long", locs[1]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            offer = offerService.findById(1l);
         }
+        model.addAttribute("offer", offer);
+        model.addAttribute("owner", offer.getOwner());
 
         return "offer";
     }

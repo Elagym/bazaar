@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String hash = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(hash);
 
+        user.setCreationDate(new Date());
         user.setCredentialsNonExpired(true);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
@@ -53,4 +55,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Collection<User> getUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public UserDTO findById(Long id) {
+        return userRepository.findOne(id).toDto();
+    }
+
 }

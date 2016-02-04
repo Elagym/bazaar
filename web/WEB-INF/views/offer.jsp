@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Offer : ${title}</title>
+    <title>Offer : ${offer.title}</title>
     <c:import url="includes/head.jsp"/>
 </head>
 <body>
@@ -10,8 +10,8 @@
     <div class="container-fluid size">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h4 style="font-weight: bold; float: right;">Expect : ******</h4>
-                <h4 style="color:white;">Offer title</h4>
+                <h4 style="font-weight: bold; float: right;">Expect : ${offer.expectation}</h4>
+                <h4 style="color:white;">${offer.title}</h4>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -26,7 +26,7 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
-                                    <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." style="width: 100%;">
+                                    <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%;">
                                     <div class="carousel-caption">
                                         Image 1
                                     </div>
@@ -51,13 +51,12 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
-                        <p>Estimation of the belonging : $1,000,000</p>
-                        <p>Phone number : 02 444 719</p>
-                        <p>State : Alabama (sweet home)</p>
-                        <p>Zip Code : 12346</p>
-                        <p>City : blabla</p>
-                        <p>Published on : 28/01/2016</p>
-                        <p>Expiration date : 28/02/2016</p>
+                        <p>Estimation of the belonging : ${offer.estimation}€</p>
+                        <p>Phone number : ${owner.phoneNumber}</p>
+                        <p>Address : ${offer.address}</p>
+                        <p>Zip Code : ${offer.zipCode}</p>
+                        <p>Published on : ${offer.creationDate}</p>
+                        <p>Expiration date : ${offer.expirationDate}</p>
                     </div>
                 </div>
                 <div>
@@ -104,8 +103,8 @@
                         <div role="tabpanel" class="tab-pane fade " id="owner" style="padding:10px;">
                             <div style="height: 76px;">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="#">Vince</a> </span><br/>
-                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Member since : 01/02/2016</span><br/>
+                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="#">${owner.username}</a> </span><br/>
+                            <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Member since : ${owner.creationDate}</span><br/>
                             <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span><a href="#">25</a> <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span><a href="#">4</a> <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span><br/>
                             </div>
                             <hr/>

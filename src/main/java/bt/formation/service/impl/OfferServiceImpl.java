@@ -37,4 +37,11 @@ public class OfferServiceImpl implements OfferService {
     public OfferDTO createOffer(OfferDTO offer) {
         return offerRepository.save(offer.toEntity()).toDto();
     }
+
+    @Override
+    public OfferDTO findById(Long id) {
+        if(offerRepository.findOne(id) == null)
+            return null;
+        return offerRepository.findOne(id).toDto();
+    }
 }

@@ -5,6 +5,7 @@ import bt.formation.dto.OfferDTO;
 import bt.formation.service.CategoryService;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,40 +14,49 @@ import java.util.List;
 
 public class CreateOfferForm {
 
-    @NotEmpty
     private String title;
-    @NotEmpty
     private String desc;
-    @NotEmpty
     private String estimation;
     private String expectation;
     private List<Long> categories;
-    @NotEmpty
     private String address;
-    @NotEmpty
     private String zipcode;
     private String keywords;
-    private String image;
+    private MultipartFile image;
 
     public OfferDTO toOffer(){
         OfferDTO offerDTO = new OfferDTO();
         offerDTO.setTitle(title);
         offerDTO.setDescription(desc);
-        offerDTO.setEstimation(Double.parseDouble(estimation));
+        try {
+            Double est = Double.parseDouble(estimation);
+            offerDTO.setEstimation(est);
+        } catch (Exception e) {
+            e.printStackTrace();
+            offerDTO.setEstimation(0d);
+        }
         offerDTO.setExpectation(expectation);
         offerDTO.setAddress(address);
-        offerDTO.setZipCode(Integer.parseInt(zipcode));
-        offerDTO.setCreationDate(new Date(GregorianCalendar.getInstance().getTimeInMillis()));
+        try {
+            Integer zip = Integer.parseInt(zipcode);
+            offerDTO.setZipCode(zip);
+        } catch (Exception e) {
+            e.printStackTrace();
+            offerDTO.setZipCode(0);
+        }
+        offerDTO.setCreationDate(new Date());
         offerDTO.setModifDate(null);
         offerDTO.setPopularity(0);
         offerDTO.setExpirationDate(null);
 
+        /*
         String[] words = keywords.split(",");
         for (String word: words) {
             word = word.replaceAll("\\s","");
             //TODO
         }
-        offerDTO.setImageUrl(image);
+        */
+
         return offerDTO;
     }
 
@@ -116,11 +126,11 @@ public class CreateOfferForm {
         this.keywords = keywords;
     }
 
-    public String getImage() {
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 }

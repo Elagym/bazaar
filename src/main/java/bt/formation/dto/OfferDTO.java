@@ -2,6 +2,7 @@ package bt.formation.dto;
 
 import bt.formation.entity.Category;
 import bt.formation.entity.Offer;
+import bt.formation.entity.User;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ public class OfferDTO {
     private double estimation;
     private String expectation;
     private Date expirationDate;
+    private UserDTO owner;
     private Set<CategoryDTO> categories;
 
     public Offer toEntity(){
@@ -39,6 +41,7 @@ public class OfferDTO {
         offer.setZipCode(zipCode);
         offer.setEstimation(estimation);
         offer.setExpirationDate(expirationDate);
+        offer.setOwner(owner.toEntity());
         for (CategoryDTO category : getCategories()) {
             offer.getCategories().add(category.toEntity());
         }
@@ -131,6 +134,14 @@ public class OfferDTO {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public UserDTO getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserDTO owner) {
+        this.owner = owner;
     }
 
     public Set<CategoryDTO> getCategories() {

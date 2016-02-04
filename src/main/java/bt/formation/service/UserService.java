@@ -11,4 +11,5 @@ public interface UserService {
     UserDTO signUpUser(UserDTO user);
 
     Collection<User> getUsers();
+    UserDTO findById(Long id);
 }
