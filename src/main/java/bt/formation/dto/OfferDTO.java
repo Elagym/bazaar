@@ -40,6 +40,7 @@ public class OfferDTO {
         offer.setAddress(address);
         offer.setZipCode(zipCode);
         offer.setEstimation(estimation);
+        offer.setExpectation(expectation);
         offer.setExpirationDate(expirationDate);
         offer.setOwner(owner.toEntity());
         for (CategoryDTO category : getCategories()) {

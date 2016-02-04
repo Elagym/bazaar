@@ -61,6 +61,7 @@ public class HomeController {
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setEmail("admin@admin.com");
+        admin.setPhoneNumber("0474483901");
         Authority authority = new Authority();
         authority.setAuthority("ROLE_ADMIN");
         authorityService.createOrGetAuthority(authority);
@@ -95,6 +96,7 @@ public class HomeController {
         offer.setExpirationDate(new Date());
         offer.setAddress("Avenue des Tritons, 32");
         offer.setZipCode(1170);
+        offer.setImageUrl("1454591755174chair.jpg");
 
         offerService.createOffer(offer);
 
@@ -102,6 +104,7 @@ public class HomeController {
 
     @RequestMapping("")
     public String index(Model model) {
+        model.addAttribute("offers", offerService.findAll());
         return "index";
     }
 
@@ -183,6 +186,8 @@ public class HomeController {
         if (!bindingResult.hasErrors()) {
 
             OfferDTO offer = createOfferForm.toOffer();
+
+            System.out.println("OFFER EXPECTATION : " + offer.getExpectation());
 
             for (Long id: createOfferForm.getCategories()){
                 offer.getCategories().add(categoryService.findById(id));
@@ -272,7 +277,7 @@ public class HomeController {
 
             String output = "", full = "";
             while ((output = br.readLine()) != null) {
-                System.out.println(output);
+//                System.out.println(output);
                 full += output;
             }
 

@@ -10,4 +10,5 @@ public interface OfferService {
     List<OfferDTO> findByCategoryId(Long id);
     OfferDTO createOffer(OfferDTO offer);
     OfferDTO findById(Long id);
+    List<OfferDTO> findAll();
 }

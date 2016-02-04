@@ -7,7 +7,6 @@
 </head>
 <body>
     <c:import url="includes/menu.jsp"/>
-    body of index.jsp
 
     <div class="container-fluid size">
         <div class="container-fluid col-md-8">
@@ -16,6 +15,29 @@
                     <h4 style="color:white;">Last offers</h4>
                 </div>
                 <div class="panel-body">
+                    <c:forEach items="${offers}" var="offer">
+                        <div class="panel panel-default">
+                            <div class="panel-body offer-height">
+                                <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." class="img-thumbnail thumbnail">
+                                <p><b>${offer.title}</b> <span class="index-offer-date">${offer.creationDate}</span></p>
+                                <p>${offer.description}</p>
+                            </div>
+                            <div class="panel-footer">
+                                <span>Category :
+                                    <c:set var="i" value="0"/>
+                                    <c:forEach items="${offer.categories}" var="category">
+                                        <a href="#">${category.name}</a>
+                                        <%--Séparation des categories--%>
+                                        <c:choose>
+                                            <c:when test="${i < offers.size()}">,<c:set var="i" value="${i+1}"/></c:when>
+                                            <c:when test="${i == offers.size()}">.</c:when>
+                                        </c:choose>
+                                    </c:forEach>
+                                </span>
+                                <span style="float:right;">Author : <a href="#">${offer.owner.username}</a></span>
+                            </div>
+                        </div>
+                    </c:forEach>
                     <div class="panel panel-default">
                         <div class="panel-body offer-height">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">

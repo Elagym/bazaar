@@ -44,4 +44,13 @@ public class OfferServiceImpl implements OfferService {
             return null;
         return offerRepository.findOne(id).toDto();
     }
+
+    @Override
+    public List<OfferDTO> findAll() {
+        List<OfferDTO> list = new ArrayList<>();
+        for (Offer o : offerRepository.findAllByCreationDateAsc()) {
+            list.add(o.toDto());
+        }
+        return list;
+    }
 }

@@ -12,4 +12,7 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     @Query(value = "Select * from OFFER o where o.id in (Select Offer_id from offer_category where category_id = ?0)", nativeQuery = true)
     List<Offer> findByCategoryId(Long id);
+
+    @Query("select o from Offer o order by o.creationDate desc")
+    List<Offer> findAllByCreationDateAsc();
 }

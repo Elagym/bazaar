@@ -45,6 +45,7 @@ public class CreateOfferForm {
             offerDTO.setZipCode(0);
         }
         offerDTO.setCreationDate(new Date());
+        offerDTO.setExpirationDate(new Date());
         offerDTO.setModifDate(null);
         offerDTO.setPopularity(0);
         offerDTO.setExpirationDate(null);
