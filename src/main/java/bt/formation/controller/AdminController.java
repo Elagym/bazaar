@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletContext;
 
@@ -30,5 +32,18 @@ public class AdminController {
     public String admin(Model model) {
         model.addAttribute("users", userService.getUsers());
         return "admin/members";
+    }
+
+    @RequestMapping(value = "/createcategory", method = RequestMethod.GET)
+    public String createCategory(Model model) {
+        model.addAttribute("categories", categoryService.getCategories());
+        return "admin/createcategory";
+    }
+
+    @RequestMapping(value = "/createcategory", method = RequestMethod.POST)
+    public String createCategoryProcess(@RequestParam String newcategory) {
+        categoryService.createOrGetIfExists(newcategory);
+        servletContext.setAttribute("categories", categoryService.getCategories());
+        return "redirect:/admin/createcategory";
     }
 }

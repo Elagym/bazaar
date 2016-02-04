@@ -40,7 +40,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<c:url value="/admin/"/>">Index</a></li>
+                            <li><a href="<c:url value="/admin/createcategory"/>">Create a category</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<c:url value="/admin/members"/>">Members</a></li>
                         </ul>
@@ -51,7 +51,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAuthenticated()">
                     <li><a href="<c:url value="/profile"/>">My profile</a></li>
-                    <li><a href="<c:url value="/logout"/>">Log out</a></li>
+                    <li><a href="<c:url value="/logout"/>">Log out(${pageContext.request.userPrincipal.name})</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
                     <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a
