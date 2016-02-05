@@ -1,6 +1,7 @@
 package bt.formation.controller;
 
 import bt.formation.dto.CategoryDTO;
+import bt.formation.dto.CommentDTO;
 import bt.formation.dto.OfferDTO;
 import bt.formation.dto.UserDTO;
 import bt.formation.entity.Authority;
@@ -15,6 +16,7 @@ import bt.formation.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -67,6 +69,17 @@ public class HomeController {
         authorityService.createOrGetAuthority(authority);
         admin.getAuthorities().add(authority);
         UserDTO adminDTO = userService.signUpUser(admin.toDto());
+
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("user");
+        user.setEmail("user@user.com");
+        user.setPhoneNumber("0474483902");
+        Authority authority2 = new Authority();
+        authority2.setAuthority("ROLE_USER");
+        authorityService.createOrGetAuthority(authority2);
+        user.getAuthorities().add(authority2);
+        UserDTO userDTO = userService.signUpUser(user.toDto());
 
         CategoryDTO cat1 = new CategoryDTO();
         cat1.setName("Autres");
@@ -272,7 +285,7 @@ public class HomeController {
     }
 
     @RequestMapping("/offer/{id}")
-    public String offer(@PathVariable Long id, Model model) {
+    public String offer(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDTO currentUser) {
 
         OfferDTO offer = offerService.findById(id);
         if(offer != null) {
@@ -290,6 +303,18 @@ public class HomeController {
         }
         model.addAttribute("offer", offer);
         model.addAttribute("owner", offer.getOwner());
+        if(currentUser != null)
+            model.addAttribute("currentUserId", currentUser.getId());
+
+        int thumbsUp = 0;
+        int thumbsDown = 0;
+        for (CommentDTO comm : offer.getOwner().getComments()) {
+            if(comm.isLiked()) thumbsUp++;
+            else thumbsDown++;
+        }
+
+        model.addAttribute("thumbsUp", thumbsUp);
+        model.addAttribute("thumbsDown", thumbsDown);
 
         return "offer";
     }

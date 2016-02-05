@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Offer : ${offer.title}</title>
     <c:import url="includes/head.jsp"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
@@ -105,8 +108,47 @@
                                 <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
                                 <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="#">${owner.username}</a> </span><br/>
                                 <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Member since : ${owner.creationDate}</span><br/>
-                                <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span><a href="#">25</a> <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span><a href="#">4</a> <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span>
-                                <a href="#" class="btn btn-primary btn-xs">Give a comment</a>
+                                <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span><a href="#">${thumbsUp}</a> <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span><a href="#">${thumbsDown}</a> <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span>
+                                <sec:authorize access="isAuthenticated()">
+                                    <c:if test="${owner.id != currentUserId}">
+                                        <a href="#" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#leaveComment">Leave a comment</a>
+                                    </c:if>
+                                </sec:authorize>
+                                <div class="modal fade" id="leaveComment">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                                                <h4 class="modal-title">${owner.username} - Leave a comment</h4>
+                                            </div>
+                                            <form action="<c:url value="/offer/comment"/>" method="post" id="formComment" class="form-horizontal">
+                                                <div class="modal-body">
+                                                    <div style="height:30px; text-align:center; margin-bottom:40px;">
+                                                        <span>Like or unlike ?</span><br/>
+                                                        <input type="checkbox" name="thumb" onColor="success" offColor="danger" data-on-text="<i class='glyphicon glyphicon-thumbs-up'></i>" data-off-text="<i class='glyphicon glyphicon-thumbs-down'></i>" data-on-color="success" data-off-color="danger" checked >
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="commentTitle" class="col-xs-3 col-sm-3 col-md-3" style="display:inline; margin-top:5px;">Comment </label>
+                                                        <div class="col-xs-9 col-sm-9 col-md-9" style="display:inline; margin-top:5px;">
+                                                            <input type="text" name="title" id="commentTitle" placeholder="Title" rows="3" style="width: 90%;"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="messageInput" class="col-xs-3 col-sm-3 col-md-3" style="display:inline; margin-top:5px;">Message </label>
+                                                        <div class="col-xs-9 col-sm-9 col-md-9" style="display:inline; margin-top:5px;">
+                                                            <textarea name="message" id="messageInput" placeholder="Leave your comment here" rows="3" style="width: 90%;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="${offer.id}" name="offerId">
+                                                    <input type="hidden" value="${owner.id}" name="ownerId">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Send</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br/>
                             </div>
                             <hr/>
@@ -126,7 +168,7 @@
             </div>
             <div class="panel-body">
 
-                <div id="map" style="width: 100%;height: 450px;"></div>
+                <div id="map" style="width: 100%;height: 450px;" class="loading"></div>
                 <script>
                     function initMap() {
 
@@ -151,4 +193,7 @@
     </div>
 </body>
 <c:import url="includes/footer.jsp"/>
+<script>
+    $("[name='thumb']").bootstrapSwitch();
+</script>
 </html>

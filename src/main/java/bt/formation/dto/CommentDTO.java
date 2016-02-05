@@ -11,6 +11,7 @@ public class CommentDTO {
     private String title;
     private String description;
     private boolean liked;
+    private UserDTO author;
 
     public Comment toEntity(){
         Comment comment = new Comment();
@@ -18,6 +19,7 @@ public class CommentDTO {
         comment.setTitle(title);
         comment.setDescription(description);
         comment.setLiked(liked);
+        comment.setAuthor(author.toEntity());
         return comment;
     }
 
@@ -51,5 +53,13 @@ public class CommentDTO {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public UserDTO getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserDTO author) {
+        this.author = author;
     }
 }

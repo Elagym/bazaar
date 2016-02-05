@@ -2,10 +2,7 @@ package bt.formation.entity;
 
 import bt.formation.dto.CommentDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Comment {
@@ -15,7 +12,9 @@ public class Comment {
 
     private String title;
     private String description;
-    private Boolean liked;
+    private boolean liked;
+    @ManyToOne
+    private User author;
 
     public Comment() {
     }
@@ -50,12 +49,20 @@ public class Comment {
         this.description = description;
     }
 
-    public Boolean getLiked() {
+    public boolean isLiked() {
         return liked;
     }
 
-    public void setLiked(Boolean liked) {
+    public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public CommentDTO toDto(){
@@ -64,6 +71,7 @@ public class Comment {
         dto.setDescription(description);
         dto.setLiked(liked);
         dto.setTitle(title);
+        dto.setAuthor(author.toDto());
         return dto;
     }
 }

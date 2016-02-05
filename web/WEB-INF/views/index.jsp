@@ -20,7 +20,7 @@
                             <div class="panel-body offer-height">
                                 <!-- <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." class="img-thumbnail thumbnail"> -->
                                 <img src="${offer.imageUrl}" class="img-thumbnail thumbnail">
-                                <p><b>${offer.title}</b> <span class="index-offer-date">${offer.creationDate}</span></p>
+                                <p><a href="<c:url value="/offer/${offer.id}"/>"><b>${offer.title}</b></a> <span class="index-offer-date">${offer.creationDate}</span></p>
                                 <p>${offer.description}</p>
                             </div>
                             <div class="panel-footer">

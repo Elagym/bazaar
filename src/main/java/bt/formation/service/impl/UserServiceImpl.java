@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserDTO updateUser(UserDTO user) {
+        return userRepository.save(user.toEntity()).toDto();
+    }
+
+    @Override
     public Collection<User> getUsers() {
         return userRepository.findAll();
     }

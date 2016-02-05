@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public interface UserService {
     UserDTO signUpUser(UserDTO user);
-
+    UserDTO updateUser(UserDTO user);
     Collection<User> getUsers();
     UserDTO findById(Long id);
 }
