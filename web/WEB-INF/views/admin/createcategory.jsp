@@ -31,10 +31,14 @@
     </c:forEach>
     </tbody>
     <form class="navbar-form navbar-left" action="createcategory" method="post">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Add category" name="newcategory">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Nouvelle catégorie" name="newcategory">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Ajouter</button>
+      </span>
+            </div>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </table>
 </body>
