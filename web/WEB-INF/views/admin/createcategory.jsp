@@ -27,6 +27,22 @@
         <tr>
             <td>${cat.id}</td>
             <td>${cat.name}</td>
+            <td>
+                <form:form action="deletecategory" method="post">
+                    <c:choose>
+                        <c:when test="${cat.id == 1}">
+                            <button type="submit" class="btn btn-default" value="${cat.id}" name="categorynumber"
+                                    disabled="true">Supprimer
+                            </button>
+                        </c:when>
+                        <c:when test="${cat.id != 1}">
+                            <button type="submit" class="btn btn-default" value="${cat.id}" name="categorynumber">
+                                Supprimer
+                            </button>
+                        </c:when>
+                    </c:choose>
+                </form:form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

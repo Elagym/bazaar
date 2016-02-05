@@ -18,7 +18,8 @@
                     <c:forEach items="${offers}" var="offer">
                         <div class="panel panel-default">
                             <div class="panel-body offer-height">
-                                <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." class="img-thumbnail thumbnail">
+                                <!-- <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." class="img-thumbnail thumbnail"> -->
+                                <img src="${offer.imageUrl}" class="img-thumbnail thumbnail">
                                 <p><b>${offer.title}</b> <span class="index-offer-date">${offer.creationDate}</span></p>
                                 <p>${offer.description}</p>
                             </div>

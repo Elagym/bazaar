@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,15 +23,8 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<OfferDTO> findByCategoryId(Long id) {
-//        List<Offer> offerList = offerRepository.findByCategoryId(id);
-//        List<OfferDTO> dtoList = new ArrayList<>();
-//        for (Offer o : offerList) {
-//            dtoList.add(o.toDto());
-//        }
-//
-//        return dtoList;
-
-        return null;
+        List<OfferDTO> dtos = offerRepository.findByCategoryId(id).stream().map(Offer::toDto).collect(Collectors.toList());
+        return dtos;
     }
 
     @Override

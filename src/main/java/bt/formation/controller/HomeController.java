@@ -69,7 +69,7 @@ public class HomeController {
         UserDTO adminDTO = userService.signUpUser(admin.toDto());
 
         CategoryDTO cat1 = new CategoryDTO();
-        cat1.setName("Electronique");
+        cat1.setName("Autres");
         categoryService.createOrGetIfExists(cat1.getName());
 
         CategoryDTO cat2 = new CategoryDTO();
@@ -84,6 +84,10 @@ public class HomeController {
         cat4.setName("Cuisine");
         categoryService.createOrGetIfExists(cat4.getName());
 
+        CategoryDTO cat5 = new CategoryDTO();
+        cat5.setName("Salon");
+        categoryService.createOrGetIfExists(cat5.getName());
+
         servletContext.setAttribute("categories", categoryService.getCategories());
 
         OfferDTO offer = new OfferDTO();
@@ -96,9 +100,40 @@ public class HomeController {
         offer.setExpirationDate(new Date());
         offer.setAddress("Avenue des Tritons, 32");
         offer.setZipCode(1170);
-        offer.setImageUrl("1454591755174chair.jpg");
-
+        offer.setImageUrl("http://i.imgur.com/RrU2OV4.png");
+        offer.getCategories().add(categoryService.findById(1L));
+        offer.getCategories().add(categoryService.findById(2L));
+        offer.getCategories().add(categoryService.findById(3L));
+        offer.getCategories().add(categoryService.findById(4L));
         offerService.createOffer(offer);
+
+        OfferDTO offer2 = new OfferDTO();
+        offer2.setTitle("Volvo S60 2.4 d 126ch*Cuir*Clim auto*Ja*Carnet d'entretien*");
+        offer2.setDescription("***Volvo S60 2.4 turbo diesel 126ch année 07/2007 avec 94000km et un carnet d'entretien à jour.");
+        offer2.setEstimation(7950);
+        offer2.setExpectation("Voiture de sport");
+        offer2.setCreationDate(new Date());
+        offer2.setOwner(userService.findById(adminDTO.getId()));
+        offer2.setExpirationDate(new Date());
+        offer2.setAddress("Avenue Pastur 21");
+        offer2.setZipCode(6001);
+        offer2.setImageUrl("http://pictures.topspeed.com/IMG/crop/201505/volvo-s60---driven-9_800x0w.jpg");
+        offer2.getCategories().add(categoryService.findById(2L));
+        offerService.createOffer(offer2);
+
+        OfferDTO offer3 = new OfferDTO();
+        offer3.setTitle("Salon massive en chêne");
+        offer3.setDescription("Salon massive en chêne (3 sièges, 2 sièges, 1 siège, 1 siège, 1 table) en bon état.");
+        offer3.setEstimation(5000);
+        offer3.setExpectation("Voiture");
+        offer3.setCreationDate(new Date());
+        offer3.setOwner(userService.findById(adminDTO.getId()));
+        offer3.setExpirationDate(new Date());
+        offer3.setAddress("Rue d'Aiur 26");
+        offer3.setZipCode(2142);
+        offer3.setImageUrl("http://www.meubles-ergas.com/articles/f799578_ergas_869b79_multi_657047c");
+        offer3.getCategories().add(categoryService.findById(5L));
+        offerService.createOffer(offer3);
 
     }
 

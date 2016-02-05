@@ -4,13 +4,14 @@ import bt.formation.entity.Category;
 import bt.formation.entity.Offer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.NamedNativeQuery;
 import java.util.List;
 
 public interface OfferRepository extends JpaRepository<Offer, Long> {
 
-    @Query(value = "Select * from OFFER o where o.id in (Select Offer_id from offer_category where category_id = ?0)", nativeQuery = true)
+    @Query(value = "SELECT * FROM offer o JOIN offer_category oc ON oc.offer_id = o.id JOIN category c on oc.categories_id = c.id WHERE oc.categories_id = (?1)", nativeQuery = true)
     List<Offer> findByCategoryId(Long id);
 
     @Query("select o from Offer o order by o.creationDate desc")

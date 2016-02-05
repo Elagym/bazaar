@@ -13,4 +13,10 @@ public interface CategoryService {
     CategoryDTO createOrGetIfExists(String category);
     CategoryDTO findById(Long id);
     Set<CategoryDTO> findAll();
+
+    void deleteCategory(Long id);
+
+    void deleteCategory(Category category);
+
+    void replaceCategoryByOtherAndDelete(Long id);
 }

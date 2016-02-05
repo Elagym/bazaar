@@ -2,7 +2,9 @@ package bt.formation.service.impl;
 
 import bt.formation.dto.CategoryDTO;
 import bt.formation.entity.Category;
+import bt.formation.entity.Offer;
 import bt.formation.repository.CategoryRepository;
+import bt.formation.repository.OfferRepository;
 import bt.formation.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    OfferRepository offerRepository;
 
     @Override
     public Collection<CategoryDTO> getCategories() {
@@ -49,5 +54,29 @@ public class CategoryServiceImpl implements CategoryService {
             catsDTO.add(cat.toDto());
         }
         return catsDTO;
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        if (categoryRepository.exists(id)) {
+            replaceCategoryByOtherAndDelete(id);
+        }
+    }
+
+    @Override
+    public void deleteCategory(Category category) {
+        if (categoryRepository.exists(category.getId())) {
+            replaceCategoryByOtherAndDelete(category.getId());
+        }
+    }
+
+    @Override
+    public void replaceCategoryByOtherAndDelete(Long id) {
+        List<Offer> list = offerRepository.findByCategoryId(id);
+        for (Offer o : list) {
+            o.getCategories().removeIf(category -> category.getId() == id);
+            o.getCategories().add(categoryRepository.findById(1L));
+        }
+        categoryRepository.delete(categoryRepository.findById(id));
     }
 }
