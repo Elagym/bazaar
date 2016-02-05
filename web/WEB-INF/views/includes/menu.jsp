@@ -40,7 +40,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<c:url value="/admin/createcategory"/>">Create a category</a></li>
+                            <li><a href="<c:url value="/admin/managecategories"/>">Manage categories</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<c:url value="/admin/members"/>">Members</a></li>
                         </ul>
