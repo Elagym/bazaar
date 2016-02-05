@@ -31,5 +31,7 @@
 }
 
 .loading{
-
+    background: url('http://sierrafire.cr.usgs.gov/images/loading.gif') no-repeat;
+    background-size: 100px;
+    background-position: center;
 }

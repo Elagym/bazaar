@@ -50,39 +50,6 @@
                             <span style="float:right;">Author : <a href="#">Vince</a></span>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body offer-height">
-                            <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p><b>Annonce 2</b> <span class="index-offer-date">27/01/2016</span></p>
-                            <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
-                        </div>
-                        <div class="panel-footer">
-                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
-                            <span style="float:right;">Author : <a href="#">Vince</a></span>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body offer-height">
-                            <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p><b>Annonce 3</b> <span class="index-offer-date">27/01/2016</span></p>
-                            <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
-                        </div>
-                        <div class="panel-footer">
-                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
-                            <span style="float:right;">Author : <a href="#">Vince</a></span>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body offer-height">
-                            <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                            <p><b>Annonce 4</b> <span class="index-offer-date">27/01/2016</span></p>
-                            <p>Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo Bliblablublo </p>
-                        </div>
-                        <div class="panel-footer">
-                            <span>Category : <a href="#">cat 1</a>, <a href="#">cat 2</a>, <a href="#">cat 3</a></span>
-                            <span style="float:right;">Author : <a href="#">Vince</a></span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

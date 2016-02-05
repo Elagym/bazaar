@@ -11,4 +11,5 @@ public interface OfferService {
     OfferDTO createOffer(OfferDTO offer);
     OfferDTO findById(Long id);
     List<OfferDTO> findAll();
+    List<OfferDTO> findByUserId(Long id);
 }

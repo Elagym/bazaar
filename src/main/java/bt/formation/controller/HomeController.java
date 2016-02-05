@@ -36,6 +36,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 
 @Controller
@@ -315,6 +316,9 @@ public class HomeController {
 
         model.addAttribute("thumbsUp", thumbsUp);
         model.addAttribute("thumbsDown", thumbsDown);
+
+        List<OfferDTO> otherOffers = offerService.findByUserId(offer.getOwner().getId());
+        model.addAttribute("otherOffers", otherOffers);
 
         return "offer";
     }

@@ -47,4 +47,13 @@ public class OfferServiceImpl implements OfferService {
         }
         return list;
     }
+
+    @Override
+    public List<OfferDTO> findByUserId(Long id) {
+        List<OfferDTO> list = new ArrayList<>();
+        for (Offer o : offerRepository.findByUserId(id)) {
+            list.add(o.toDto());
+        }
+        return list;
+    }
 }

@@ -29,13 +29,13 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
-                                    <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%;">
+                                    <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%; max-height: 455px;">
                                     <div class="carousel-caption">
                                         Image 1
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." style="width: 100%;">
+                                    <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." style="width: 100%; max-height: 455px">
                                     <div class="carousel-caption">
                                         Image 2
                                     </div>
@@ -154,6 +154,13 @@
                             <hr/>
                             <div>
                                 <h5>Other offers from ${owner.username}</h5>
+                                <c:forEach items="${otherOffers}" var="otherOffer">
+                                    <div>
+                                        <a href="<c:url value="/offer/${otherOffer.id}"/>"> ${otherOffer.title}</a><br>
+                                        <span> ${otherOffer.description}</span>
+                                    </div>
+                                    <hr>
+                                </c:forEach>
                             </div>
 
                         </div>
