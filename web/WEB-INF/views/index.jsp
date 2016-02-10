@@ -71,7 +71,7 @@
                 <h4 style="color:white;">Partenaires</h4>
             </div>
             <div class="panel-body">
-                Body content
+                <a href="http://www.businesstraining.be/fr">Business Training</a>
             </div>
         </div>
     </div>
