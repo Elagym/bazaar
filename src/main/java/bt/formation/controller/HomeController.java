@@ -240,8 +240,6 @@ public class HomeController {
 
             OfferDTO offer = createOfferForm.toOffer();
 
-            System.out.println("OFFER EXPECTATION : " + offer.getExpectation());
-
             for (Long id : createOfferForm.getCategories()) {
                 offer.getCategories().add(categoryService.findById(id));
             }
@@ -287,6 +285,12 @@ public class HomeController {
     @RequestMapping("/offers")
     public String offers(Model model) {
         model.addAttribute("offers", offerService.findAll());
+        return "offers";
+    }
+
+    @RequestMapping("/offers/cat_id={id}")
+    public String offersFromCat(@PathVariable Long id, Model model){
+        model.addAttribute("offers", offerService.findByCategoryId(id));
         return "offers";
     }
 

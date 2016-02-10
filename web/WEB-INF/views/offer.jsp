@@ -72,11 +72,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="desc" style="padding:10px;">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            ${offer.description}
                         </div>
                         <div role="tabpanel" class="tab-pane fade " id="contact" style="padding:10px;">
                             <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer, fill this form to contact the owner.</span>
@@ -91,7 +87,7 @@
                                 </div>
                                 <div class="form-group">
                                     <%--<label for="object">Object</label>--%>
-                                    <input type="text" class="form-control" id="object" placeholder="Object" value="Re : Offer title">
+                                    <input type="text" class="form-control" id="object" placeholder="Object" value="Re : ${offer.title}">
                                 </div>
                                 <div class="form-group">
                                     <%--<label for="message">Message</label>--%>

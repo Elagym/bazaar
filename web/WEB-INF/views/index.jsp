@@ -29,12 +29,11 @@
                                 <span>Category :
                                     <c:set var="i" value="0"/>
                                     <c:forEach items="${offer.categories}" var="category">
-                                        <a href="#">${category.name}</a>
+                                        <a href="<c:url value="/offers/cat_id=${category.id}"/>">${category.name}</a>
                                         <%--Séparation des categories--%>
                                         <c:choose>
-                                            <c:when test="${i < offers.size()}">,<c:set var="i"
-                                                                                        value="${i+1}"/></c:when>
-                                            <c:when test="${i == offers.size()}">.</c:when>
+                                            <c:when test="${i == offer.categories.size()-1}">.</c:when>
+                                            <c:when test="${i < offer.categories.size()-1}">,<c:set var="i" value="${i+1}"/></c:when>
                                         </c:choose>
                                     </c:forEach>
                                 </span>
