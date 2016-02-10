@@ -49,9 +49,10 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <sec:authentication property="principal" var="user" />
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/profile"/>">My profile</a></li>
-                    <li><a href="<c:url value="/logout"/>">Log out(${pageContext.request.userPrincipal.name})</a></li>
+                    <li><a href="<c:url value="/profile/${user.id}"/>">My profile</a></li>
+                    <li><a href="<c:url value="/logout"/>">Log out(${user.username})</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
                     <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a

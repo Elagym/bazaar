@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Title</title>
@@ -37,14 +38,21 @@
                                         </c:choose>
                                     </c:forEach>
                                 </span>
-                            <span style="float:right;">Author : <a href="#">${offer.owner.username}</a></span>
+                            <span style="float:right;">Author : <a href="<c:url value="/profile/${offer.owner.id}"/>">${offer.owner.username}</a></span>
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
     </div>
-    <div class="cotnainer-fluid col-md-4">
+    <div class="container-fluid col-md-4">
+        <sec:authorize access="isAuthenticated()">
+            <div class="panel panel-primary" style="width:100%;">
+                <div class="panel-body">
+                    Bienvenue <b>${user.username}</b> :-)
+                </div>
+            </div>
+        </sec:authorize>
         <div class="panel panel-primary" style="width:100%;">
             <div class="panel-body">
                 Troquez dans la bonne humeur sur Bazaar :)

@@ -88,10 +88,46 @@
                             <form:input type="file" class="form-control" id="image" path="image"/>
                         </div>
                     </div>
+                    <div id="divGroupThumbnail" class="form-group" style="visibility:hidden;">
+                        <label class="col-sm-2 control-label">Preview </label>
+                        <div id="dvPreview" class="col-sm-10">
+                        </div>
+                    </div>
                     <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Submit</button>
                 </form:form>
             </div>
         </div>
     </div>
+    <script>
+        $(function () {
+            $("#image").change(function () {
+                if (typeof (FileReader) != "undefined") {
+                    var dvPreview = $("#dvPreview");
+                    dvPreview.html("");
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                    $($(this)[0].files).each(function () {
+                        var file = $(this);
+                        if (regex.test(file[0].name.toLowerCase())) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var img = $("<img />");
+                                img.attr("class", "img-thumbnail thumbnail");
+                                img.attr("src", e.target.result);
+                                dvPreview.append(img);
+                                $("#divGroupThumbnail").css("visibility", "visible");
+                            }
+                            reader.readAsDataURL(file[0]);
+                        } else {
+                            alert(file[0].name + " is not a valid image file.");
+                            dvPreview.html("");
+                            return false;
+                        }
+                    });
+                } else {
+                    alert("This browser does not support HTML5 FileReader.");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

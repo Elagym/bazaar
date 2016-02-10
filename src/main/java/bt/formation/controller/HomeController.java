@@ -16,7 +16,6 @@ import bt.formation.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -152,8 +151,10 @@ public class HomeController {
     }
 
     @RequestMapping("")
-    public String index(Model model) {
+    public String index(@AuthenticationPrincipal UserDTO user, Model model) {
         model.addAttribute("offers", offerService.findAll());
+        if(user != null)
+            model.addAttribute("user", user);
         return "index";
     }
 
@@ -183,16 +184,19 @@ public class HomeController {
             User user = signUpForm.toUser().toEntity();
             Authority authority = new Authority();
             authority.setAuthority("ROLE_USER");
-            authorityService.createOrGetAuthority(authority);
+            authority = authorityService.createOrGetAuthority(authority).toEntity();
             user.getAuthorities().add(authority);
             userService.signUpUser(user.toDto());
             return "redirect:/login";
         }
     }
 
-    @RequestMapping("/profile")
-    public String profile(@AuthenticationPrincipal UserDTO user, Model model) {
+    @RequestMapping("/profile/{id}")
+    public String profile(@PathVariable Long id, @AuthenticationPrincipal UserDTO currentUser, Model model) {
+        UserDTO user = userService.findById(id);
         model.addAttribute("user", user);
+        if(currentUser != null)
+            model.addAttribute("currentUser", currentUser);
         return "profile";
     }
 

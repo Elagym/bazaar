@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." style="width: 100%; max-height: 455px">
+                                    <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%; max-height: 455px">
                                     <div class="carousel-caption">
                                         Image 2
                                     </div>
@@ -106,7 +106,7 @@
                         <div role="tabpanel" class="tab-pane fade " id="owner" style="padding:10px;">
                             <div style="height: 76px;">
                                 <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
-                                <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="#">${owner.username}</a> </span><br/>
+                                <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="<c:url value="/profile/${owner.id}"/>">${owner.username}</a> </span><br/>
                                 <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Member since : ${owner.creationDate}</span><br/>
                                 <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span><a href="#">${thumbsUp}</a> <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span><a href="#">${thumbsDown}</a> <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span>
                                 <sec:authorize access="isAuthenticated()">
