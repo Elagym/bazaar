@@ -238,11 +238,11 @@ public class HomeController {
 
             System.out.println("OFFER EXPECTATION : " + offer.getExpectation());
 
-            for (Long id: createOfferForm.getCategories()){
+            for (Long id : createOfferForm.getCategories()) {
                 offer.getCategories().add(categoryService.findById(id));
             }
 
-            if(createOfferForm.getImage() != null)
+            if (createOfferForm.getImage() != null)
                 offer.setImageUrl(uploadFile(createOfferForm.getImage()));
 
             offer.setOwner(user);
@@ -270,18 +270,19 @@ public class HomeController {
     public void showImage(HttpServletResponse response, @PathVariable String filename) throws IOException {
         File file = new File("C:/tmp/bazaar/" + filename);
         String mimeType = URLConnection.guessContentTypeFromName(filename);
-        if(mimeType == null)
+        if (mimeType == null)
             mimeType = "application/octet-stream";
         response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
         response.setContentType(mimeType);
-        response.setContentLength((int)file.length());
+        response.setContentLength((int) file.length());
 
         InputStream is = new BufferedInputStream(new FileInputStream(file));
         FileCopyUtils.copy(is, response.getOutputStream());
     }
 
     @RequestMapping("/offers")
-    public String offers() {
+    public String offers(Model model) {
+        model.addAttribute("offers", offerService.findAll());
         return "offers";
     }
 
@@ -289,7 +290,7 @@ public class HomeController {
     public String offer(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDTO currentUser) {
 
         OfferDTO offer = offerService.findById(id);
-        if(offer != null) {
+        if (offer != null) {
 
             try {
 //            double[] locs = convertToLatLong("32 Avenue des tritons Bruxelles");
@@ -299,18 +300,18 @@ public class HomeController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             offer = offerService.findById(1l);
         }
         model.addAttribute("offer", offer);
         model.addAttribute("owner", offer.getOwner());
-        if(currentUser != null)
+        if (currentUser != null)
             model.addAttribute("currentUserId", currentUser.getId());
 
         int thumbsUp = 0;
         int thumbsDown = 0;
         for (CommentDTO comm : offer.getOwner().getComments()) {
-            if(comm.isLiked()) thumbsUp++;
+            if (comm.isLiked()) thumbsUp++;
             else thumbsDown++;
         }
 
