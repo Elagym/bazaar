@@ -153,7 +153,7 @@ public class HomeController {
     @RequestMapping("")
     public String index(@AuthenticationPrincipal UserDTO user, Model model) {
         model.addAttribute("offers", offerService.findAllTop7());
-        if(user != null)
+        if (user != null)
             model.addAttribute("user", user);
         return "index";
     }
@@ -195,8 +195,11 @@ public class HomeController {
     public String profile(@PathVariable Long id, @AuthenticationPrincipal UserDTO currentUser, Model model) {
         UserDTO user = userService.findById(id);
         model.addAttribute("user", user);
-        if(currentUser != null)
+        if (currentUser != null) {
             model.addAttribute("currentUser", currentUser);
+            List<OfferDTO> otherOffers = offerService.findByUserId(currentUser.getId());
+            model.addAttribute("otherOffers", otherOffers);
+        }
         return "profile";
     }
 
@@ -289,7 +292,7 @@ public class HomeController {
     }
 
     @RequestMapping("/offers/cat_id={id}")
-    public String offersFromCat(@PathVariable Long id, Model model){
+    public String offersFromCat(@PathVariable Long id, Model model) {
         model.addAttribute("offers", offerService.findByCategoryId(id));
         return "offers";
     }

@@ -21,8 +21,20 @@
             <label> Date of birth :</label> ${user.birthdate} <br/>
             <label> Phone number :</label> ${user.phoneNumber} <br/>
             <label> Description :</label> ${user.description} <br/>
+            <hr>
+            <div>
+                <h5>Offers from ${user.username}</h5>
+                <c:forEach items="${otherOffers}" var="otherOffer">
+                    <div>
+                        <a href="<c:url value="/offer/${otherOffer.id}"/>"> ${otherOffer.title}</a><br>
+                        <span> ${otherOffer.description}</span>
+                    </div>
+                    <hr>
+                </c:forEach>
+            </div>
         </div>
     </div>
+
 </div>
 
 </body>
