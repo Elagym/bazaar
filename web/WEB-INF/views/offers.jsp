@@ -21,6 +21,9 @@
             </div>
         </div>
     </form>
+    <c:if test="${category != null}">
+        <button class="btn btn-primary btn-sm">Category : ${category.name}<a href="#"><span class="glyphicon glyphicon-remove" style="color:#337ab7; margin-left:5px;"></span></a></button>
+    </c:if>
     <div class="panel panel-primary" style="margin-top:5px;">
         <div class="panel-heading">
             <h4 style="color:white;">Offers</h4>
@@ -29,24 +32,26 @@
             <c:forEach items="${offers}" var="offer">
                 <div class="panel panel-default">
                     <div class="panel-body offer-height">
-                        <img src="${offer.imageUrl}" alt="..."
-                             class="img-thumbnail thumbnail">
-                        <p><b>${offer.title}</b> <span class="index-offer-date">${offer.creationDate}</span></p>
+                        <img src="${offer.imageUrl}" alt="..." class="img-thumbnail thumbnail">
+                        <p>
+                            <a href="<c:url value="/offer/${offer.id}"/>"><b>${offer.title}</b></a>
+                            <span class="index-offer-date">${offer.creationDate}</span>
+                        </p>
                         <p>${offer.description}</p>
                     </div>
                     <div class="panel-footer">
                         <span>Category :
-                                    <c:set var="i" value="0"/>
-                                    <c:forEach items="${offer.categories}" var="category">
-                                        <a href="#">${category.name}</a>
-                                        <%--Séparation des categories--%>
-                                        <c:choose>
-                                            <c:when test="${i < offers.size()}">,<c:set var="i"
-                                                                                        value="${i+1}"/></c:when>
-                                            <c:when test="${i == offers.size()}">.</c:when>
-                                        </c:choose>
-                                    </c:forEach>
-                                </span>
+                            <c:set var="i" value="0"/>
+                            <c:forEach items="${offer.categories}" var="category">
+                                <a href="<c:url value="/offers/cat_id=${category.id}"/>">${category.name}</a>
+                                <%--Séparation des categories--%>
+                                <c:choose>
+                                    <c:when test="${i < offers.size()}">,<c:set var="i"
+                                                                                value="${i+1}"/></c:when>
+                                    <c:when test="${i == offers.size()}">.</c:when>
+                                </c:choose>
+                            </c:forEach>
+                        </span>
                         <span style="float:right;">Author : <a href="#">${offer.owner.username}</a></span>
                     </div>
                 </div>

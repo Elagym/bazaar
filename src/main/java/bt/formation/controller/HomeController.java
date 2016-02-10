@@ -291,6 +291,7 @@ public class HomeController {
     @RequestMapping("/offers/cat_id={id}")
     public String offersFromCat(@PathVariable Long id, Model model){
         model.addAttribute("offers", offerService.findByCategoryId(id));
+        model.addAttribute("category", categoryService.findById(id));
         return "offers";
     }
 
