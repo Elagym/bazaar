@@ -171,6 +171,7 @@ public class Offer {
         dto.setAddress(address);
         dto.setCreationDate(creationDate);
         dto.setEstimation(estimation);
+        dto.setExpectation(expectation);
         dto.setExpirationDate(expirationDate);
         dto.setImageUrl(imageUrl);
         dto.setModifDate(modifDate);
