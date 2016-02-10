@@ -152,7 +152,7 @@ public class HomeController {
 
     @RequestMapping("")
     public String index(@AuthenticationPrincipal UserDTO user, Model model) {
-        model.addAttribute("offers", offerService.findAll());
+        model.addAttribute("offers", offerService.findAllTop7());
         if(user != null)
             model.addAttribute("user", user);
         return "index";

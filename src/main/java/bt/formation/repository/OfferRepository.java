@@ -19,4 +19,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     @Query(value = "select * from Offer o where o.owner_id = (?1)", nativeQuery = true)
     List<Offer> findByUserId(Long id);
+
+    List<Offer> findTop7ByOrderByCreationDateDesc();
 }

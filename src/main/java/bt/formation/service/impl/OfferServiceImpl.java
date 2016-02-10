@@ -56,4 +56,15 @@ public class OfferServiceImpl implements OfferService {
         }
         return list;
     }
+
+    @Override
+    public List<OfferDTO> findAllTop7() {
+        List<OfferDTO> list = new ArrayList<>();
+        for (Offer o : offerRepository.findTop7ByOrderByCreationDateDesc()) {
+            list.add(o.toDto());
+        }
+        return list;
+    }
+
+
 }
