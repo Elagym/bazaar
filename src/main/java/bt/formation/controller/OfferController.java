@@ -24,7 +24,7 @@ public class OfferController {
     UserService userService;
 
     @RequestMapping("/comment")
-    public String comment(@AuthenticationPrincipal UserDTO author, @RequestParam String offerId, @RequestParam String ownerId, @RequestParam String message, @RequestParam String thumb, @RequestParam String title){
+    public String comment(@AuthenticationPrincipal UserDTO author, @RequestParam String offerId, @RequestParam String ownerId, @RequestParam String message, @RequestParam(required = false) String thumb, @RequestParam String title){
         OfferDTO offer = offerService.findById(Long.parseLong(offerId));
         CommentDTO comment = new CommentDTO();
         comment.setTitle(title);

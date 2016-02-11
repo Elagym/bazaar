@@ -19,39 +19,39 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-6 col-md-6">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            </ol>
+                        <%--<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">--%>
+                            <%--<!-- Indicators -->--%>
+                            <%--<ol class="carousel-indicators">--%>
+                                <%--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>--%>
+                                <%--<li data-target="#carousel-example-generic" data-slide-to="1"></li>--%>
+                            <%--</ol>--%>
 
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
+                            <%--<!-- Wrapper for slides -->--%>
+                            <%--<div class="carousel-inner" role="listbox">--%>
+                                <%--<div class="item active">--%>
                                     <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%; max-height: 455px;">
-                                    <div class="carousel-caption">
-                                        Image 1
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%; max-height: 455px">
-                                    <div class="carousel-caption">
-                                        Image 2
-                                    </div>
-                                </div>
-                            </div>
+                                    <%--<div class="carousel-caption">--%>
+                                        <%--Image 1--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<div class="item">--%>
+                                    <%--<img src="<c:url value="/showimage/${offer.imageUrl}"/>" alt="..." style="width: 100%; max-height: 455px">--%>
+                                    <%--<div class="carousel-caption">--%>
+                                        <%--Image 2--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
 
                             <!-- Controls -->
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+                            <%--<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">--%>
+                                <%--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>--%>
+                                <%--<span class="sr-only">Previous</span>--%>
+                            <%--</a>--%>
+                            <%--<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">--%>
+                                <%--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>--%>
+                                <%--<span class="sr-only">Next</span>--%>
+                            <%--</a>--%>
+                        <%--</div>--%>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <p>Estimation of the belonging : ${offer.estimation}€</p>
@@ -104,7 +104,23 @@
                                 <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..." class="img-thumbnail thumbnail">
                                 <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a href="<c:url value="/profile/${owner.id}"/>">${owner.username}</a> </span><br/>
                                 <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Member since : ${owner.creationDate}</span><br/>
-                                <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span><a href="#">${thumbsUp}</a> <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span><a href="#">${thumbsDown}</a> <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span>
+                                <span class="glyphicon glyphicon-play" style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span>${thumbsUp} <span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span>${thumbsDown} <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span>
+                                <span>(<a id="displayComments" href="#" data-toggle="modal" data-target="#showComments">${thumbsUp+thumbsDown}</a>)</span>
+
+                                <div class="modal fade" id="showComments">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                                                <h4 class="modal-title">${owner.username} - Comments</h4>
+                                            </div>
+                                            <div id="modalComments" class="modal-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <sec:authorize access="isAuthenticated()">
                                     <c:if test="${owner.id != currentUserId}">
                                         <a href="#" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#leaveComment">Leave a comment</a>
@@ -198,5 +214,6 @@
 <c:import url="includes/footer.jsp"/>
 <script>
     $("[name='thumb']").bootstrapSwitch();
+    var id = owner.id;
 </script>
 </html>
