@@ -68,7 +68,7 @@ public class HomeController {
         authority.setAuthority("ROLE_ADMIN");
         authorityService.createOrGetAuthority(authority);
         admin.getAuthorities().add(authority);
-        admin.setImageUrl("anon.png");
+        admin.setImageUrl("01.jpg");
         UserDTO adminDTO = userService.signUpUser(admin.toDto());
 
         User user = new User();
@@ -80,7 +80,7 @@ public class HomeController {
         authority2.setAuthority("ROLE_USER");
         authorityService.createOrGetAuthority(authority2);
         user.getAuthorities().add(authority2);
-        user.setImageUrl("anon.png");
+        user.setImageUrl("05.jpg");
         UserDTO userDTO = userService.signUpUser(user.toDto());
 
         CategoryDTO cat1 = new CategoryDTO();
@@ -115,7 +115,7 @@ public class HomeController {
         offer.setExpirationDate(new Date());
         offer.setAddress("Avenue des Tritons, 32");
         offer.setZipCode(1170);
-        offer.setImageUrl("kartandtinki1_photo-wallpapers_02.jpg");
+        offer.setImageUrl("02.jpg");
         offer.getCategories().add(categoryService.findById(1L));
         offer.getCategories().add(categoryService.findById(2L));
         offer.getCategories().add(categoryService.findById(3L));
@@ -132,7 +132,7 @@ public class HomeController {
         offer2.setExpirationDate(new Date());
         offer2.setAddress("Avenue Pastur 21");
         offer2.setZipCode(6001);
-        offer2.setImageUrl("rainy-weather-hd-wallpaper.jpg");
+        offer2.setImageUrl("03.jpg");
         offer2.getCategories().add(categoryService.findById(2L));
         offerService.createOffer(offer2);
 
@@ -146,7 +146,7 @@ public class HomeController {
         offer3.setExpirationDate(new Date());
         offer3.setAddress("Rue d'Aiur 26");
         offer3.setZipCode(2142);
-        offer3.setImageUrl("wallpapers-7020-7277-hd-wallpapers.jpg");
+        offer3.setImageUrl("04.jpg");
         offer3.getCategories().add(categoryService.findById(5L));
         offerService.createOffer(offer3);
 
