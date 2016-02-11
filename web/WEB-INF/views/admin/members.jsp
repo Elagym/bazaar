@@ -43,12 +43,24 @@
                 </td>
             </tr>
             <tr id="collapseOne${user.id}" class="panel-collapse collapse" role="tabpanel">
-                <td colspan="4">
-                    <div class="panel-body">
-                            ${user.id}
-                            ${user.username}
-                            ${user.enabled}
-                    </div>
+                <td>
+                </td>
+                <td>
+                    <a href="<c:url value="/profile/${user.id}"/>" class="btn btn-primary btn-xs">Voir profil</a>
+                </td>
+                <td>
+                    <a href="<c:url value="/update/${user.id}"/>" class="btn btn-primary btn-xs">Modifier</a>
+                </td>
+                <td>
+                    <c:choose>
+                        <c:when test="${user.enabled eq true}">
+                            <a href="<c:url value="/admin/disable/${user.id}"/>" class="btn btn-primary btn-xs">Désactiver</a>
+                        </c:when>
+                        <c:when test="${user.enabled eq false}">
+                            <a href="<c:url value="/admin/enable/${user.id}"/>"
+                               class="btn btn-primary btn-xs">Activer</a>
+                        </c:when>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>

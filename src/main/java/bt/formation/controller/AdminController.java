@@ -1,7 +1,9 @@
 package bt.formation.controller;
 
 import bt.formation.dto.OfferDTO;
+import bt.formation.dto.UserDTO;
 import bt.formation.entity.Category;
+import bt.formation.entity.User;
 import bt.formation.service.AuthorityService;
 import bt.formation.service.CategoryService;
 import bt.formation.service.OfferService;
@@ -9,6 +11,7 @@ import bt.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,5 +68,21 @@ public class AdminController {
         }
         servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
         return "redirect:/admin/managecategories";
+    }
+
+    @RequestMapping(value = "/disable/{id}")
+    public String disableUser(@PathVariable Long id) {
+        UserDTO user = userService.findById(id);
+        user.setEnabled(false);
+        userService.updateUser(user);
+        return "redirect:/admin/members";
+    }
+
+    @RequestMapping(value = "/enable/{id}")
+    public String enableUser(@PathVariable Long id) {
+        UserDTO user = userService.findById(id);
+        user.setEnabled(true);
+        userService.updateUser(user);
+        return "redirect:/admin/members";
     }
 }
