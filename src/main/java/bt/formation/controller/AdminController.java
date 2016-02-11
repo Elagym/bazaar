@@ -42,15 +42,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/managecategories", method = RequestMethod.GET)
-    public String createCategory(Model model) {
-        model.addAttribute("categories", categoryService.getCategories());
+    public String createCategory() {
+        servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
         return "admin/managecategories";
     }
 
     @RequestMapping(value = "/createcategory", method = RequestMethod.POST)
     public String createCategoryProcess(@RequestParam String newcategory) {
         categoryService.createOrGetIfExists(newcategory);
-        servletContext.setAttribute("categories", categoryService.getCategories());
+        servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
         return "redirect:/admin/managecategories";
     }
 
@@ -63,6 +63,7 @@ public class AdminController {
         } else {
             categoryService.replaceCategoryByOtherAndDelete(id);
         }
+        servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
         return "redirect:/admin/managecategories";
     }
 }

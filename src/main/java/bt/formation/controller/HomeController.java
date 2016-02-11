@@ -68,6 +68,7 @@ public class HomeController {
         authority.setAuthority("ROLE_ADMIN");
         authorityService.createOrGetAuthority(authority);
         admin.getAuthorities().add(authority);
+        admin.setImageUrl("01.jpg");
         UserDTO adminDTO = userService.signUpUser(admin.toDto());
 
         User user = new User();
@@ -79,6 +80,7 @@ public class HomeController {
         authority2.setAuthority("ROLE_USER");
         authorityService.createOrGetAuthority(authority2);
         user.getAuthorities().add(authority2);
+        user.setImageUrl("05.jpg");
         UserDTO userDTO = userService.signUpUser(user.toDto());
 
         CategoryDTO cat1 = new CategoryDTO();
@@ -101,7 +103,7 @@ public class HomeController {
         cat5.setName("Salon");
         categoryService.createOrGetIfExists(cat5.getName());
 
-        servletContext.setAttribute("categories", categoryService.getCategories());
+        servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
 
         OfferDTO offer = new OfferDTO();
         offer.setTitle("Mockup offer");
@@ -113,7 +115,7 @@ public class HomeController {
         offer.setExpirationDate(new Date());
         offer.setAddress("Avenue des Tritons, 32");
         offer.setZipCode(1170);
-        offer.setImageUrl("http://i.imgur.com/RrU2OV4.png");
+        offer.setImageUrl("02.jpg");
         offer.getCategories().add(categoryService.findById(1L));
         offer.getCategories().add(categoryService.findById(2L));
         offer.getCategories().add(categoryService.findById(3L));
@@ -130,7 +132,7 @@ public class HomeController {
         offer2.setExpirationDate(new Date());
         offer2.setAddress("Avenue Pastur 21");
         offer2.setZipCode(6001);
-        offer2.setImageUrl("http://pictures.topspeed.com/IMG/crop/201505/volvo-s60---driven-9_800x0w.jpg");
+        offer2.setImageUrl("03.jpg");
         offer2.getCategories().add(categoryService.findById(2L));
         offerService.createOffer(offer2);
 
@@ -144,7 +146,7 @@ public class HomeController {
         offer3.setExpirationDate(new Date());
         offer3.setAddress("Rue d'Aiur 26");
         offer3.setZipCode(2142);
-        offer3.setImageUrl("http://www.meubles-ergas.com/articles/f799578_ergas_869b79_multi_657047c");
+        offer3.setImageUrl("04.jpg");
         offer3.getCategories().add(categoryService.findById(5L));
         offerService.createOffer(offer3);
 
@@ -197,9 +199,9 @@ public class HomeController {
         model.addAttribute("user", user);
         if (currentUser != null) {
             model.addAttribute("currentUser", currentUser);
-            List<OfferDTO> otherOffers = offerService.findByUserId(currentUser.getId());
-            model.addAttribute("otherOffers", otherOffers);
         }
+        List<OfferDTO> otherOffers = offerService.findByUserId(user.getId());
+        model.addAttribute("otherOffers", otherOffers);
         return "profile";
     }
 
@@ -242,6 +244,11 @@ public class HomeController {
         if (!bindingResult.hasErrors()) {
 
             OfferDTO offer = createOfferForm.toOffer();
+
+            if (convertToLatLong(createOfferForm.getAddress()) == null) {
+                //TODO Rediriger vers une page d'érreur ou créer un pop up pour prévenir que l'addresse n'existe pas
+                return "redirect:/user/create";
+            }
 
             for (Long id : createOfferForm.getCategories()) {
                 offer.getCategories().add(categoryService.findById(id));
@@ -370,6 +377,9 @@ public class HomeController {
 
         } catch (NullPointerException e) {
             System.out.println("Address, latitude on longitude is null");
+            return null;
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("Address not correct.");
             return null;
         }
     }

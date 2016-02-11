@@ -57,6 +57,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<CategoryDTO> findAllByOrderByNameAsc() {
+        List<Category> cats = categoryRepository.findAllByOrderByNameAsc();
+        List<CategoryDTO> catsDTO = cats.stream().map(Category::toDto).collect(Collectors.toList());
+        return catsDTO;
+    }
+
+    @Override
     public void deleteCategory(Long id) {
         if (categoryRepository.exists(id)) {
             replaceCategoryByOtherAndDelete(id);
