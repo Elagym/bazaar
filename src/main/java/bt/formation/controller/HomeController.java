@@ -103,7 +103,7 @@ public class HomeController {
         cat5.setName("Salon");
         categoryService.createOrGetIfExists(cat5.getName());
 
-        servletContext.setAttribute("categories", categoryService.getCategories());
+        servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
 
         OfferDTO offer = new OfferDTO();
         offer.setTitle("Mockup offer");
