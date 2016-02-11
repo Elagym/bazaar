@@ -68,6 +68,7 @@ public class HomeController {
         authority.setAuthority("ROLE_ADMIN");
         authorityService.createOrGetAuthority(authority);
         admin.getAuthorities().add(authority);
+        admin.setImageUrl("anon.png");
         UserDTO adminDTO = userService.signUpUser(admin.toDto());
 
         User user = new User();
@@ -79,6 +80,7 @@ public class HomeController {
         authority2.setAuthority("ROLE_USER");
         authorityService.createOrGetAuthority(authority2);
         user.getAuthorities().add(authority2);
+        user.setImageUrl("anon.png");
         UserDTO userDTO = userService.signUpUser(user.toDto());
 
         CategoryDTO cat1 = new CategoryDTO();
