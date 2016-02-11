@@ -4,6 +4,7 @@
 <head>
     <title>Offers</title>
     <c:import url="includes/head.jsp"/>
+    <script src="<c:url value="/resources/js/refresh.js"/>"></script>
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
@@ -22,13 +23,13 @@
         </div>
     </form>
     <c:if test="${category != null}">
-        <button class="btn btn-primary btn-sm">Category : ${category.name}<a href="#"><span class="glyphicon glyphicon-remove" style="color:#337ab7; margin-left:5px;"></span></a></button>
+        <span id="criteria"><button class="btn btn-primary btn-sm">Category : ${category.name}<span id="categorySearch" class="glyphicon glyphicon-remove" style="color:#337ab7; margin-left:5px;"></span></button></span>
     </c:if>
     <div class="panel panel-primary" style="margin-top:5px;">
         <div class="panel-heading">
             <h4 style="color:white;">Offers</h4>
         </div>
-        <div class="panel-body">
+        <div id="mainPanel" class="panel-body">
             <c:forEach items="${offers}" var="offer">
                 <div class="panel panel-default">
                     <div class="panel-body offer-height">
@@ -46,9 +47,8 @@
                                 <a href="<c:url value="/offers/cat_id=${category.id}"/>">${category.name}</a>
                                 <%--Séparation des categories--%>
                                 <c:choose>
-                                    <c:when test="${i < offers.size()}">,<c:set var="i"
-                                                                                value="${i+1}"/></c:when>
-                                    <c:when test="${i == offers.size()}">.</c:when>
+                                    <c:when test="${i < offer.categories.size()-1}">,<c:set var="i" value="${i+1}"/></c:when>
+                                    <c:when test="${i == offer.categories.size()-1}">.</c:when>
                                 </c:choose>
                             </c:forEach>
                         </span>
@@ -60,6 +60,9 @@
     </div>
 </div>
 </div>
+<script>
+    var ctx = '${pageContext.request.contextPath}';
+</script>
 </body>
 <c:import url="includes/footer.jsp"/>
 
