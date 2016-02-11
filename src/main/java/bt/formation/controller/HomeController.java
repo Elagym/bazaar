@@ -113,7 +113,7 @@ public class HomeController {
         offer.setExpirationDate(new Date());
         offer.setAddress("Avenue des Tritons, 32");
         offer.setZipCode(1170);
-        offer.setImageUrl("http://i.imgur.com/RrU2OV4.png");
+        offer.setImageUrl("kartandtinki1_photo-wallpapers_02.jpg");
         offer.getCategories().add(categoryService.findById(1L));
         offer.getCategories().add(categoryService.findById(2L));
         offer.getCategories().add(categoryService.findById(3L));
@@ -130,7 +130,7 @@ public class HomeController {
         offer2.setExpirationDate(new Date());
         offer2.setAddress("Avenue Pastur 21");
         offer2.setZipCode(6001);
-        offer2.setImageUrl("http://pictures.topspeed.com/IMG/crop/201505/volvo-s60---driven-9_800x0w.jpg");
+        offer2.setImageUrl("rainy-weather-hd-wallpaper.jpg");
         offer2.getCategories().add(categoryService.findById(2L));
         offerService.createOffer(offer2);
 
@@ -144,7 +144,7 @@ public class HomeController {
         offer3.setExpirationDate(new Date());
         offer3.setAddress("Rue d'Aiur 26");
         offer3.setZipCode(2142);
-        offer3.setImageUrl("http://www.meubles-ergas.com/articles/f799578_ergas_869b79_multi_657047c");
+        offer3.setImageUrl("wallpapers-7020-7277-hd-wallpapers.jpg");
         offer3.getCategories().add(categoryService.findById(5L));
         offerService.createOffer(offer3);
 
@@ -197,9 +197,9 @@ public class HomeController {
         model.addAttribute("user", user);
         if (currentUser != null) {
             model.addAttribute("currentUser", currentUser);
-            List<OfferDTO> otherOffers = offerService.findByUserId(currentUser.getId());
-            model.addAttribute("otherOffers", otherOffers);
         }
+        List<OfferDTO> otherOffers = offerService.findByUserId(user.getId());
+        model.addAttribute("otherOffers", otherOffers);
         return "profile";
     }
 

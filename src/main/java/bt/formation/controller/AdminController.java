@@ -42,8 +42,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/managecategories", method = RequestMethod.GET)
-    public String createCategory(Model model) {
-        model.addAttribute("categories", categoryService.getCategories());
+    public String createCategory() {
+        servletContext.setAttribute("categories", categoryService.getCategories());
         return "admin/managecategories";
     }
 
@@ -63,6 +63,7 @@ public class AdminController {
         } else {
             categoryService.replaceCategoryByOtherAndDelete(id);
         }
+        servletContext.setAttribute("categories", categoryService.getCategories());
         return "redirect:/admin/managecategories";
     }
 }
