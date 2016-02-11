@@ -26,9 +26,10 @@
         </thead>
         <tbody>
         <c:forEach items="${users}" var="user">
-            <tr data-toggle="collapse" data-parent="#accordion" href="#collapseOne${user.id}"
-                aria-expanded="false"
-                aria-controls="collapseOne" style="cursor: pointer">
+            <%--<tr data-toggle="collapse" data-parent="#accordion" href="#collapseOne${user.id}"--%>
+            <%--aria-expanded="false"--%>
+            <%--aria-controls="collapseOne" style="cursor: pointer">--%>
+            <tr>
                 <td>
                         ${user.id}
                 </td>
@@ -39,28 +40,19 @@
                         ${user.enabled}
                 </td>
                 <td>
-                    actions
-                </td>
-            </tr>
-            <tr id="collapseOne${user.id}" class="panel-collapse collapse" role="tabpanel">
-                <td>
-                </td>
-                <td>
                     <a href="<c:url value="/profile/${user.id}"/>" class="btn btn-primary btn-xs">Voir profil</a>
-                </td>
-                <td>
-                    <a href="<c:url value="/update/${user.id}"/>" class="btn btn-primary btn-xs">Modifier</a>
-                </td>
-                <td>
-                    <c:choose>
-                        <c:when test="${user.enabled eq true}">
-                            <a href="<c:url value="/admin/disable/${user.id}"/>" class="btn btn-primary btn-xs">Désactiver</a>
-                        </c:when>
-                        <c:when test="${user.enabled eq false}">
-                            <a href="<c:url value="/admin/enable/${user.id}"/>"
-                               class="btn btn-primary btn-xs">Activer</a>
-                        </c:when>
-                    </c:choose>
+                    <a href="<c:url value="/admin/update/${user.id}"/>" class="btn btn-primary btn-xs">Modifier</a>
+                    <c:if test="${user.id gt 1}">
+                        <c:choose>
+                            <c:when test="${user.enabled eq true}">
+                                <a href="<c:url value="/admin/disable/${user.id}"/>" class="btn btn-primary btn-xs">Désactiver</a>
+                            </c:when>
+                            <c:when test="${user.enabled eq false}">
+                                <a href="<c:url value="/admin/enable/${user.id}"/>"
+                                   class="btn btn-primary btn-xs">Activer</a>
+                            </c:when>
+                        </c:choose>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

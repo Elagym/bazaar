@@ -85,4 +85,10 @@ public class AdminController {
         userService.updateUser(user);
         return "redirect:/admin/members";
     }
+
+    @RequestMapping(value = "/update/{id}")
+    public String updateUser(@PathVariable Long id) {
+        //TODO Une jsp pour que l'admin puisse modifier les infos d'un user pour une quelconque raison (fausse adresse mail ou tel)
+        return "redirect:/admin/members";
+    }
 }
