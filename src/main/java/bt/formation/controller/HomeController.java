@@ -243,6 +243,11 @@ public class HomeController {
 
             OfferDTO offer = createOfferForm.toOffer();
 
+            if (convertToLatLong(createOfferForm.getAddress()) == null) {
+                //TODO Rediriger vers une page d'érreur ou créer un pop up pour prévenir que l'addresse n'existe pas
+                return "redirect:/user/create";
+            }
+
             for (Long id : createOfferForm.getCategories()) {
                 offer.getCategories().add(categoryService.findById(id));
             }
@@ -370,6 +375,9 @@ public class HomeController {
 
         } catch (NullPointerException e) {
             System.out.println("Address, latitude on longitude is null");
+            return null;
+        } catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("Address not correct.");
             return null;
         }
     }
