@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,10 @@
 <body>
 <c:import url="includes/menu.jsp"/>
 <div class="container-fluid size">
+    <%--<form:form method="get" class="form-horizontal" commandName="searchForm">--%>
+        <%--<form:radiobutton path="searchType" class="btn btn-primary" value="Most recent"/>--%>
+        <%--<form:radiobutton path="searchType" class="btn btn-primary" value="Most famous"/>--%>
+    <%--</form:form>--%>
     <button class="btn btn-primary">Most recent offers</button>
     <button class="btn btn-primary" style="display:inline; margin-right: 5px;">Most famous</button>
     <form class="form-inline" action="#" style="display:inline;">
