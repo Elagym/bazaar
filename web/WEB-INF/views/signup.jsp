@@ -15,7 +15,6 @@
         </div>
         <div class="panel-body">
             <form:form method="post" action="signup" commandName="signUpForm">
-
                 <div class="col-sm-6 col-md-6 form-group">
                     <label for="usernameInput" class="col-xs-4 col-sm-4 col-md-4" style="display:inline; margin-top:5px;">Username </label>
                     <div class="col-xs-8 col-sm-8 col-md-8" style="display:inline; margin-top:5px;">

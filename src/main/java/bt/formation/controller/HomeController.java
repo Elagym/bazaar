@@ -16,6 +16,7 @@ import bt.formation.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -384,10 +385,25 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/user/update/{id}")
+    @RequestMapping(value = "/user/update/{id}", method = RequestMethod.GET)
     public String updateUser(@PathVariable Long id, @AuthenticationPrincipal UserDTO currentUser, Model model) {
         UserDTO user = userService.findById(id);
         model.addAttribute("user", user);
-        return "/user/update";
+        model.addAttribute("signUpForm", new SignUpForm());
+        return "user/update";
+    }
+
+    @RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
+    public String updateUserProcess(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "user/update";
+        } else {
+            User updated = signUpForm.toUser().toEntity();
+            User toUpdate = userService.findById(updated.getId()).toEntity();
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            updated.setPassword(encoder.encode(updated.getPassword()));
+            userService.updateUser(updated.toDto());
+            return "redirect:/login";
+        }
     }
 }
