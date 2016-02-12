@@ -383,4 +383,11 @@ public class HomeController {
             return null;
         }
     }
+
+    @RequestMapping("/user/update/{id}")
+    public String updateUser(@PathVariable Long id, @AuthenticationPrincipal UserDTO currentUser, Model model) {
+        UserDTO user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "/user/update";
+    }
 }
