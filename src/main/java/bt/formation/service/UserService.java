@@ -12,4 +12,5 @@ public interface UserService {
     UserDTO updateUser(UserDTO user);
     Collection<User> getUsers();
     UserDTO findById(Long id);
+    boolean handleLikedOffer(Long userId, Long offerId);
 }

@@ -26,6 +26,7 @@ public class UserDTO implements UserDetails{
     private List<CommentDTO> comments;
     private Set<AuthorityDTO> authorities;
     private List<PropositionDTO> propositions;
+    private List<Long> likedOffers;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -194,6 +195,16 @@ public class UserDTO implements UserDetails{
 
     public void setPropositions(List<PropositionDTO> propositions) {
         this.propositions = propositions;
+    }
+
+    public List<Long> getLikedOffers() {
+        if(likedOffers == null)
+            likedOffers = new ArrayList<>();
+        return likedOffers;
+    }
+
+    public void setLikedOffers(List<Long> likedOffers) {
+        this.likedOffers = likedOffers;
     }
 
     public void setAccountNonExpired(boolean accountNonExpired) {

@@ -3,8 +3,10 @@ package bt.formation.controller;
 
 import bt.formation.dto.CommentDTO;
 import bt.formation.dto.OfferDTO;
+import bt.formation.dto.UserDTO;
 import bt.formation.service.CommentService;
 import bt.formation.service.OfferService;
+import bt.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ public class WebServiceController {
     OfferService offerService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/offers/refresh")
     public List<OfferDTO> refreshOffers(){
@@ -29,6 +33,22 @@ public class WebServiceController {
     @RequestMapping("/profile/{id}/comments")
     public List<CommentDTO> getComments(@PathVariable Long id){
         return commentService.findByUserId(id);
+    }
+
+    @RequestMapping("/like/{offerId}/{userId}")
+    public boolean likeOffer(@PathVariable Long offerId, @PathVariable Long userId){
+
+        OfferDTO offer = offerService.findById(offerId);
+        UserDTO user = userService.findById(userId);
+        if(!user.getLikedOffers().contains(offerId)){
+            offer.setPopularity(offer.getPopularity()+1);
+            offerService.createOffer(offer); //create = update
+            return userService.handleLikedOffer(userId, offerId);
+        }else{
+            offer.setPopularity(offer.getPopularity()-1);
+            offerService.createOffer(offer); //create = update
+            return userService.handleLikedOffer(userId, offerId);
+        }
     }
 
 }
