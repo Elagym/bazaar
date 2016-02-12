@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 
-    @Query("select c from Comment c where c.author.id = (?1)")
+    @Query("select u.comments from User u where u.id = (?1)")
     List<Comment> findByUserId(Long id);
 }

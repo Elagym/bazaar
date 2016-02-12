@@ -324,8 +324,12 @@ public class HomeController {
         }
         model.addAttribute("offer", offer);
         model.addAttribute("owner", offer.getOwner());
-        if (currentUser != null)
+        if (currentUser != null) {
             model.addAttribute("currentUserId", currentUser.getId());
+            //Besoin de recharger le userDTO sur base de l'id du Principal pour recuperer la liste d'annonces favorites
+            UserDTO user = userService.findById(currentUser.getId());
+            model.addAttribute("alreadyLiked", user.getLikedOffers().contains(id));
+        }
 
         int thumbsUp = 0;
         int thumbsDown = 0;

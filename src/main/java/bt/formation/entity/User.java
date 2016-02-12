@@ -20,6 +20,8 @@ public class User {
     private List<Proposition> propositions;
     @OneToMany
     private List<Comment> comments;
+    @ManyToMany
+    private List<Offer> likedOffers;
 
     private String password;
     private String username;
@@ -199,6 +201,16 @@ public class User {
         this.lastName = lastName;
     }
 
+    public List<Offer> getLikedOffers() {
+        if(likedOffers == null)
+            likedOffers = new ArrayList<>();
+        return likedOffers;
+    }
+
+    public void setLikedOffers(List<Offer> likedOffers) {
+        this.likedOffers = likedOffers;
+    }
+
     public UserDTO toDto() {
         UserDTO dto = new UserDTO();
         dto.setId(id);
@@ -224,6 +236,9 @@ public class User {
         }
         for (Proposition prop : getPropositions()) {
             dto.getPropositions().add(prop.toDto());
+        }
+        for (Offer o : getLikedOffers()) {
+            dto.getLikedOffers().add(o.getId());
         }
         return dto;
     }

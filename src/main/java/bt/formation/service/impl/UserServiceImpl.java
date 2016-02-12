@@ -2,10 +2,13 @@ package bt.formation.service.impl;
 
 import bt.formation.dto.UserDTO;
 import bt.formation.entity.Authority;
+import bt.formation.entity.Offer;
 import bt.formation.entity.User;
 import bt.formation.repository.AuthorityRepository;
+import bt.formation.repository.OfferRepository;
 import bt.formation.repository.UserRepository;
 import bt.formation.service.AuthorityService;
+import bt.formation.service.OfferService;
 import bt.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +33,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     AuthorityService authorityService;
+
+    @Autowired
+    OfferRepository offerRepository;
 
     @Override
     public UserDTO loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -64,6 +70,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDTO findById(Long id) {
         return userRepository.findOne(id).toDto();
+    }
+
+    @Override
+    public boolean handleLikedOffer(Long userId, Long offerId) {
+        User user = userRepository.findOne(userId);
+        Offer offer = offerRepository.findOne(offerId);
+        if(!user.getLikedOffers().contains(offer)) {
+            user.getLikedOffers().add(offer);
+            userRepository.save(user);
+            return true;
+        } else {
+            user.getLikedOffers().remove(offer);
+            userRepository.save(user);
+            return false;
+        }
     }
 
 }

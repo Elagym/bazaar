@@ -7,6 +7,8 @@
     <c:import url="includes/head.jsp"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
+    <script src="<c:url value="/resources/js/showcomments.js"/>"></script>
+    <script src="<c:url value="/resources/js/likeoffer.js"/>"></script>
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
@@ -17,6 +19,17 @@
                 <h4 style="color:white;">${offer.title}</h4>
             </div>
             <div class="panel-body">
+                <sec:authorize access="isAuthenticated()">
+
+                    <c:choose>
+                        <c:when test="${alreadyLiked}">
+                            <span style="float:right;"><span id="likeCount">${offer.popularity}</span><span id="likeOffer" class="glyphicon glyphicon-heart" style="color:#FF4C6C;cursor:pointer;"></span></span>
+                        </c:when>
+                        <c:when test="${not alreadyLiked}">
+                            <span style="float:right;"><span id="likeCount">${offer.popularity}</span><span id="likeOffer" class="glyphicon glyphicon-heart" style="cursor:pointer;"></span></span>
+                        </c:when>
+                    </c:choose>
+                </sec:authorize>
                 <div class="row">
                     <div class="col-sm-6 col-md-6">
                         <%--<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">--%>
@@ -214,6 +227,11 @@
 <c:import url="includes/footer.jsp"/>
 <script>
     $("[name='thumb']").bootstrapSwitch();
-    var id = owner.id;
+    var id = ${owner.id};
+    var ctx = '${pageContext.request.contextPath}';
+    var offerId = ${offer.id};
+    var userId = ${currentUserId};
+    var alreadyLiked = ${alreadyLiked};
+    var popularity = ${offer.popularity};
 </script>
 </html>
