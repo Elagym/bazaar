@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
 import java.net.*;
+import java.nio.file.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -191,6 +192,13 @@ public class HomeController {
             authority.setAuthority("ROLE_USER");
             authority = authorityService.createOrGetAuthority(authority).toEntity();
             user.getAuthorities().add(authority);
+            if (signUpForm.getImageURL() != null) {
+                try {
+                    user.setImageUrl(uploadFile(signUpForm.getImageURL()));
+                } catch (IOException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
             userService.signUpUser(user.toDto());
             return "redirect:/login";
         }
@@ -279,6 +287,12 @@ public class HomeController {
         FileCopyUtils.copy(file.getBytes(), new File(url));
 
         return newFilenameWithoutExtension;
+    }
+
+    public void removeFile(String file) {
+        String url = "C:/tmp/bazaar/" + file;
+        File f = new File(url);
+        f.delete();
     }
 
     @RequestMapping("/showimage/{filename:.+}")
@@ -403,7 +417,6 @@ public class HomeController {
         updateUserForm.setEmail(user.getEmail());
         updateUserForm.setFirstName(user.getFirstname());
         updateUserForm.setLastName(user.getLastname());
-        updateUserForm.setImageURL(user.getImageUrl());
         model.addAttribute("updateUserForm", updateUserForm);
         return "user/update";
     }
@@ -411,26 +424,31 @@ public class HomeController {
     @RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
     public String updateUserProcess(@PathVariable Long id, @Valid UpdateUserForm updateUserForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "user/update";
+            return "redirect:/user/update/" + id;
         } else {
-            User updated = updateUserForm.toUser().toEntity();
-            User toUpdate = userService.findById(id).toEntity();
+            UserDTO updated = updateUserForm.toUser();
+            UserDTO toUpdate = userService.findById(id);
             if (updated.getPhoneNumber() != null && !updated.getPhoneNumber().equalsIgnoreCase(toUpdate.getPhoneNumber()))
                 toUpdate.setPhoneNumber(updated.getPhoneNumber());
-            if (updated.getBirthDate() != null && !updated.getBirthDate().equals(toUpdate.getBirthDate()))
-                toUpdate.setBirthDate(updated.getBirthDate());
+            if (updated.getBirthdate() != null && !updated.getBirthdate().equals(toUpdate.getBirthdate()))
+                toUpdate.setBirthdate(updated.getBirthdate());
             if (updated.getDescription() != null && !updated.getDescription().equalsIgnoreCase(toUpdate.getDescription()))
                 toUpdate.setDescription(updated.getDescription());
             if (updated.getEmail() != null && !updated.getEmail().equalsIgnoreCase(toUpdate.getEmail()))
                 toUpdate.setEmail(updated.getEmail());
-            if (updated.getFirstName() != null && !updated.getFirstName().equalsIgnoreCase(toUpdate.getFirstName()))
-                toUpdate.setFirstName(updated.getFirstName());
-            if (updated.getLastName() != null && !updated.getLastName().equalsIgnoreCase(toUpdate.getLastName()))
-                toUpdate.setLastName(updated.getLastName());
-            if (updated.getImageUrl() != null && !updated.getImageUrl().equals(toUpdate.getImageUrl()))
-                toUpdate.setImageUrl(updated.getImageUrl());
-            updated.setId(id);
-            userService.updateUser(updated.toDto());
+            if (updated.getFirstname() != null && !updated.getFirstname().equalsIgnoreCase(toUpdate.getFirstname()))
+                toUpdate.setFirstname(updated.getFirstname());
+            if (updated.getLastname() != null && !updated.getLastname().equalsIgnoreCase(toUpdate.getLastname()))
+                toUpdate.setLastname(updated.getLastname());
+            if (updateUserForm.getImageURL() != null && !updateUserForm.getImageURL().isEmpty()) {
+                try {
+                    removeFile(toUpdate.getImageUrl());
+                    toUpdate.setImageUrl(uploadFile(updateUserForm.getImageURL()));
+                } catch (IOException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+            userService.updateUser(toUpdate);
             return "redirect:/profile/" + id;
         }
     }

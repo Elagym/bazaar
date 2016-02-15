@@ -15,11 +15,8 @@
             <h4 style="color:white;">Profile Update</h4>
         </div>
         <div class="panel-body">
-            <form:form method="post" commandName="updateUserForm">
+            <form:form method="post" commandName="updateUserForm" enctype="multipart/form-data">
                 <div class="col-sm-6 col-md-6">
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="float:right"></span>
-                    </button>
                     <img src="<c:url value="/showimage/${user.imageUrl}"/>" alt="..."
                          style="width: 100%; max-height: 455px; border-radius:150px;">
                 </div>
@@ -87,6 +84,13 @@
                     <form:errors path="description" cssclass="error"></form:errors>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="image">Image* </label>
+                    <div class="col-sm-10">
+                        <form:input type="file" class="form-control" id="image" path="imageURL"/>
+                    </div>
+                </div>
+
                 <div class="row" style="text-align: center;">
                     <button class="btn btn-primary" type="submit" style="width: 100px; margin-top: 15px;">Submit
                     </button>
@@ -95,6 +99,7 @@
             </form:form>
         </div>
     </div>
+</div>
 </body>
 <c:import url="../includes/footer.jsp"/>
 </html>
