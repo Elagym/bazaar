@@ -88,29 +88,58 @@
                             ${offer.description}
                         </div>
                         <div role="tabpanel" class="tab-pane fade " id="contact" style="padding:10px;">
-                            <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer, fill this form to contact the owner.</span>
-                            <form style="max-width: 500px;">
-                                <div class="form-group">
-                                    <%--<label for="name">Name</label>--%>
-                                    <input type="name" class="form-control" id="name" placeholder="Name">
-                                </div>
-                                <div class="form-group">
-                                    <%--<label for="e-mail">E-mail</label>--%>
-                                    <input type="email" class="form-control" id="e-mail" placeholder="E-mail">
-                                </div>
-                                <div class="form-group">
-                                    <%--<label for="object">Object</label>--%>
-                                    <input type="text" class="form-control" id="object" placeholder="Object" value="Re : ${offer.title}">
-                                </div>
-                                <div class="form-group">
-                                    <%--<label for="message">Message</label>--%>
-                                    <textarea type="" class="form-control" id="message" placeholder="Type your message here" rows="5"></textarea>
-                                </div>
-                                <div>
-                                    /*captcha*/
-                                </div>
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </form>
+                            <sec:authorize access="isAuthenticated()">
+                                <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer or propose a trade, fill this form to contact the owner.</span>
+                                <form class="form-horizontal" action="user/questionOrOffer" style="max-width: 90%;">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">Type</label>
+                                        <div class="col-md-10 col-sm-10">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="type" value="question" checked>
+                                                    Ask a question
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="type" value="offer">
+                                                    Propose a trade
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label" for="object">Title*</label>
+                                        <div class="col-md-10 col-sm-10">
+                                            <input type="text" class="form-control" id="object" placeholder="Object" value="Re : ${offer.title}">
+                                        </div>
+                                    </div>
+                                    <div id="yourOffer" class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label" for="object">Your offer*</label>
+                                        <div class="col-md-10 col-sm-10">
+                                            <input type="text" class="form-control" placeholder="What you give">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label" for="message">Message*</label>
+                                        <div class="col-md-10 col-sm-10">
+                                            <textarea type="" class="form-control" id="message" placeholder="Type your message here" rows="5"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div id="yourImage" class="form-group">
+                                        <label class="col-sm-2 control-label" for="image">Image</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" class="form-control" id="image" path="image"/>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </form>
+                            </sec:authorize>
+                            <sec:authorize access="isAnonymous()">
+                                <span>You must be logged in to access this category</span>
+                            </sec:authorize>
                         </div>
                         <div role="tabpanel" class="tab-pane fade " id="owner" style="padding:10px;">
                             <div style="height: 76px;">
@@ -233,5 +262,15 @@
     var userId = ${currentUserId};
     var alreadyLiked = ${alreadyLiked};
     var popularity = ${offer.popularity};
+</script>
+<script>
+    $('#yourImage, #yourOffer').hide();
+    $( "input[name=type]").on('change', function(){
+       if($("input[name=type]:checked").val() == "question"){
+           $('#yourImage, #yourOffer').hide();
+       }else{
+           $('#yourImage, #yourOffer').show();
+       }
+    });
 </script>
 </html>
