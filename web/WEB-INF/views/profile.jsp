@@ -61,8 +61,21 @@
                     <sec:authentication property='principal.username' var="principal"/>
                     <c:if test="${ principal == user.username}">
                             </div>
-                            <div role="tabpanel" class="tab-pane fade in active" id="requests" style="padding:10px;">
-
+                            <div role="tabpanel" class="tab-pane" id="requests" style="padding:10px;">
+                                <table class="table table-striped table-hover">
+                                    <tr>
+                                        <th>Offer name</th>
+                                        <th>Proposition</th>
+                                        <th></th>
+                                    </tr>
+                                    <c:forEach var="proposition" items="${user.propositions}">
+                                        <tr>
+                                            <td>${proposition.offer.title}</td>
+                                            <td>${proposition.title}</td>
+                                            <td><c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if> </td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
                             </div>
                         </div>
                     </c:if>

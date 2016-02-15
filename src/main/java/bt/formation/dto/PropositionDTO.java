@@ -11,6 +11,8 @@ public class PropositionDTO {
     private String title;
     private String description;
     private double estimation;
+    private boolean viewed;
+    private OfferDTO offer;
 
     public Proposition toEntity(){
         Proposition proposition = new Proposition();
@@ -18,6 +20,8 @@ public class PropositionDTO {
         proposition.setTitle(title);
         proposition.setDescription(description);
         proposition.setEstimation(estimation);
+        proposition.setViewed(viewed);
+        proposition.setOffer(offer.toEntity());
         return proposition;
     }
 
@@ -51,5 +55,21 @@ public class PropositionDTO {
 
     public void setEstimation(double estimation) {
         this.estimation = estimation;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
+
+    public OfferDTO getOffer() {
+        return offer;
+    }
+
+    public void setOffer(OfferDTO offer) {
+        this.offer = offer;
     }
 }

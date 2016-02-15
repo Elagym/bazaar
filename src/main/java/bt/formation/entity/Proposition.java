@@ -14,6 +14,7 @@ public class Proposition {
     private String title;
     private String description;
     private Double estimation;
+    private boolean viewed;
 
     @ManyToOne
     private Offer offer;
@@ -67,12 +68,22 @@ public class Proposition {
         this.offer = offer;
     }
 
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
+
     public PropositionDTO toDto(){
         PropositionDTO dto = new PropositionDTO();
         dto.setId(id);
         dto.setEstimation(estimation);
         dto.setDescription(description);
         dto.setTitle(title);
+        dto.setViewed(viewed);
+        dto.setOffer(offer.toDto());
         return dto;
     }
 }
