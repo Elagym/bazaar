@@ -71,8 +71,15 @@
                                     <c:forEach var="proposition" items="${user.propositions}">
                                         <tr>
                                             <td>${proposition.offer.title}</td>
-                                            <td>${proposition.title}</td>
+                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}">${proposition.title}</a></td>
                                             <td><c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if> </td>
+                                        </tr>
+                                        <tr class="panel-collapse collapse" id="prop${proposition.id}">
+                                            <td colspan="3">
+                                                <div class="panel-body">
+                                                    KIKOU
+                                                </div>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </table>

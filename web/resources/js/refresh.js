@@ -12,7 +12,7 @@ $(document).ready(function(){
                var panel_div = $('<div>').attr('class', 'panel panel-default').appendTo(main_div);
                var body_div = $('<div>').attr('class', 'panel-body offer-height').appendTo(panel_div);
                    $('<img>').attr({
-                       src : item.imageUrl,
+                       src : ctx + '/showimage/' + item.imageUrl,
                        class : "img-thumbnail thumbnail"
                    }).appendTo(body_div);
                     var title_p = $('<p>').appendTo(body_div);
