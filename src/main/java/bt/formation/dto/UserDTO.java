@@ -2,14 +2,13 @@ package bt.formation.dto;
 
 import bt.formation.entity.Authority;
 import bt.formation.entity.User;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.Pattern;
 import java.util.*;
 
-/**
- * Created by Student on 27-01-16.
- */
 public class UserDTO implements UserDetails{
 
     private Long id;

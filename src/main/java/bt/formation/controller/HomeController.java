@@ -8,12 +8,14 @@ import bt.formation.entity.Authority;
 import bt.formation.entity.User;
 import bt.formation.form.CreateOfferForm;
 import bt.formation.form.SignUpForm;
+import bt.formation.form.UpdateUserForm;
 import bt.formation.model.PincodeVerify;
 import bt.formation.service.AuthorityService;
 import bt.formation.service.CategoryService;
 import bt.formation.service.OfferService;
 import bt.formation.service.UserService;
 import com.google.gson.Gson;
+import org.hibernate.search.indexes.serialization.javaserialization.impl.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -393,21 +395,43 @@ public class HomeController {
     public String updateUser(@PathVariable Long id, @AuthenticationPrincipal UserDTO currentUser, Model model) {
         UserDTO user = userService.findById(id);
         model.addAttribute("user", user);
-        model.addAttribute("signUpForm", new SignUpForm());
+        UpdateUserForm updateUserForm = new UpdateUserForm();
+        updateUserForm.setUsername(user.getUsername());
+        updateUserForm.setPhoneNumber(user.getPhoneNumber());
+        updateUserForm.setDateOfBirth(user.getBirthdate());
+        updateUserForm.setDescription(user.getDescription());
+        updateUserForm.setEmail(user.getEmail());
+        updateUserForm.setFirstName(user.getFirstname());
+        updateUserForm.setLastName(user.getLastname());
+        updateUserForm.setImageURL(user.getImageUrl());
+        model.addAttribute("updateUserForm", updateUserForm);
         return "user/update";
     }
 
     @RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
-    public String updateUserProcess(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
+    public String updateUserProcess(@PathVariable Long id, @Valid UpdateUserForm updateUserForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/update";
         } else {
-            User updated = signUpForm.toUser().toEntity();
-            User toUpdate = userService.findById(updated.getId()).toEntity();
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            updated.setPassword(encoder.encode(updated.getPassword()));
+            User updated = updateUserForm.toUser().toEntity();
+            User toUpdate = userService.findById(id).toEntity();
+            if (updated.getPhoneNumber() != null && !updated.getPhoneNumber().equalsIgnoreCase(toUpdate.getPhoneNumber()))
+                toUpdate.setPhoneNumber(updated.getPhoneNumber());
+            if (updated.getBirthDate() != null && !updated.getBirthDate().equals(toUpdate.getBirthDate()))
+                toUpdate.setBirthDate(updated.getBirthDate());
+            if (updated.getDescription() != null && !updated.getDescription().equalsIgnoreCase(toUpdate.getDescription()))
+                toUpdate.setDescription(updated.getDescription());
+            if (updated.getEmail() != null && !updated.getEmail().equalsIgnoreCase(toUpdate.getEmail()))
+                toUpdate.setEmail(updated.getEmail());
+            if (updated.getFirstName() != null && !updated.getFirstName().equalsIgnoreCase(toUpdate.getFirstName()))
+                toUpdate.setFirstName(updated.getFirstName());
+            if (updated.getLastName() != null && !updated.getLastName().equalsIgnoreCase(toUpdate.getLastName()))
+                toUpdate.setLastName(updated.getLastName());
+            if (updated.getImageUrl() != null && !updated.getImageUrl().equals(toUpdate.getImageUrl()))
+                toUpdate.setImageUrl(updated.getImageUrl());
+            updated.setId(id);
             userService.updateUser(updated.toDto());
-            return "redirect:/login";
+            return "redirect:/profile/" + id;
         }
     }
 }

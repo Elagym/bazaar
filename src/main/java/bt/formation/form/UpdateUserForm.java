@@ -10,22 +10,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
 import java.util.Date;
 
-public class SignUpForm {
+public class UpdateUserForm {
 
-    @Size(min = 2, max = 30, message = "Username required.")
-    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Username must contains alphabetical characters or numbers only.")
     private String username;
 
-    @Size(min = 2, max = 30, message = "Password required.")
-    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Password must contains alphabetical characters or numbers only.")
-    private String password;
-
-    @Size(min = 2, max = 30, message = "Passwords must match.")
-    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Password must contains alphabetical characters or numbers only.")
-    private String passwordCheck;
-
     @Email
-    @Pattern(regexp = ".+@.+\\..+", message = "Wrong email!")
     private String email;
 
     @NotNull(message = "Date of birth required")
@@ -33,35 +22,19 @@ public class SignUpForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
-    @Pattern(regexp = "[0-9]+", message = "Only enter numbers !")
     private String phoneNumber;
 
-    @Size(min = 4, max = 24, message = "Firstname must be between 4 & 24 characters")
-    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "First name must contains alphabetical characters or numbers only.")
     private String firstName;
 
-    @Size(min = 4, max = 24, message = "Lastname must be between 4 & 24 characters")
-    @Pattern(regexp = "[a-zA-Z0-9._]{2,20}", message = "Last name must contains alphabetical characters or numbers only.")
     private String lastName;
 
     private String imageURL;
 
     private String description;
 
-
-    @AssertTrue(message = "Passwords must match")
-    public boolean isPasswordMatch() {
-        if (password == null || passwordCheck == null) {
-            return false;
-        } else {
-            return password.equals(passwordCheck);
-        }
-    }
-
     public UserDTO toUser() {
         UserDTO u = new UserDTO();
         u.setUsername(username);
-        u.setPassword(password);
         u.setPhoneNumber(phoneNumber);
         u.setBirthdate(dateOfBirth);
         u.setCreationDate(new Date());
@@ -83,22 +56,6 @@ public class SignUpForm {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPasswordCheck() {
-        return passwordCheck;
-    }
-
-    public void setPasswordCheck(String passwordCheck) {
-        this.passwordCheck = passwordCheck;
     }
 
     public String getEmail() {
