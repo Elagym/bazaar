@@ -90,9 +90,9 @@
                     <form:errors path="description" cssclass="error"></form:errors>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="image">Image* </label>
-                    <div class="col-sm-10">
+                <div class="form-group col-sm-6 col-md-6">
+                    <label class="col-xs-4 col-sm-4 col-md-4" for="image">Image* </label>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
                         <form:input type="file" class="form-control" id="image" path="imageURL"/>
                     </div>
                 </div>

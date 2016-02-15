@@ -96,7 +96,7 @@ public class HomeController {
         categoryService.createOrGetIfExists(cat2.getName());
 
         CategoryDTO cat3 = new CategoryDTO();
-        cat3.setName("Ménager");
+        cat3.setName("Animaux");
         categoryService.createOrGetIfExists(cat3.getName());
 
         CategoryDTO cat4 = new CategoryDTO();
@@ -106,6 +106,26 @@ public class HomeController {
         CategoryDTO cat5 = new CategoryDTO();
         cat5.setName("Salon");
         categoryService.createOrGetIfExists(cat5.getName());
+
+        CategoryDTO cat6 = new CategoryDTO();
+        cat6.setName("Bijoux");
+        categoryService.createOrGetIfExists(cat6.getName());
+
+        CategoryDTO cat7 = new CategoryDTO();
+        cat7.setName("Collections");
+        categoryService.createOrGetIfExists(cat7.getName());
+
+        CategoryDTO cat8 = new CategoryDTO();
+        cat8.setName("Jardin");
+        categoryService.createOrGetIfExists(cat8.getName());
+
+        CategoryDTO cat9 = new CategoryDTO();
+        cat9.setName("Loisirs");
+        categoryService.createOrGetIfExists(cat9.getName());
+
+        CategoryDTO cat10 = new CategoryDTO();
+        cat10.setName("Accessoires");
+        categoryService.createOrGetIfExists(cat10.getName());
 
         servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
 
