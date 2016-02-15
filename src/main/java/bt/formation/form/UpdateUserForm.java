@@ -6,6 +6,7 @@ import bt.formation.dto.UserDTO;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class UpdateUserForm {
 
     private String lastName;
 
-    private String imageURL;
+    private MultipartFile imageURL;
 
     private String description;
 
@@ -42,7 +43,6 @@ public class UpdateUserForm {
         u.setEmail(email);
         u.setFirstname(firstName);
         u.setLastname(lastName);
-        u.setImageUrl(imageURL);
 //        u.setCredentialsNonExpired(true);
 //        u.setAccountNonLocked(true);
 //        u.setAccountNonExpired(true);
@@ -106,11 +106,11 @@ public class UpdateUserForm {
         this.description = description;
     }
 
-    public String getImageURL() {
+    public MultipartFile getImageURL() {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
+    public void setImageURL(MultipartFile imageURL) {
         this.imageURL = imageURL;
     }
 }

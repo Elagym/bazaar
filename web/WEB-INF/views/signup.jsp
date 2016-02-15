@@ -14,7 +14,7 @@
             <h4 style="color:white;">Sign up</h4>
         </div>
         <div class="panel-body">
-            <form:form method="post" action="signup" commandName="signUpForm">
+            <form:form method="post" action="signup" commandName="signUpForm" enctype="multipart/form-data">
                 <div class="col-sm-6 col-md-6 form-group">
                     <label for="usernameInput" class="col-xs-4 col-sm-4 col-md-4" style="display:inline; margin-top:5px;">Username </label>
                     <div class="col-xs-8 col-sm-8 col-md-8" style="display:inline; margin-top:5px;">
@@ -90,13 +90,11 @@
                     <form:errors path="description" cssclass="error"></form:errors>
                 </div>
 
-                <div class="form-group col-sm-6 col-md-6">
-                    <label for="lastNameInput" class="col-xs-4 col-sm-4 col-md-4"
-                           style="display:inline; margin-top:5px;">Profile picture </label>
-                    <div class="col-xs-8 col-sm-8 col-md-8" style="display:inline; margin-top:5px;">
-                        <form:input path="imageURL" id="imageURLInput"></form:input>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="image">Image* </label>
+                    <div class="col-sm-10">
+                        <form:input type="file" class="form-control" id="image" path="imageURL"/>
                     </div>
-                    <form:errors path="imageURL" cssclass="error"></form:errors>
                 </div>
 
                 <div class="row" style="text-align: center;">
