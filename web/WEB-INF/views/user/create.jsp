@@ -5,14 +5,6 @@
 <head>
     <title>Create an offer</title>
     <c:import url="../includes/head.jsp"/>
-    <script>
-        $(document).ready(function() {
-            $('#resizing-select').change(function(){
-                $("#width_tmp_option").html($('#resizing-select option:selected').text());
-                $(this).width($("#width_tmp_select").width()+10);
-            });
-        });
-    </script>
 </head>
 <body>
 <c:import url="../includes/menu.jsp"/>
