@@ -38,6 +38,17 @@
             </div>
             <hr>
             <div>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property='principal.username' var="principal"/>
+                    <c:if test="${ principal == user.username}">
+                        <ul class="nav nav-tabs">
+                            <li role="presentation" class="active"><a href="#offers" aria-controls="home" role="tab" data-toggle="tab">Other offers</a></li>
+                            <li role="presentation"><a href="#requests" aria-controls="home" role="tab" data-toggle="tab">Trading requests</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="offers" style="padding:10px;">
+                    </c:if>
+                </sec:authorize>
                 <h5>Offers from ${user.username}</h5>
                 <c:forEach items="${otherOffers}" var="otherOffer">
                     <div>
@@ -46,6 +57,16 @@
                     </div>
                     <hr>
                 </c:forEach>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property='principal.username' var="principal"/>
+                    <c:if test="${ principal == user.username}">
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade in active" id="requests" style="padding:10px;">
+
+                            </div>
+                        </div>
+                    </c:if>
+                </sec:authorize>
             </div>
         </div>
     </div>
