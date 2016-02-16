@@ -62,10 +62,10 @@
         </div>
         <div class="panel panel-primary" style="width:100%;">
             <div class="panel-heading">
-                <h4 style="color:white;">Follow us on facebook</h4>
+                <h4 style="color:white;">Follow us !</h4>
             </div>
             <div class="panel-body">
-                Body content
+                <img src="<c:url value="/resources/images/social_icons.png"/>" style="cursor:pointer; width:200px;"/>
             </div>
         </div>
         <div class="panel panel-primary" style="width:100%;">

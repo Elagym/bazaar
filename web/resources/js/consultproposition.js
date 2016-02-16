@@ -8,8 +8,8 @@ function consultProp(id) {
             });
         var main_div = $('#consultProp' + id);
         main_div.html('');
-        $('<p>').html(data.description).appendTo(main_div);
-        $('<p>').html('Worth ' + data.estimation + ' €').appendTo(main_div);
+        $('<p>').html('<b>' + data.title + '</b> : ' + data.description).appendTo(main_div);
+        $('<p>').html('Worth ' + data.estimation + ' € !').appendTo(main_div);
         $('<p>').html('Interested in this proposition ? Contact the user at <a href="mailto:' + data.author.email + '">' + data.author.email + '</a>').appendTo(main_div);
     });
 };
