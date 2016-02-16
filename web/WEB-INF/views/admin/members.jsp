@@ -34,7 +34,7 @@
                 </td>
                 <td>
                     <a href="<c:url value="/profile/${user.id}"/>" class="btn btn-primary btn-xs">Voir profil</a>
-                    <a href="<c:url value="/admin/update/${user.id}"/>" class="btn btn-primary btn-xs">Modifier</a>
+                    <a href="<c:url value="/user/update/${user.id}"/>" class="btn btn-primary btn-xs">Modifier</a>
                     <c:if test="${user.id gt 1}">
                         <c:choose>
                             <c:when test="${user.enabled eq true}">
