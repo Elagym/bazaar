@@ -78,7 +78,6 @@
                                         <tr class="panel-collapse collapse" id="prop${proposition.id}">
                                             <td colspan="3">
                                                 <div id="consultProp${proposition.id}" class="panel-body">
-                                                    KIKOU
                                                 </div>
                                             </td>
                                         </tr>

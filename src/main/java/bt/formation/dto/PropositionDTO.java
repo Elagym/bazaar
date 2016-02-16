@@ -13,6 +13,7 @@ public class PropositionDTO {
     private double estimation;
     private boolean viewed;
     private OfferDTO offer;
+    private UserDTO author;
 
     public Proposition toEntity(){
         Proposition proposition = new Proposition();
@@ -22,6 +23,7 @@ public class PropositionDTO {
         proposition.setEstimation(estimation);
         proposition.setViewed(viewed);
         proposition.setOffer(offer.toEntity());
+        proposition.setAuthor(author.toEntity());
         return proposition;
     }
 
@@ -71,5 +73,13 @@ public class PropositionDTO {
 
     public void setOffer(OfferDTO offer) {
         this.offer = offer;
+    }
+
+    public UserDTO getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserDTO author) {
+        this.author = author;
     }
 }

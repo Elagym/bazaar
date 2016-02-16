@@ -177,6 +177,7 @@ public class HomeController {
         propositionDTO.setDescription("Here is my proposition BOBBY !");
         propositionDTO.setEstimation(19999);
         propositionDTO.setTitle("A brand new car");
+        propositionDTO.setAuthor(adminDTO);
         propositionDTO = propositionService.createProposition(propositionDTO);
 
         PropositionDTO propositionDTO2 = new PropositionDTO();
@@ -185,6 +186,7 @@ public class HomeController {
         propositionDTO2.setDescription("I have nothing to say about it...");
         propositionDTO2.setEstimation(1500);
         propositionDTO2.setTitle("Laptop");
+        propositionDTO2.setAuthor(adminDTO);
         propositionDTO2 = propositionService.createProposition(propositionDTO2);
 
         PropositionDTO propositionDTO3 = new PropositionDTO();
@@ -193,6 +195,7 @@ public class HomeController {
         propositionDTO3.setDescription("Do you accept my proposition ?");
         propositionDTO3.setEstimation(45);
         propositionDTO3.setTitle("DVD's");
+        propositionDTO3.setAuthor(adminDTO);
         propositionDTO3 = propositionService.createProposition(propositionDTO3);
 
 

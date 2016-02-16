@@ -19,6 +19,9 @@ public class Proposition {
     @ManyToOne
     private Offer offer;
 
+    @ManyToOne
+    private User author;
+
     public Proposition() {
     }
 
@@ -76,6 +79,14 @@ public class Proposition {
         this.viewed = viewed;
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
     public PropositionDTO toDto(){
         PropositionDTO dto = new PropositionDTO();
         dto.setId(id);
@@ -84,6 +95,7 @@ public class Proposition {
         dto.setTitle(title);
         dto.setViewed(viewed);
         dto.setOffer(offer.toDto());
+        dto.setAuthor(author.toDto());
         return dto;
     }
 }
