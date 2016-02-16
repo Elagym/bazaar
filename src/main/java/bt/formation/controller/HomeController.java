@@ -1,19 +1,13 @@
 package bt.formation.controller;
 
-import bt.formation.dto.CategoryDTO;
-import bt.formation.dto.CommentDTO;
-import bt.formation.dto.OfferDTO;
-import bt.formation.dto.UserDTO;
+import bt.formation.dto.*;
 import bt.formation.entity.Authority;
 import bt.formation.entity.User;
 import bt.formation.form.CreateOfferForm;
 import bt.formation.form.SignUpForm;
 import bt.formation.form.UpdateUserForm;
 import bt.formation.model.PincodeVerify;
-import bt.formation.service.AuthorityService;
-import bt.formation.service.CategoryService;
-import bt.formation.service.OfferService;
-import bt.formation.service.UserService;
+import bt.formation.service.*;
 import com.google.gson.Gson;
 import org.hibernate.search.indexes.serialization.javaserialization.impl.Update;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +54,9 @@ public class HomeController {
 
     @Autowired
     OfferService offerService;
+
+    @Autowired
+    PropositionService propositionService;
 
     @PostConstruct
     public void init() {
@@ -144,7 +141,7 @@ public class HomeController {
         offer.getCategories().add(categoryService.findById(2L));
         offer.getCategories().add(categoryService.findById(3L));
         offer.getCategories().add(categoryService.findById(4L));
-        offerService.createOffer(offer);
+        offer = offerService.createOffer(offer);
 
         OfferDTO offer2 = new OfferDTO();
         offer2.setTitle("Volvo S60 2.4 d 126ch*Cuir*Clim auto*Ja*Carnet d'entretien*");
@@ -173,6 +170,36 @@ public class HomeController {
         offer3.setImageUrl("04.jpg");
         offer3.getCategories().add(categoryService.findById(5L));
         offerService.createOffer(offer3);
+
+        PropositionDTO propositionDTO = new PropositionDTO();
+        propositionDTO.setOffer(offer);
+        propositionDTO.setViewed(false);
+        propositionDTO.setDescription("Here is my proposition BOBBY !");
+        propositionDTO.setEstimation(19999);
+        propositionDTO.setTitle("A brand new car");
+        propositionDTO = propositionService.createProposition(propositionDTO);
+
+        PropositionDTO propositionDTO2 = new PropositionDTO();
+        propositionDTO2.setOffer(offer);
+        propositionDTO2.setViewed(false);
+        propositionDTO2.setDescription("I have nothing to say about it...");
+        propositionDTO2.setEstimation(1500);
+        propositionDTO2.setTitle("Laptop");
+        propositionDTO2 = propositionService.createProposition(propositionDTO2);
+
+        PropositionDTO propositionDTO3 = new PropositionDTO();
+        propositionDTO3.setOffer(offer);
+        propositionDTO3.setViewed(false);
+        propositionDTO3.setDescription("Do you accept my proposition ?");
+        propositionDTO3.setEstimation(45);
+        propositionDTO3.setTitle("DVD's");
+        propositionDTO3 = propositionService.createProposition(propositionDTO3);
+
+
+        userDTO.getPropositions().add(propositionDTO);
+        userDTO.getPropositions().add(propositionDTO2);
+        userDTO.getPropositions().add(propositionDTO3);
+        userService.updateUser(userDTO);
 
     }
 

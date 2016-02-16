@@ -3,9 +3,11 @@ package bt.formation.controller;
 
 import bt.formation.dto.CommentDTO;
 import bt.formation.dto.OfferDTO;
+import bt.formation.dto.PropositionDTO;
 import bt.formation.dto.UserDTO;
 import bt.formation.service.CommentService;
 import bt.formation.service.OfferService;
+import bt.formation.service.PropositionService;
 import bt.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,8 @@ public class WebServiceController {
     CommentService commentService;
     @Autowired
     UserService userService;
+    @Autowired
+    PropositionService propositionService;
 
     @RequestMapping("/offers/refresh")
     public List<OfferDTO> refreshOffers(){
@@ -49,6 +53,13 @@ public class WebServiceController {
             offerService.createOffer(offer); //create = update
             return userService.handleLikedOffer(userId, offerId);
         }
+    }
+
+    @RequestMapping("/user/viewproposition/{id}")
+    public PropositionDTO viewProposition(@PathVariable Long id){
+        PropositionDTO dto = propositionService.findById(id);
+        dto.setViewed(true);
+        return propositionService.updateProposition(dto);
     }
 
 }

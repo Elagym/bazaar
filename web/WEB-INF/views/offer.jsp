@@ -126,6 +126,12 @@
                                             <textarea type="" class="form-control" id="message" placeholder="Type your message here" rows="5"></textarea>
                                         </div>
                                     </div>
+                                    <div id="yourEstimation" class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label" for="estimation">Estimation(€)</label>
+                                        <div class="col-md-10 col-sm-10">
+                                            <input type="text" class="form-control" id="estimation" placeholder="">
+                                        </div>
+                                    </div>
 
                                     <div id="yourImage" class="form-group">
                                         <label class="col-sm-2 control-label" for="image">Image</label>
@@ -264,12 +270,12 @@
     var popularity = ${offer.popularity};
 </script>
 <script>
-    $('#yourImage, #yourOffer').hide();
+    $('#yourImage, #yourOffer, #yourEstimation').hide();
     $( "input[name=type]").on('change', function(){
        if($("input[name=type]:checked").val() == "question"){
-           $('#yourImage, #yourOffer').hide();
+           $('#yourImage, #yourOffer, #yourEstimation').hide();
        }else{
-           $('#yourImage, #yourOffer').show();
+           $('#yourImage, #yourOffer, #yourEstimation').show();
        }
     });
 </script>
