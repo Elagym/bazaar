@@ -30,6 +30,7 @@
                     </ul>
                 </li>
                 <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal" var="menuuser"/>
                     <li <c:if test="${uri[3].equals(\"create\")}"> class="active" </c:if>>
                         <a href="<c:url value="/user/create"/>">Create offer</a>
                     </li>
@@ -48,11 +49,60 @@
                 </sec:authorize>
 
             </ul>
+            <script>
+                function refreshProps(){
+                    $.ajax("http://localhost:8080/bazaar/api/user/getnewpropscount/" + ${menuuser.id}).done( function(data){
+                        if(data.length == 0) {
+                            $('#prop-badge').hide();
+                        }
+                        else {
+                            $('#prop-badge').text(data.length);
+
+                            var modal_table = $('#modalTable');
+                            modal_table.html('');
+                            $('<tr>').html('<th>Offer name</th><th>Proposition</th><th></th>').appendTo(modal_table);
+                            $.each(data, function (i, prop) {
+                                var line = $('<tr>').appendTo(modal_table);
+                                $('<td>').html(prop.offer.title).appendTo(line);
+                                var prop_title = $('<td>').appendTo(line);
+                                $('<a>').attr({
+                                    'role': 'button',
+                                    'data-toggle': 'collapse',
+                                    'href': '#menuprop' + prop.id,
+                                    'aria-expended': 'false',
+                                    'aria-controls': 'menuprop' + prop.id,
+                                    'onclick': 'consultProp(' + prop.id + ', "menu"); decrement();'
+                                }).html(prop.title).appendTo(prop_title);
+                                var icon_block = $('<td>').attr('id', 'newIcon' + prop.id).appendTo(line);
+                                $('<img>').attr({
+                                    'src': '<c:url value="/resources/images/new.png"/>', 'style': 'width:30px'
+                                }).appendTo(icon_block);
+                                var collapse_line = $('<tr>').attr({
+                                    'class': 'panel-collapse collapse', 'id': 'menuprop' + prop.id
+                                }).appendTo(modal_table);
+                                var collapse_content = $('<td>').attr('colspan', 3).appendTo(collapse_line);
+                                $('<div>').attr({
+                                    'id': 'menuConsultProp' + prop.id, 'class': 'panel-body'
+                                }).appendTo(collapse_content);
+                            });
+                        }
+                    });
+                }
+                function decrement(){
+                    $('#prop-badge').text($('#prop-badge').text()-1);
+                    if($('#prop-badge').text() == 0){
+                        $('#prop-badge').hide();
+                    }
+                }
+                $(document).ready(function() {
+                    refreshProps();
+                });
+            </script>
             <ul class="nav navbar-nav navbar-right">
-                <sec:authentication property="principal" var="user" />
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/profile/${user.id}"/>">My profile</a></li>
-                    <li><a href="<c:url value="/logout"/>">Log out(${user.username})</a></li>
+                    <li><a href="#" style="padding-right: 0;"><span id="prop-badge" class="badge" style="background-color:#C70D0D;" title="You have ${menuuser.newPropsCount} new propositions" data-toggle="modal" data-target="#newPropsModal" onclick="refreshProps()">${menuuser.newPropsCount}</span></a></li>
+                    <li><a href="<c:url value="/profile/${menuuser.id}"/>">My profile</a></li>
+                    <li><a href="<c:url value="/logout"/>">Log out(${menuuser.username})</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
                     <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a
@@ -62,5 +112,42 @@
                 </sec:authorize>
             </ul>
         </div>
+        <%--Modal new Props--%>
+        <sec:authorize access="isAuthenticated()">
+            <div class="modal fade" id="newPropsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">New propositions</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table id="modalTable" class="table table-striped table-hover">
+                                <%--<tr>--%>
+                                    <%--<th>Offer name</th>--%>
+                                    <%--<th>Proposition</th>--%>
+                                    <%--<th></th>--%>
+                                <%--</tr>--%>
+                                <%--<c:forEach var="proposition" items="${user.propositions}">--%>
+                                    <%--<c:if test="${not proposition.viewed}">--%>
+                                        <%--<tr>--%>
+                                            <%--<td>${proposition.offer.title}</td>--%>
+                                            <%--<td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}); decrement();">${proposition.title}</a></td>--%>
+                                            <%--<td id="newIcon${proposition.id}"><c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if> </td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr class="panel-collapse collapse" id="prop${proposition.id}">--%>
+                                            <%--<td colspan="3">--%>
+                                                <%--<div id="consultProp${proposition.id}" class="panel-body">--%>
+                                                <%--</div>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
+                                    <%--</c:if>--%>
+                                <%--</c:forEach>--%>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </sec:authorize>
     </div>
 </nav>

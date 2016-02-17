@@ -10,6 +10,9 @@ import bt.formation.service.OfferService;
 import bt.formation.service.PropositionService;
 import bt.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +63,14 @@ public class WebServiceController {
         PropositionDTO dto = propositionService.findById(id);
         dto.setViewed(true);
         return propositionService.updateProposition(dto);
+    }
+
+    @RequestMapping("/user/getnewpropscount/{id}")
+    public List<PropositionDTO> getNewPropsCount(@PathVariable Long id){
+        UserDTO dto = userService.findById(id);
+        List<PropositionDTO> toReturn = dto.getPropositions();
+        toReturn.removeIf(p -> p.isViewed());
+        return toReturn;
     }
 
 }
