@@ -66,5 +66,15 @@ public class OfferServiceImpl implements OfferService {
         return list;
     }
 
+    @Override
+    public List<OfferDTO> findFavoriteOffers(Long userId) {
+        List<Offer> offers = offerRepository.findFavoriteOffers(userId);
+        List<OfferDTO> list = new ArrayList<>();
+        for (Offer o : offers) {
+            list.add(o.toDto());
+        }
+        return list;
+    }
+
 
 }

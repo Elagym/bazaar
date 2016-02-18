@@ -5,7 +5,7 @@
 <head>
     <title>My Profile</title>
     <c:import url="includes/head.jsp"/>
-    <%--<script src="<c:url value="/resources/js/consultproposition.js"/>"></script>--%>
+    <%--<script src="<c:url value="/resources/js/consultproposition.js"/>"></script>--%> <%--Already included in menu.jsp--%>
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
@@ -30,6 +30,25 @@
                     <label> Date of birth :</label> ${user.birthdate} <br/>
                     <label> Phone number :</label> ${user.phoneNumber} <br/>
                     <label> Description :</label> ${user.description} <br/>
+                    <span>Feedback : </span>
+                        ${thumbsUp}<span class="glyphicon glyphicon-thumbs-up" style="font-size: 12px; margin-right: 5px; color:green;"></span>
+                        ${thumbsDown} <span class="glyphicon glyphicon-thumbs-down" style="font-size: 12px; margin-right: 5px; color:red;"></span>
+                        <span>(<a id="displayComments" href="#" data-toggle="modal" data-target="#showComments">${thumbsUp+thumbsDown}</a>)</span>
+
+                    <div class="modal fade" id="showComments">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        <span class="glyphicon glyphicon-remove"></span></button>
+                                    <h4 class="modal-title">${user.username} - Comments</h4>
+                                </div>
+                                <div id="modalComments" class="modal-body">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <sec:authorize access="isAuthenticated()">
                         <c:if test="${user.id != currentUserId}">
                             <a href="#" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#leaveComment">Leave a comment</a>
@@ -45,6 +64,7 @@
                         <ul class="nav nav-tabs">
                             <li role="presentation" class="active"><a href="#offers" aria-controls="home" role="tab" data-toggle="tab">Other offers</a></li>
                             <li role="presentation"><a href="#requests" aria-controls="home" role="tab" data-toggle="tab">Trading requests</a></li>
+                            <li role="presentation"><a href="#favs" aria-controls="home" role="tab" data-toggle="tab" onclick="showFavs()">Favourites offers</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="offers" style="padding:10px;">
@@ -87,6 +107,11 @@
                                     </c:forEach>
                                 </table>
                             </div>
+                            <div role="tabpanel" class="tab-pane" id="favs" style="padding:10px;">
+                                <table id="favTable" class="table table-striped table-hover">
+                                    <%--Voir script--%>
+                                </table>
+                            </div>
                         </div>
                     </c:if>
                 </sec:authorize>
@@ -94,7 +119,26 @@
         </div>
     </div>
 </div>
-
+<script>
+    var ctx = '${pageContext.request.contextPath}';
+    function showFavs(){
+        $.ajax("http://localhost:8080/bazaar/api/user/getfavsoffers/" + ${user.id}).done(function(data){
+            var fav_table = $('#favTable');
+            if(data.length > 0) {
+                fav_table.html('<tr><th>Offer name</th><th>Author</th></tr>');
+                $.each(data, function (i, offer) {
+                    var line = $('<tr>').appendTo(fav_table);
+                    var offer_info = $('<td>').appendTo(line);
+                    $('<a>').attr('href', ctx + '/offer/' + offer.id).text(offer.title).appendTo(offer_info);
+                    var author_info = $('<td>').appendTo(line);
+                    $('<a>').attr('href', ctx + '/profile/' + offer.owner.id).text(offer.owner.username).appendTo(author_info);
+                });
+            } else {
+                fav_table.html('You have no favourite offers');
+            }
+        });
+    }
+</script>
 </body>
 <c:import url="includes/footer.jsp"/>
 </html>

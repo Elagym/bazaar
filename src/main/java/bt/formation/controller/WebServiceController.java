@@ -5,6 +5,7 @@ import bt.formation.dto.CommentDTO;
 import bt.formation.dto.OfferDTO;
 import bt.formation.dto.PropositionDTO;
 import bt.formation.dto.UserDTO;
+import bt.formation.entity.Offer;
 import bt.formation.service.CommentService;
 import bt.formation.service.OfferService;
 import bt.formation.service.PropositionService;
@@ -71,6 +72,11 @@ public class WebServiceController {
         List<PropositionDTO> toReturn = dto.getPropositions();
         toReturn.removeIf(p -> p.isViewed());
         return toReturn;
+    }
+
+    @RequestMapping("/user/getfavsoffers/{userId}")
+    public List<OfferDTO> getFavsOffers(@PathVariable Long userId){
+        return offerService.findFavoriteOffers(userId);
     }
 
 }

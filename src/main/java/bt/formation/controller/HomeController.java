@@ -236,6 +236,17 @@ public class HomeController {
         }
         List<OfferDTO> otherOffers = offerService.findByUserId(user.getId());
         model.addAttribute("otherOffers", otherOffers);
+
+        int thumbsUp = 0;
+        int thumbsDown = 0;
+        for (CommentDTO comm : user.getComments()) {
+            if (comm.isLiked()) thumbsUp++;
+            else thumbsDown++;
+        }
+
+        model.addAttribute("thumbsUp", thumbsUp);
+        model.addAttribute("thumbsDown", thumbsDown);
+
         return "profile";
     }
 
