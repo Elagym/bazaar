@@ -1,6 +1,7 @@
 package bt.formation.dto;
 
 import bt.formation.entity.Proposition;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Student on 27-01-16.
@@ -14,6 +15,7 @@ public class PropositionDTO {
     private boolean viewed;
     private OfferDTO offer;
     private UserDTO author;
+    private String image;
 
     public Proposition toEntity(){
         Proposition proposition = new Proposition();
@@ -24,6 +26,7 @@ public class PropositionDTO {
         proposition.setViewed(viewed);
         proposition.setOffer(offer.toEntity());
         proposition.setAuthor(author.toEntity());
+        proposition.setImage(image);
         return proposition;
     }
 
@@ -81,5 +84,13 @@ public class PropositionDTO {
 
     public void setAuthor(UserDTO author) {
         this.author = author;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

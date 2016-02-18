@@ -3,6 +3,7 @@ package bt.formation.controller;
 import bt.formation.dto.*;
 import bt.formation.entity.Authority;
 import bt.formation.entity.User;
+import bt.formation.form.ContactForm;
 import bt.formation.form.CreateOfferForm;
 import bt.formation.form.SignUpForm;
 import bt.formation.form.UpdateUserForm;
@@ -31,6 +32,7 @@ import javax.validation.Valid;
 import java.io.*;
 import java.net.*;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -84,45 +86,16 @@ public class HomeController {
         user.setImageUrl("05.jpg");
         UserDTO userDTO = userService.signUpUser(user.toDto());
 
-        CategoryDTO cat1 = new CategoryDTO();
-        cat1.setName("Autres");
-        categoryService.createOrGetIfExists(cat1.getName());
-
-        CategoryDTO cat2 = new CategoryDTO();
-        cat2.setName("Voiture");
-        categoryService.createOrGetIfExists(cat2.getName());
-
-        CategoryDTO cat3 = new CategoryDTO();
-        cat3.setName("Animaux");
-        categoryService.createOrGetIfExists(cat3.getName());
-
-        CategoryDTO cat4 = new CategoryDTO();
-        cat4.setName("Cuisine");
-        categoryService.createOrGetIfExists(cat4.getName());
-
-        CategoryDTO cat5 = new CategoryDTO();
-        cat5.setName("Salon");
-        categoryService.createOrGetIfExists(cat5.getName());
-
-        CategoryDTO cat6 = new CategoryDTO();
-        cat6.setName("Bijoux");
-        categoryService.createOrGetIfExists(cat6.getName());
-
-        CategoryDTO cat7 = new CategoryDTO();
-        cat7.setName("Collections");
-        categoryService.createOrGetIfExists(cat7.getName());
-
-        CategoryDTO cat8 = new CategoryDTO();
-        cat8.setName("Jardin");
-        categoryService.createOrGetIfExists(cat8.getName());
-
-        CategoryDTO cat9 = new CategoryDTO();
-        cat9.setName("Loisirs");
-        categoryService.createOrGetIfExists(cat9.getName());
-
-        CategoryDTO cat10 = new CategoryDTO();
-        cat10.setName("Accessoires");
-        categoryService.createOrGetIfExists(cat10.getName());
+        categoryService.createOrGetIfExists("Autres");
+        categoryService.createOrGetIfExists("Voiture");
+        categoryService.createOrGetIfExists("Animaux");
+        categoryService.createOrGetIfExists("Cuisine");
+        categoryService.createOrGetIfExists("Salon");
+        categoryService.createOrGetIfExists("Bijoux");
+        categoryService.createOrGetIfExists("Collections");
+        categoryService.createOrGetIfExists("Jardin");
+        categoryService.createOrGetIfExists("Loisirs");
+        categoryService.createOrGetIfExists("Accessoires");
 
         servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
 
@@ -410,6 +383,9 @@ public class HomeController {
 
         List<OfferDTO> otherOffers = offerService.findByUserId(offer.getOwner().getId());
         model.addAttribute("otherOffers", otherOffers);
+        ContactForm contactForm = new ContactForm();
+        contactForm.setTargetId(offer.getOwner().getId().toString());
+        model.addAttribute("contactForm", contactForm);
 
         return "offer";
     }
@@ -501,5 +477,30 @@ public class HomeController {
             userService.updateUser(toUpdate);
             return "redirect:/profile/" + id;
         }
+    }
+
+    @RequestMapping(value = "/offer/{id}", method = RequestMethod.POST)
+    public String questionOrOffer(@PathVariable Long id, @Valid ContactForm contactForm, @AuthenticationPrincipal UserDTO user, BindingResult bindingResult) {
+        if (contactForm.getType().equalsIgnoreCase("question")) {
+            System.out.println("Question or offer ? -> Question");
+        }
+        if (contactForm.getType().equalsIgnoreCase("offer")) {
+            PropositionDTO propositionDTO = contactForm.toPropositionDTO();
+            propositionDTO.setAuthor(userService.findById(user.getId()));
+            propositionDTO.setOffer(offerService.findById(id));
+            if (contactForm.getImage() != null)
+                try {
+                    propositionDTO.setImage(uploadFile(contactForm.getImage()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            propositionDTO = propositionService.createProposition(propositionDTO);
+            UserDTO userDTO = userService.findById(Long.parseLong(contactForm.getTargetId()));
+            userDTO.getPropositions().add(propositionDTO);
+            userService.updateUser(userDTO);
+            System.out.println("Question or offer ? -> Offer");
+        }
+        System.out.println("End of questionOrOffer : " + contactForm.getType());
+        return "redirect:/offer/" + id;
     }
 }

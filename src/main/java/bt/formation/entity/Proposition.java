@@ -1,6 +1,7 @@
 package bt.formation.entity;
 
 import bt.formation.dto.PropositionDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ public class Proposition {
     private String description;
     private Double estimation;
     private boolean viewed;
+    private String image;
 
     @ManyToOne
     private Offer offer;
@@ -96,6 +98,15 @@ public class Proposition {
         dto.setViewed(viewed);
         dto.setOffer(offer.toDto());
         dto.setAuthor(author.toDto());
+        dto.setImage(image);
         return dto;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
