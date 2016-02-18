@@ -15,6 +15,10 @@ function consultProp(id, from) {
         $('<p>').html('Interested in this proposition ? Contact the user at <a href="mailto:' + data.author.email + '">' + data.author.email + '</a>').appendTo(main_div);
 
         if(data.viewed) {
+            $('#newIconMenu' + id).fadeOut(1000, function () {
+                $('#newIconMenu' + id).html('');
+                $('#newIconMenu' + id).attr('style', 'display:default;');
+            });
             $('#newIcon' + id).fadeOut(1000, function () {
                 $('#newIcon' + id).html('');
                 $('#newIcon' + id).attr('style', 'display:default;');
@@ -22,3 +26,9 @@ function consultProp(id, from) {
         }
     });
 };
+function decrement(){
+    $('#prop-badge').text($('#prop-badge').text()-1);
+    if($('#prop-badge').text() == 0){
+        $('#prop-badge').hide();
+    }
+}

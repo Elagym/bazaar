@@ -102,6 +102,7 @@ public class Proposition {
         UserDTO u = new UserDTO();
         u.setId(author.getId());
         u.setUsername(author.getUsername());
+        u.setEmail(author.getEmail());
         dto.setAuthor(u);
 
         OfferDTO o = new OfferDTO();

@@ -73,7 +73,7 @@
                                     'aria-controls': 'menuprop' + prop.id,
                                     'onclick': 'consultProp(' + prop.id + ', "menu"); decrement();'
                                 }).html(prop.title).appendTo(prop_title);
-                                var icon_block = $('<td>').attr('id', 'newIcon' + prop.id).appendTo(line);
+                                var icon_block = $('<td>').attr('id', 'newIconMenu' + prop.id).appendTo(line);
                                 $('<img>').attr({
                                     'src': '<c:url value="/resources/images/new.png"/>', 'style': 'width:30px'
                                 }).appendTo(icon_block);
@@ -87,12 +87,6 @@
                             });
                         }
                     });
-                }
-                function decrement(){
-                    $('#prop-badge').text($('#prop-badge').text()-1);
-                    if($('#prop-badge').text() == 0){
-                        $('#prop-badge').hide();
-                    }
                 }
                 $(document).ready(function() {
                     refreshProps();

@@ -5,10 +5,14 @@
 <head>
     <title>My Profile</title>
     <c:import url="includes/head.jsp"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
+    <script src="<c:url value="/resources/js/showcomments.js"/>"></script>
     <%--<script src="<c:url value="/resources/js/consultproposition.js"/>"></script>--%> <%--Already included in menu.jsp--%>
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
+<sec:authentication property='principal' var="principal"/>
 <div class="container-fluid size">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -49,18 +53,66 @@
                             </div>
                         </div>
                     </div>
+
                     <sec:authorize access="isAuthenticated()">
-                        <c:if test="${user.id != currentUserId}">
-                            <a href="#" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#leaveComment">Leave a comment</a>
+                        <c:if test="${user.id != principal.id}">
+                            <a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
+                               data-target="#leaveComment">Leave a comment</a>
                         </c:if>
                     </sec:authorize>
+                    <div class="modal fade" id="leaveComment">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        <span class="glyphicon glyphicon-remove"></span></button>
+                                    <h4 class="modal-title">${user.username} - Leave a comment</h4>
+                                </div>
+                                <form action="<c:url value="/commentfromprofile"/>" method="post" id="formComment"
+                                      class="form-horizontal">
+                                    <div class="modal-body">
+                                        <div style="height:30px; text-align:center; margin-bottom:40px;">
+                                            <span>Like or unlike ?</span><br/>
+                                            <input type="checkbox" name="thumb" onColor="success"
+                                                   offColor="danger"
+                                                   data-on-text="<i class='glyphicon glyphicon-thumbs-up'></i>"
+                                                   data-off-text="<i class='glyphicon glyphicon-thumbs-down'></i>"
+                                                   data-on-color="success" data-off-color="danger" checked>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="commentTitle" class="col-xs-3 col-sm-3 col-md-3"
+                                                   style="display:inline; margin-top:5px;">Comment </label>
+                                            <div class="col-xs-9 col-sm-9 col-md-9"
+                                                 style="display:inline; margin-top:5px;">
+                                                <input type="text" name="title" id="commentTitle"
+                                                       placeholder="Title" rows="3" style="width: 90%;"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="messageInput" class="col-xs-3 col-sm-3 col-md-3"
+                                                   style="display:inline; margin-top:5px;">Message </label>
+                                            <div class="col-xs-9 col-sm-9 col-md-9"
+                                                 style="display:inline; margin-top:5px;">
+                                                        <textarea name="message" id="messageInput"
+                                                                  placeholder="Leave your comment here" rows="3"
+                                                                  style="width: 90%;"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="${user.id}" name="userId">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>
             <div>
                 <sec:authorize access="isAuthenticated()">
-                    <sec:authentication property='principal.username' var="principal"/>
-                    <c:if test="${ principal == user.username}">
+                    <c:if test="${ principal.username == user.username}">
                         <ul class="nav nav-tabs">
                             <li role="presentation" class="active"><a href="#offers" aria-controls="home" role="tab" data-toggle="tab">Other offers</a></li>
                             <li role="presentation"><a href="#requests" aria-controls="home" role="tab" data-toggle="tab">Trading requests</a></li>
@@ -92,7 +144,7 @@
                                     <c:forEach var="proposition" items="${user.propositions}">
                                         <tr>
                                             <td>${proposition.offer.title}</td>
-                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}, 'profile')">${proposition.title}</a></td>
+                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}, 'profile'); decrement();">${proposition.title}</a></td>
                                             <td id="newIcon${proposition.id}">
 
                                                 <c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if>
@@ -120,6 +172,7 @@
     </div>
 </div>
 <script>
+    var id = ${user.id};
     var ctx = '${pageContext.request.contextPath}';
     function showFavs(){
         $.ajax("http://localhost:8080/bazaar/api/user/getfavsoffers/" + ${user.id}).done(function(data){

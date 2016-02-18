@@ -60,6 +60,9 @@ public class HomeController {
     @Autowired
     PropositionService propositionService;
 
+    @Autowired
+    CommentService commentService;
+
     @PostConstruct
     public void init() {
         User admin = new User();
@@ -513,5 +516,21 @@ public class HomeController {
         }
         System.out.println("End of questionOrOffer : " + contactForm.getType());
         return "redirect:/offer/" + id;
+    }
+
+    @RequestMapping("/commentfromprofile")
+    public String comment(@AuthenticationPrincipal UserDTO author, @RequestParam String userId, @RequestParam String message, @RequestParam(required = false) String thumb, @RequestParam String title){
+        CommentDTO comment = new CommentDTO();
+        comment.setTitle(title);
+        comment.setDescription(message);
+        comment.setLiked(("on".equals(thumb)) ? true : false);
+        comment.setAuthor(author);
+        comment = commentService.createComment(comment);
+
+        UserDTO user = userService.findById(Long.parseLong(userId));
+        user.getComments().add(comment);
+        userService.updateUser(user);
+
+        return "redirect:/profile/" + user.getId();
     }
 }

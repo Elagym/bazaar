@@ -6,8 +6,7 @@
 <head>
     <title>Offer : ${offer.title}</title>
     <c:import url="includes/head.jsp"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css"
-          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
     <script src="<c:url value="/resources/js/showcomments.js"/>"></script>
     <script src="<c:url value="/resources/js/likeoffer.js"/>"></script>
@@ -85,74 +84,75 @@
             <div>
                 <%--nav tabs--%>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#desc" aria-controls="home" role="tab"
-                                                              data-toggle="tab">Description</a></li>
-                    <li role="presentation"><a href="#contact" aria-controls="home" role="tab"
-                                               data-toggle="tab">Contact</a></li>
-                    <li role="presentation"><a href="#owner" aria-controls="home" role="tab" data-toggle="tab">Owner
-                        profile</a></li>
+                    <li role="presentation" class="active"><a href="#desc" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                    <c:if test="${owner.id != currentUserId}">
+                        <li role="presentation"><a href="#contact" aria-controls="home" role="tab" data-toggle="tab">Contact</a></li>
+                    </c:if>
+                    <li role="presentation"><a href="#owner" aria-controls="home" role="tab" data-toggle="tab">Owner profile</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="desc" style="padding:10px;">
                         ${offer.description}
                     </div>
-                    <div role="tabpanel" class="tab-pane fade " id="contact" style="padding:10px;">
-                        <sec:authorize access="isAuthenticated()">
-                            <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer or propose a trade, fill this form to contact the owner.</span>
-                            <form:form method="post" class="form-horizontal" style="max-width: 90%;"
-                                       commandName="contactForm" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 control-label">Type</label>
-                                    <div class="col-md-10 col-sm-10">
-                                        <form:radiobutton path="type"
-                                                          value="question"
-                                                          checked="true"/> Ask a question
-                                        <form:radiobutton path="type" value="offer"/> Propose a trade
+                    <c:if test="${owner.id != currentUserId}">
+                        <div role="tabpanel" class="tab-pane fade " id="contact" style="padding:10px;">
+                            <sec:authorize access="isAuthenticated()">
+                                <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer or propose a trade, fill this form to contact the owner.</span>
+                                <form:form method="post" class="form-horizontal" style="max-width: 90%;"
+                                           commandName="contactForm" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">Type</label>
+                                        <div class="col-md-10 col-sm-10">
+                                            <form:radiobutton path="type"
+                                                              value="question"
+                                                              checked="true"/> Ask a question
+                                            <form:radiobutton path="type" value="offer"/> Propose a trade
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="yourTitle" class="form-group">
-                                    <label class="col-sm-2 control-label" for="yourTitle">Title* </label>
-                                    <div class="col-sm-10">
-                                        <form:input path="title" type="text" class="form-control" placeholder="Object"/>
+                                    <div id="yourTitle" class="form-group">
+                                        <label class="col-sm-2 control-label" for="yourTitle">Title* </label>
+                                        <div class="col-sm-10">
+                                            <form:input path="title" type="text" class="form-control" placeholder="Object"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="yourOffer" class="form-group">
-                                    <label class="col-sm-2 control-label" for="yourOffer">Your offer </label>
-                                    <div class="col-sm-10">
-                                        <form:input path="offer" type="text" class="form-control"
-                                                    placeholder="What you give"/>
+                                    <div id="yourOffer" class="form-group">
+                                        <label class="col-sm-2 control-label" for="yourOffer">Your offer </label>
+                                        <div class="col-sm-10">
+                                            <form:input path="offer" type="text" class="form-control"
+                                                        placeholder="What you give"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="yourMessage" class="form-group">
-                                    <label class="col-sm-2 control-label" for="yourMessage">Message* </label>
-                                    <div class="col-sm-10">
-                                        <form:input path="message" type="text" class="form-control"
-                                                    placeholder="Type your message here"/>
+                                    <div id="yourMessage" class="form-group">
+                                        <label class="col-sm-2 control-label" for="yourMessage">Message* </label>
+                                        <div class="col-sm-10">
+                                            <form:input path="message" type="text" class="form-control"
+                                                        placeholder="Type your message here"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="yourEstimation" class="form-group">
-                                    <label class="col-sm-2 control-label" for="yourEstimation">Estimation(€) </label>
-                                    <div class="col-sm-10">
-                                        <form:input path="estimation" type="text" class="form-control"
-                                                    placeholder=""/>
+                                    <div id="yourEstimation" class="form-group">
+                                        <label class="col-sm-2 control-label" for="yourEstimation">Estimation(€) </label>
+                                        <div class="col-sm-10">
+                                            <form:input path="estimation" type="text" class="form-control"
+                                                        placeholder=""/>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div id="yourImage" class="form-group">
-                                    <label class="col-sm-2 control-label" for="yourImage">Image* </label>
-                                    <div class="col-sm-10">
-                                        <form:input type="file" class="form-control" id="image" path="image"/>
+                                    <div id="yourImage" class="form-group">
+                                        <label class="col-sm-2 control-label" for="yourImage">Image* </label>
+                                        <div class="col-sm-10">
+                                            <form:input type="file" class="form-control" id="image" path="image"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <form:hidden path="targetId"/>
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </form:form>
-                        </sec:authorize>
-                        <sec:authorize access="isAnonymous()">
-                            <span>You must be logged in to access this category</span>
-                        </sec:authorize>
-                    </div>
+                                    <form:hidden path="targetId"/>
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </form:form>
+                            </sec:authorize>
+                            <sec:authorize access="isAnonymous()">
+                                <span>You must be logged in to access this category</span>
+                            </sec:authorize>
+                        </div>
+                    </c:if>
                     <div role="tabpanel" class="tab-pane fade " id="owner" style="padding:10px;">
                         <div style="height: 76px;">
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..."
@@ -305,8 +305,10 @@
     $("input[name=type]").on('change', function () {
         if ($("input[name=type]:checked").val() == "question") {
             $('#yourImage, #yourOffer, #yourEstimation').hide();
+            $('#yourTitle').show();
         } else {
             $('#yourImage, #yourOffer, #yourEstimation').show();
+            $('#yourTitle').hide();
         }
     });
 </script>
