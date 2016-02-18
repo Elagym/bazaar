@@ -1,6 +1,8 @@
 package bt.formation.entity;
 
+import bt.formation.dto.OfferDTO;
 import bt.formation.dto.PropositionDTO;
+import bt.formation.dto.UserDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -96,8 +98,19 @@ public class Proposition {
         dto.setDescription(description);
         dto.setTitle(title);
         dto.setViewed(viewed);
-        dto.setOffer(offer.toDto());
-        dto.setAuthor(author.toDto());
+
+        UserDTO u = new UserDTO();
+        u.setId(author.getId());
+        u.setUsername(author.getUsername());
+        dto.setAuthor(u);
+
+        OfferDTO o = new OfferDTO();
+        o.setId(offer.getId());
+        o.setTitle(offer.getTitle());
+        o.setDescription(offer.getDescription());
+        o.setOwner(u);
+        dto.setOffer(o);
+
         dto.setImage(image);
         return dto;
     }

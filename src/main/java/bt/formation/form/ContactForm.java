@@ -74,7 +74,7 @@ public class ContactForm {
 
     public PropositionDTO toPropositionDTO() {
         PropositionDTO propositionDTO = new PropositionDTO();
-        propositionDTO.setTitle(title);
+        propositionDTO.setTitle(offer);
         propositionDTO.setDescription(message);
         try {
             propositionDTO.setEstimation(Double.parseDouble(estimation));

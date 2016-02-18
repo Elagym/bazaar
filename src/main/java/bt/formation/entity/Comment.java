@@ -1,6 +1,7 @@
 package bt.formation.entity;
 
 import bt.formation.dto.CommentDTO;
+import bt.formation.dto.UserDTO;
 
 import javax.persistence.*;
 
@@ -71,7 +72,10 @@ public class Comment {
         dto.setDescription(description);
         dto.setLiked(liked);
         dto.setTitle(title);
-        dto.setAuthor(author.toDto());
+        UserDTO u = new UserDTO();
+        u.setId(author.getId());
+        u.setUsername(author.getUsername());
+        dto.setAuthor(u);
         return dto;
     }
 }
