@@ -236,6 +236,8 @@ public class User {
         }
         for (Proposition prop : getPropositions()) {
             dto.getPropositions().add(prop.toDto());
+            if(!prop.isViewed())
+                dto.setNewPropsCount(dto.getNewPropsCount()+1);
         }
         for (Offer o : getLikedOffers()) {
             dto.getLikedOffers().add(o.getId());

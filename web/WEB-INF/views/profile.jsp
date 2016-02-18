@@ -5,7 +5,7 @@
 <head>
     <title>My Profile</title>
     <c:import url="includes/head.jsp"/>
-    <script src="<c:url value="/resources/js/consultproposition.js"/>"></script>
+    <%--<script src="<c:url value="/resources/js/consultproposition.js"/>"></script>--%>
 </head>
 <body>
 <c:import url="includes/menu.jsp"/>
@@ -72,8 +72,11 @@
                                     <c:forEach var="proposition" items="${user.propositions}">
                                         <tr>
                                             <td>${proposition.offer.title}</td>
-                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id})">${proposition.title}</a></td>
-                                            <td id="newIcon${proposition.id}"><c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if> </td>
+                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}, 'profile')">${proposition.title}</a></td>
+                                            <td id="newIcon${proposition.id}">
+
+                                                <c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if>
+                                                 </td>
                                         </tr>
                                         <tr class="panel-collapse collapse" id="prop${proposition.id}">
                                             <td colspan="3">

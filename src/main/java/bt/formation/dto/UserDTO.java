@@ -26,6 +26,7 @@ public class UserDTO implements UserDetails{
     private Set<AuthorityDTO> authorities;
     private List<PropositionDTO> propositions;
     private List<Long> likedOffers;
+    private int newPropsCount;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -220,5 +221,13 @@ public class UserDTO implements UserDetails{
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getNewPropsCount() {
+        return newPropsCount;
+    }
+
+    public void setNewPropsCount(int newPropsCount) {
+        this.newPropsCount = newPropsCount;
     }
 }
