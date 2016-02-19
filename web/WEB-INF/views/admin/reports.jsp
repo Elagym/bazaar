@@ -4,6 +4,7 @@
 <head>
     <c:import url="/WEB-INF/views/includes/head.jsp"/>
     <title>Manage reports</title>
+    <script src="<c:url value="/resources/js/consultreport.js"/>"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/includes/menu.jsp"/>
@@ -22,7 +23,7 @@
             <%--<tr data-toggle="collapse" data-parent="#accordion" href="#collapseOne${user.id}"--%>
             <%--aria-expanded="false"--%>
             <%--aria-controls="collapseOne" style="cursor: pointer">--%>
-            <tr>
+            <tr data-toggle="collapse" href="#report${report.id}" aria-expanded="false" aria-controls="report${report.id}" style="cursor:pointer;" onclick="consultReport(${report.id});">
                 <td>
                         ${report.title}
                 </td>
@@ -32,8 +33,15 @@
                 <td>
                         ${report.date}
                 </td>
-                <td>
+                <td id="newIcon${report.id}">
+                    <c:if test="${not report.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width: 30px;"/></c:if>
+                </td>
+            </tr>
+            <tr class="panel-collapse collapse" id="report${report.id}">
+                <td colspan="4">
+                    <div id="consultReport${report.id}" class="panel-body">
 
+                    </div>
                 </td>
             </tr>
         </c:forEach>

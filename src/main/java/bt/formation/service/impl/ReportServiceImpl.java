@@ -31,4 +31,19 @@ public class ReportServiceImpl implements ReportService{
         }
         return list;
     }
+
+    @Override
+    public ReportDTO findById(Long id) {
+        return reportRepository.findOne(id).toDto();
+    }
+
+    @Override
+    public ReportDTO updateReport(ReportDTO report) {
+        return reportRepository.save(report.toEntity()).toDto();
+    }
+
+    @Override
+    public int getNewReportsCount() {
+        return reportRepository.getNewReportsCount();
+    }
 }

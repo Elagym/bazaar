@@ -545,6 +545,7 @@ public class HomeController {
         report.setOffer(offerService.findById(offerId));
         report.setAuthor(user);
         report.setDate(new Date());
+        report.setViewed(false);
         if(other != null){
             report.setType(other);
         }else{

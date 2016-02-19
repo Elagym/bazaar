@@ -14,6 +14,7 @@ public class ReportDTO {
     private String title;
     private String message;
     private Date date;
+    private boolean viewed;
     private UserDTO author;
     private OfferDTO offer;
 
@@ -26,6 +27,7 @@ public class ReportDTO {
         report.setAuthor(author.toEntity());
         report.setOffer(offer.toEntity());
         report.setDate(date);
+        report.setViewed(viewed);
         return report;
     }
 
@@ -83,5 +85,13 @@ public class ReportDTO {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
     }
 }

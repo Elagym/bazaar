@@ -18,6 +18,7 @@ public class Report {
     private String type;
     private String message;
     private Date date;
+    private boolean viewed;
 
     @ManyToOne
     private User author;
@@ -33,6 +34,7 @@ public class Report {
         this.type = type;
         this.message = message;
         this.title = title;
+        this.viewed = false;
     }
 
     public Long getId() {
@@ -99,6 +101,14 @@ public class Report {
         this.date = date;
     }
 
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
+
     public ReportDTO toDto() {
         ReportDTO dto = new ReportDTO();
         dto.setId(id);
@@ -106,6 +116,7 @@ public class Report {
         dto.setType(type);
         dto.setTitle(title);
         dto.setDate(date);
+        dto.setViewed(viewed);
 
         UserDTO u = new UserDTO();
         u.setId(author.getId());
@@ -117,7 +128,12 @@ public class Report {
         o.setId(offer.getId());
         o.setTitle(offer.getTitle());
         o.setDescription(offer.getDescription());
-        o.setOwner(u);
+
+            UserDTO offerOwner = new UserDTO();
+            offerOwner.setId(offer.getOwner().getId());
+            offerOwner.setUsername(offer.getOwner().getUsername());
+
+        o.setOwner(offerOwner);
         dto.setOffer(o);
 
         return dto;
