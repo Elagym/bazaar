@@ -20,6 +20,12 @@
                 </li>
                 <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a
                         href="<c:url value="/offers"/>">Offers</a></li>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal" var="menuuser"/>
+                    <li <c:if test="${uri[3].equals(\"create\")}"> class="active" </c:if>>
+                        <a href="<c:url value="/user/create"/>">Create offer</a>
+                    </li>
+                </sec:authorize>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Categories<span class="caret"></span></a>
@@ -29,12 +35,6 @@
                         </c:forEach>
                     </ul>
                 </li>
-                <sec:authorize access="isAuthenticated()">
-                    <sec:authentication property="principal" var="menuuser"/>
-                    <li <c:if test="${uri[3].equals(\"create\")}"> class="active" </c:if>>
-                        <a href="<c:url value="/user/create"/>">Create offer</a>
-                    </li>
-                </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if>><a href="<c:url value="/admin/"/>">Admin</a></li>--%>
                     <li <c:if test="${uri[3].equals(\"admin\")}"> class="active" </c:if> class="dropdown">
@@ -44,6 +44,8 @@
                             <li><a href="<c:url value="/admin/managecategories"/>">Manage categories</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<c:url value="/admin/members"/>">Members</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<c:url value="/admin/reports"/>">Reports<span id="report-badge" class="badge" style="background-color:dodgerblue;" title="You have %xxx% new propositions" data-toggle="modal" data-target="#newReportsModal" onclick="">0</span></a></li>
                         </ul>
                     </li>
                 </sec:authorize>

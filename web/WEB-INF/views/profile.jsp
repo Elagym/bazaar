@@ -172,6 +172,7 @@
     </div>
 </div>
 <script>
+    $("[name='thumb']").bootstrapSwitch();
     var id = ${user.id};
     var ctx = '${pageContext.request.contextPath}';
     function showFavs(){

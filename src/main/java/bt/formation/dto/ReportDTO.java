@@ -2,6 +2,8 @@ package bt.formation.dto;
 
 import bt.formation.entity.Report;
 
+import java.util.Date;
+
 /**
  * Created by Student on 27-01-16.
  */
@@ -9,21 +11,21 @@ public class ReportDTO {
 
     private Long id;
     private String type;
-    private String name;
-    private String email;
-    private String details;
-    private UserDTO user;
+    private String title;
+    private String message;
+    private Date date;
+    private UserDTO author;
     private OfferDTO offer;
 
     public Report toEntity(){
         Report report = new Report();
         report.setId(id);
         report.setType(type);
-        report.setName(name);
-        report.setEmail(email);
-        report.setDetails(details);
-        report.setUser(user.toEntity());
+        report.setTitle(title);
+        report.setDetails(message);
+        report.setAuthor(author.toEntity());
         report.setOffer(offer.toEntity());
+        report.setDate(date);
         return report;
     }
 
@@ -43,36 +45,28 @@ public class ReportDTO {
         this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMessage() {
+        return message;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getDetails() {
-        return details;
+    public UserDTO getAuthor() {
+        return author;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setAuthor(UserDTO author) {
+        this.author = author;
     }
 
     public OfferDTO getOffer() {
@@ -81,5 +75,13 @@ public class ReportDTO {
 
     public void setOffer(OfferDTO offer) {
         this.offer = offer;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -21,19 +21,20 @@
         </div>
         <div class="panel-body">
             <sec:authorize access="isAuthenticated()">
-
-                <c:choose>
-                    <c:when test="${alreadyLiked}">
-                        <span style="float:right;"><span id="likeCount">${offer.popularity}</span><span id="likeOffer"
-                                                                                                        class="glyphicon glyphicon-heart"
-                                                                                                        style="color:#FF4C6C;cursor:pointer;"></span></span>
-                    </c:when>
-                    <c:when test="${not alreadyLiked}">
-                        <span style="float:right;"><span id="likeCount">${offer.popularity}</span><span id="likeOffer"
-                                                                                                        class="glyphicon glyphicon-heart"
-                                                                                                        style="cursor:pointer;"></span></span>
-                    </c:when>
-                </c:choose>
+                <c:if test="${offer.owner.id != currentUserId}">
+                    <c:choose>
+                        <c:when test="${alreadyLiked}">
+                            <span style="float:right;"><span id="likeCount">${offer.popularity}</span><span id="likeOffer"
+                                                                                                            class="glyphicon glyphicon-heart"
+                                                                                                            style="color:#FF4C6C;cursor:pointer;"></span></span>
+                        </c:when>
+                        <c:when test="${not alreadyLiked}">
+                            <span style="float:right;"><span id="likeCount">${offer.popularity}</span><span id="likeOffer"
+                                                                                                            class="glyphicon glyphicon-heart"
+                                                                                                            style="cursor:pointer;"></span></span>
+                        </c:when>
+                    </c:choose>
+                </c:if>
             </sec:authorize>
             <div class="row">
                 <div class="col-sm-6 col-md-6">
@@ -79,6 +80,68 @@
                     <p>Zip Code : ${offer.zipCode}</p>
                     <p>Published on : ${offer.creationDate}</p>
                     <p>Expiration date : ${offer.expirationDate}</p>
+                    <sec:authorize access="isAuthenticated()">
+                        <p style="float:right;"><a href="#" data-toggle="modal" data-target="#reportModal">Report abuse <span class="glyphicon glyphicon-exclamation-sign"></span></a></p>
+                    </sec:authorize>
+                    <!-- report modal -->
+                    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">${offer.owner.username} - Send a report</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert" style="color: #8a6d3b;background-color: #fcf8e3;border: 1px solid #faebcc;" role="alert"><span class="glyphicon glyphicon-exclamation-sign" style="margin-right: 10px;"></span><span>Send a report only if you think that this user is going against the EULA</span></div>
+
+                                    <form method="post" class="form-horizontal"action="<c:url value="/user/sendreport"/>" style="max-width: 90%;">
+                                        <div id="reportConcern" class="form-group">
+                                            <label class="col-sm-2 control-label" for="yourTitle">Concern</label>
+                                            <div id="reportSelectDiv" class="col-sm-10">
+                                                <select id="reportSelect" name="reportSelect" class="form-control">
+                                                    <option value="copyright">Copyright</option>
+                                                    <option>Item offered</option>
+                                                    <option>Spam</option>
+                                                    <option>Inappropriate content</option>
+                                                    <option>Content inciting hatred</option>
+                                                    <option>Other</option>
+                                                </select>
+                                            </div>
+                                            <script>
+                                                $('#reportSelect').change(function(){
+                                                    if($('#reportSelect option:selected').val() == 'Other'){
+                                                        $('#reportSelectDiv').attr('class', 'col-sm-5');
+                                                        var other_div = $('<div>').attr('class', 'col-sm-5').appendTo($('#reportConcern'));
+                                                        $('<input>').attr({
+                                                            'id':'otherInput','name':'other', 'type':'text', 'class':'form-control', 'placeholder':'Precise'
+                                                        }).appendTo(other_div);
+                                                    }else{
+                                                        $('#otherInput').remove();
+                                                        $('#reportSelectDiv').attr('class', 'col-sm-10');
+                                                    }
+                                                })
+                                            </script>
+                                        </div>
+                                        <div id="reportTitle" class="form-group">
+                                            <label class="col-sm-2 control-label" for="yourTitle">Title</label>
+                                            <div class="col-sm-10">
+                                                <input name="title" type="text" class="form-control" placeholder="Object"/>
+                                            </div>
+                                        </div>
+                                        <div id="reportOffer" class="form-group">
+                                            <label class="col-sm-2 control-label" for="yourOffer">Message</label>
+                                            <div class="col-sm-10">
+                                                <input name="message" type="text" class="form-control" placeholder="What you give"/>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="offerId" value="${offer.id}"/>
+                                        <button type="submit" class="btn btn-primary" style="float:right;">Send report</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div>
