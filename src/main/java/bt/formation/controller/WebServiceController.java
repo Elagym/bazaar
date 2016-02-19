@@ -1,15 +1,9 @@
 package bt.formation.controller;
 
 
-import bt.formation.dto.CommentDTO;
-import bt.formation.dto.OfferDTO;
-import bt.formation.dto.PropositionDTO;
-import bt.formation.dto.UserDTO;
+import bt.formation.dto.*;
 import bt.formation.entity.Offer;
-import bt.formation.service.CommentService;
-import bt.formation.service.OfferService;
-import bt.formation.service.PropositionService;
-import bt.formation.service.UserService;
+import bt.formation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,6 +26,8 @@ public class WebServiceController {
     UserService userService;
     @Autowired
     PropositionService propositionService;
+    @Autowired
+    ReportService reportService;
 
     @RequestMapping("/offers/refresh")
     public List<OfferDTO> refreshOffers(){
@@ -79,4 +75,15 @@ public class WebServiceController {
         return offerService.findFavoriteOffers(userId);
     }
 
+    @RequestMapping("/admin/viewreport/{id}")
+    public ReportDTO viewReport(@PathVariable Long id){
+        ReportDTO report = reportService.findById(id);
+        report.setViewed(true);
+        return reportService.updateReport(report);
+    }
+
+    @RequestMapping("/admin/getnewreportscount")
+    public int getNewReportsCount(){
+        return reportService.getNewReportsCount();
+    }
 }

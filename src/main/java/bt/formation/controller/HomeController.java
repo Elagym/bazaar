@@ -63,6 +63,9 @@ public class HomeController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    ReportService reportService;
+
     @PostConstruct
     public void init() {
         User admin = new User();
@@ -532,5 +535,24 @@ public class HomeController {
         userService.updateUser(user);
 
         return "redirect:/profile/" + user.getId();
+    }
+
+    @RequestMapping("/user/sendreport")
+    public String sendReport(@AuthenticationPrincipal UserDTO user, @RequestParam String reportSelect, @RequestParam(required = false) String other, @RequestParam String title, @RequestParam String message, @RequestParam Long offerId){
+        ReportDTO report = new ReportDTO();
+        report.setTitle(title);
+        report.setMessage(message);
+        report.setOffer(offerService.findById(offerId));
+        report.setAuthor(user);
+        report.setDate(new Date());
+        report.setViewed(false);
+        if(other != null){
+            report.setType(other);
+        }else{
+            report.setType(reportSelect);
+        }
+        reportService.createReport(report);
+
+        return "redirect:/offer/" + offerId;
     }
 }

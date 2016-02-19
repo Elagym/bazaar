@@ -4,10 +4,7 @@ import bt.formation.dto.OfferDTO;
 import bt.formation.dto.UserDTO;
 import bt.formation.entity.Category;
 import bt.formation.entity.User;
-import bt.formation.service.AuthorityService;
-import bt.formation.service.CategoryService;
-import bt.formation.service.OfferService;
-import bt.formation.service.UserService;
+import bt.formation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +35,11 @@ public class AdminController {
     @Autowired
     OfferService offerService;
 
+    @Autowired
+    ReportService reportService;
+
     @RequestMapping("/members")
-    public String admin(Model model) {
+    public String members(Model model) {
         model.addAttribute("users", userService.getUsers());
         return "admin/members";
     }
@@ -90,5 +90,11 @@ public class AdminController {
     public String updateUser(@PathVariable Long id) {
         //TODO Une jsp pour que l'admin puisse modifier les infos d'un user pour une quelconque raison (fausse adresse mail ou tel)
         return "redirect:/admin/members";
+    }
+
+    @RequestMapping("/reports")
+    public String reports(Model model){
+        model.addAttribute("reports", reportService.findAll());
+        return "admin/reports";
     }
 }

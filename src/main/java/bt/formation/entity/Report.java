@@ -1,8 +1,11 @@
 package bt.formation.entity;
 
+import bt.formation.dto.OfferDTO;
 import bt.formation.dto.ReportDTO;
+import bt.formation.dto.UserDTO;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Report {
@@ -11,13 +14,14 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
     private String type;
-    private String name;
-    private String email;
-    private String details;
+    private String message;
+    private Date date;
+    private boolean viewed;
 
     @ManyToOne
-    private User user;
+    private User author;
 
     @ManyToOne
     private Offer offer;
@@ -26,11 +30,11 @@ public class Report {
     public Report() {
     }
 
-    public Report(String type, String name, String email, String details) {
+    public Report(String type, String title, String message) {
         this.type = type;
-        this.name = name;
-        this.email = email;
-        this.details = details;
+        this.message = message;
+        this.title = title;
+        this.viewed = false;
     }
 
     public Long getId() {
@@ -49,36 +53,20 @@ public class Report {
         this.type = type;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getDetails() {
-        return details;
+        return message;
     }
 
     public void setDetails(String details) {
-        this.details = details;
+        this.message = details;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Offer getOffer() {
@@ -89,15 +77,65 @@ public class Report {
         this.offer = offer;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
+
     public ReportDTO toDto() {
         ReportDTO dto = new ReportDTO();
         dto.setId(id);
-        dto.setDetails(details);
-        dto.setEmail(email);
-        dto.setName(name);
+        dto.setMessage(message);
         dto.setType(type);
-        dto.setOffer(offer.toDto());
-        dto.setUser(user.toDto());
+        dto.setTitle(title);
+        dto.setDate(date);
+        dto.setViewed(viewed);
+
+        UserDTO u = new UserDTO();
+        u.setId(author.getId());
+        u.setUsername(author.getUsername());
+        u.setEmail(author.getEmail());
+        dto.setAuthor(u);
+
+        OfferDTO o = new OfferDTO();
+        o.setId(offer.getId());
+        o.setTitle(offer.getTitle());
+        o.setDescription(offer.getDescription());
+
+            UserDTO offerOwner = new UserDTO();
+            offerOwner.setId(offer.getOwner().getId());
+            offerOwner.setUsername(offer.getOwner().getUsername());
+
+        o.setOwner(offerOwner);
+        dto.setOffer(o);
+
         return dto;
     }
 }
