@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<sec:authentication property="principal" var="menuuser"/>
 <script>
     var ctx = '${pageContext.request.contextPath}';
 </script>
@@ -75,6 +74,7 @@
                 <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a
                         href="<c:url value="/offers"/>">Offers</a></li>
                 <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal" var="menuuser"/>
                     <li <c:if test="${uri[3].equals(\"create.jsp\")}"> class="active" </c:if>>
                         <a href="<c:url value="/user/create"/>">Create offer</a>
                     </li>
