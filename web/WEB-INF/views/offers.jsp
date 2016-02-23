@@ -14,19 +14,19 @@
         <%--<form:radiobutton path="searchType" class="btn btn-primary" value="Most recent"/>--%>
         <%--<form:radiobutton path="searchType" class="btn btn-primary" value="Most famous"/>--%>
     <%--</form:form>--%>
-    <button class="btn btn-primary">Most recent offers</button>
-    <button class="btn btn-primary" style="display:inline; margin-right: 5px;">Most famous</button>
-    <form class="form-inline" action="#" style="display:inline;">
-        <div class="form-group">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span>
-                      </button>
-                    </span>
-            </div>
-        </div>
-    </form>
+    <%--<button class="btn btn-primary">Most recent offers</button>--%>
+    <%--<button class="btn btn-primary" style="display:inline; margin-right: 5px;">Most famous</button>--%>
+    <%--<form class="form-inline" action="#" style="display:inline;">--%>
+    <%--<div class="form-group">--%>
+    <%--<div class="input-group">--%>
+    <%--<input type="text" class="form-control" placeholder="Search">--%>
+    <%--<span class="input-group-btn">--%>
+    <%--<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span>--%>
+    <%--</button>--%>
+    <%--</span>--%>
+    <%--</div>--%>
+    <%--</div>--%>
+    <%--</form>--%>
     <c:if test="${category != null}">
         <span id="criteria"><button class="btn btn-primary btn-sm">Category : ${category.name}<span id="categorySearch" class="glyphicon glyphicon-remove" style="color:#337ab7; margin-left:5px;"></span></button></span>
     </c:if>
