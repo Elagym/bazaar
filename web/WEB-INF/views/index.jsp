@@ -35,7 +35,8 @@
                                         <%--Séparation des categories--%>
                                         <c:choose>
                                             <c:when test="${i == offer.categories.size()-1}">.</c:when>
-                                            <c:when test="${i < offer.categories.size()-1}">,<c:set var="i" value="${i+1}"/></c:when>
+                                            <c:when test="${i < offer.categories.size()-1}">,<c:set var="i"
+                                                                                                    value="${i+1}"/></c:when>
                                         </c:choose>
                                     </c:forEach>
                                 </span>
@@ -57,8 +58,11 @@
         </sec:authorize>
         <div class="panel panel-primary" style="width:100%;">
             <div class="panel-body">
-                Troquez dans la bonne humeur sur Bazaar :)
-                /* presentation */
+                Bazaar est une plateforme de petites annonces gratuites de troc et d'échanges en tout genre dans toute
+                la Belgique.
+                <br>
+                Devenez membre et commencez à publier vos annonces en quelques minutes. Gérez
+                vos annonces et troquez dans la bonne humeur !
             </div>
         </div>
         <div class="panel panel-primary" style="width:100%;">

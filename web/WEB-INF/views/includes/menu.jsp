@@ -131,26 +131,32 @@
                         </div>
                         <div class="modal-body">
                             <table id="modalTable" class="table table-striped table-hover">
-                                <%--<tr>--%>
-                                    <%--<th>Offer name</th>--%>
-                                    <%--<th>Proposition</th>--%>
-                                    <%--<th></th>--%>
-                                <%--</tr>--%>
-                                <%--<c:forEach var="proposition" items="${user.propositions}">--%>
-                                    <%--<c:if test="${not proposition.viewed}">--%>
-                                        <%--<tr>--%>
-                                            <%--<td>${proposition.offer.title}</td>--%>
-                                            <%--<td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}); decrement();">${proposition.title}</a></td>--%>
-                                            <%--<td id="newIcon${proposition.id}"><c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if> </td>--%>
-                                        <%--</tr>--%>
-                                        <%--<tr class="panel-collapse collapse" id="prop${proposition.id}">--%>
-                                            <%--<td colspan="3">--%>
-                                                <%--<div id="consultProp${proposition.id}" class="panel-body">--%>
-                                                <%--</div>--%>
-                                            <%--</td>--%>
-                                        <%--</tr>--%>
-                                    <%--</c:if>--%>
-                                <%--</c:forEach>--%>
+                                <tr>
+                                    <th>Offer name</th>
+                                    <th>Proposition</th>
+                                    <th></th>
+                                </tr>
+                                <c:forEach var="proposition" items="${user.propositions}">
+                                    <c:if test="${not proposition.viewed}">
+                                        <tr>
+                                            <td>${proposition.offer.title}</td>
+                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}"
+                                                   aria-expanded="false" aria-controls="prop${proposition.id}"
+                                                   onclick="consultProp(${proposition.id}); decrement();">${proposition.title}</a>
+                                            </td>
+                                            <td id="newIcon${proposition.id}"><c:if
+                                                    test="${not proposition.viewed}"><img
+                                                    src="<c:url value="/resources/images/new.png"/>"
+                                                    style="width:30px;"/></c:if></td>
+                                        </tr>
+                                        <tr class="panel-collapse collapse" id="prop${proposition.id}">
+                                            <td colspan="3">
+                                                <div id="consultProp${proposition.id}" class="panel-body">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:if>
+                                </c:forEach>
                             </table>
                         </div>
                     </div>

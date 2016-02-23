@@ -90,8 +90,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">${offer.owner.username} - Envoyer
-                                        l'alerte</h4>
+                                    <h4 class="modal-title" id="myModalLabel">${offer.owner.username} - Signaler un
+                                        abus</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="alert" style="color: #8a6d3b;background-color: #fcf8e3;border: 1px solid #faebcc;" role="alert"><span class="glyphicon glyphicon-exclamation-sign" style="margin-right: 10px;"></span><span>Send a report only if you think that this user is going against the EULA</span></div>

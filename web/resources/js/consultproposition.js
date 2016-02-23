@@ -11,8 +11,8 @@ function consultProp(id, from) {
         }
         main_div.html('');
         $('<p>').html('<b>' + data.title + '</b> : ' + data.description).appendTo(main_div);
-        $('<p>').html('Worth ' + data.estimation + ' € !').appendTo(main_div);
-        $('<p>').html('Interested in this proposition ? Contact the user at <a href="mailto:' + data.author.email + '">' + data.author.email + '</a>').appendTo(main_div);
+        $('<p>').html('Valeur ' + data.estimation + ' € !').appendTo(main_div);
+        $('<p>').html('Intéressé par la proposition ? Contactez l\'utilisateur <a href="mailto:' + data.author.email + '">' + data.author.email + '</a>').appendTo(main_div);
 
         if(data.viewed) {
             $('#newIconMenu' + id).fadeOut(1000, function () {
