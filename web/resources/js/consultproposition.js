@@ -32,3 +32,11 @@ function decrement(){
         $('#prop-badge').hide();
     }
 }
+function decrementIfNotViewed(viewed){
+    if(!viewed){
+        $('#prop-badge').text($('#prop-badge').text()-1);
+        if($('#prop-badge').text() == 0){
+            $('#prop-badge').hide();
+        }
+    }
+}
