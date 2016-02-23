@@ -147,7 +147,7 @@
                                     <c:forEach var="proposition" items="${user.propositions}">
                                         <tr>
                                             <td>${proposition.offer.title}</td>
-                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}, 'profile'); decrement();">${proposition.title}</a></td>
+                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}" aria-expanded="false" aria-controls="prop${proposition.id}" onclick="consultProp(${proposition.id}, 'profile'); decrementIfNotViewed(${proposition.id});">${proposition.title}</a></td>
                                             <td id="newIcon${proposition.id}">
 
                                                 <c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if>

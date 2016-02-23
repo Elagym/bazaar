@@ -6,55 +6,7 @@
     var ctx = '${pageContext.request.contextPath}';
 </script>
 
-<script>
-    function refreshProps(){
-        $.ajax("http://localhost:8080/bazaar/api/user/getnewpropscount/" + ${menuuser.id}).done( function(data){
-            if(data.length == 0) {
-                $('#prop-badge').hide();
-            }
-            else {
-                $('#prop-badge').text(data.length);
 
-                var modal_table = $('#modalTable');
-                modal_table.html('');
-                $('<tr>').html('<th>Offer name</th><th>Proposition</th><th></th>').appendTo(modal_table);
-                $.each(data, function (i, prop) {
-                    var line = $('<tr>').appendTo(modal_table);
-                    $('<td>').html(prop.offer.title).appendTo(line);
-                    var prop_title = $('<td>').appendTo(line);
-                    $('<a>').attr({
-                        'role': 'button',
-                        'data-toggle': 'collapse',
-                        'href': '#menuprop' + prop.id,
-                        'aria-expended': 'false',
-                        'aria-controls': 'menuprop' + prop.id,
-                        'onclick': 'consultProp(' + prop.id + ', "menu"); decrement();'
-                    }).html(prop.title).appendTo(prop_title);
-                    var icon_block = $('<td>').attr('id', 'newIconMenu' + prop.id).appendTo(line);
-                    $('<img>').attr({
-                        'src': '<c:url value="/resources/images/new.png"/>', 'style': 'width:30px'
-                    }).appendTo(icon_block);
-                    var collapse_line = $('<tr>').attr({
-                        'class': 'panel-collapse collapse', 'id': 'menuprop' + prop.id
-                    }).appendTo(modal_table);
-                    var collapse_content = $('<td>').attr('colspan', 3).appendTo(collapse_line);
-                    $('<div>').attr({
-                        'id': 'menuConsultProp' + prop.id, 'class': 'panel-body'
-                    }).appendTo(collapse_content);
-                });
-            }
-        });
-    }
-    $(document).ready(function() {
-        refreshProps();
-    });
-    function refreshReports(){
-        $.ajax("http://localhost:8080/bazaar/api/admin/getnewreportscount").done(function(data){
-            console.log(data + 'new reports');
-            $('#report-badge').text(data + ' new');
-        });
-    }
-</script>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -140,18 +92,12 @@
                                     <c:if test="${not proposition.viewed}">
                                         <tr>
                                             <td>${proposition.offer.title}</td>
-                                            <td><a role="button" data-toggle="collapse" href="#prop${proposition.id}"
-                                                   aria-expanded="false" aria-controls="prop${proposition.id}"
-                                                   onclick="consultProp(${proposition.id}); decrement();">${proposition.title}</a>
-                                            </td>
-                                            <td id="newIcon${proposition.id}"><c:if
-                                                    test="${not proposition.viewed}"><img
-                                                    src="<c:url value="/resources/images/new.png"/>"
-                                                    style="width:30px;"/></c:if></td>
+                                            <td><a role="button" data-toggle="collapse" href="#propMenu${proposition.id}" aria-expanded="false" aria-controls="propMenu${proposition.id}" onclick="consultProp(${proposition.id}, 'menu'); decrement();">${proposition.title}</a></td>
+                                            <td id="newIconMenu${proposition.id}"><c:if test="${not proposition.viewed}"><img src="<c:url value="/resources/images/new.png"/>" style="width:30px;"/></c:if> </td>
                                         </tr>
-                                        <tr class="panel-collapse collapse" id="prop${proposition.id}">
+                                        <tr class="panel-collapse collapse" id="propMenu${proposition.id}">
                                             <td colspan="3">
-                                                <div id="consultProp${proposition.id}" class="panel-body">
+                                                <div id="menuConsultProp${proposition.id}" class="panel-body">
                                                 </div>
                                             </td>
                                         </tr>
@@ -165,3 +111,52 @@
         </sec:authorize>
     </div>
 </nav>
+<script>
+    function refreshProps(){
+        $.ajax("http://localhost:8080/bazaar/api/user/getnewpropscount/" + ${menuuser.id}).done( function(data){
+            if(data.length == 0) {
+                $('#prop-badge').hide();
+            }
+            else {
+                $('#prop-badge').text(data.length);
+
+                var modal_table = $('#modalTable');
+                modal_table.html('');
+                $('<tr>').html('<th>Offer name</th><th>Proposition</th><th></th>').appendTo(modal_table);
+                $.each(data, function (i, prop) {
+                    var line = $('<tr>').appendTo(modal_table);
+                    $('<td>').html(prop.offer.title).appendTo(line);
+                    var prop_title = $('<td>').appendTo(line);
+                    $('<a>').attr({
+                        'role': 'button',
+                        'data-toggle': 'collapse',
+                        'href': '#menuprop' + prop.id,
+                        'aria-expended': 'false',
+                        'aria-controls': 'menuprop' + prop.id,
+                        'onclick': 'consultProp(' + prop.id + ', "menu"); decrement();'
+                    }).html(prop.title).appendTo(prop_title);
+                    var icon_block = $('<td>').attr('id', 'newIconMenu' + prop.id).appendTo(line);
+                    $('<img>').attr({
+                        'src': '<c:url value="/resources/images/new.png"/>', 'style': 'width:30px'
+                    }).appendTo(icon_block);
+                    var collapse_line = $('<tr>').attr({
+                        'class': 'panel-collapse collapse', 'id': 'menuprop' + prop.id
+                    }).appendTo(modal_table);
+                    var collapse_content = $('<td>').attr('colspan', 3).appendTo(collapse_line);
+                    $('<div>').attr({
+                        'id': 'menuConsultProp' + prop.id, 'class': 'panel-body'
+                    }).appendTo(collapse_content);
+                });
+            }
+        });
+    }
+    $(document).ready(function() {
+        refreshProps();
+    });
+    function refreshReports(){
+        $.ajax("http://localhost:8080/bazaar/api/admin/getnewreportscount").done(function(data){
+            console.log(data + 'new reports');
+            $('#report-badge').text(data + ' new');
+        });
+    }
+</script>

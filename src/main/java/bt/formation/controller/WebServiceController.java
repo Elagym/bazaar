@@ -62,6 +62,12 @@ public class WebServiceController {
         return propositionService.updateProposition(dto);
     }
 
+    @RequestMapping("/user/ispropositionviewed/{id}")
+    public boolean isViewed(@PathVariable Long id){
+        PropositionDTO dto = propositionService.findById(id);
+        return dto.isViewed();
+    }
+
     @RequestMapping("/user/getnewpropscount/{id}")
     public List<PropositionDTO> getNewPropsCount(@PathVariable Long id){
         UserDTO dto = userService.findById(id);
