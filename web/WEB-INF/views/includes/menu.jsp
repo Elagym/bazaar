@@ -75,7 +75,7 @@
                 <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a
                         href="<c:url value="/offers"/>">Offers</a></li>
                 <sec:authorize access="isAuthenticated()">
-                    <li <c:if test="${uri[3].equals(\"create\")}"> class="active" </c:if>>
+                    <li <c:if test="${uri[3].equals(\"create.jsp\")}"> class="active" </c:if>>
                         <a href="<c:url value="/user/create"/>">Create offer</a>
                     </li>
                 </sec:authorize>
