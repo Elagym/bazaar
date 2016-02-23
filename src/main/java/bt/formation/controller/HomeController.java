@@ -106,10 +106,10 @@ public class HomeController {
         servletContext.setAttribute("categories", categoryService.findAllByOrderByNameAsc());
 
         OfferDTO offer = new OfferDTO();
-        offer.setTitle("Mockup offer");
-        offer.setDescription("description blablabla");
-        offer.setEstimation(150);
-        offer.setExpectation("A huge dildo");
+        offer.setTitle("Ecran TV Samsung");
+        offer.setDescription("Neuf, tombé du camion");
+        offer.setEstimation(250);
+        offer.setExpectation("Ecran PC");
         offer.setCreationDate(new Date());
         offer.setOwner(userService.findById(adminDTO.getId()));
         offer.setExpirationDate(new Date());
