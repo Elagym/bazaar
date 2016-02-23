@@ -32,11 +32,13 @@ function decrement(){
         $('#prop-badge').hide();
     }
 }
-function decrementIfNotViewed(viewed){
-    if(!viewed){
-        $('#prop-badge').text($('#prop-badge').text()-1);
-        if($('#prop-badge').text() == 0){
-            $('#prop-badge').hide();
+function decrementIfNotViewed(id){
+    $.ajax("http://localhost:8080/bazaar/api/user/ispropositionviewed/" + id).done(function(data){
+        if(!data){
+            $('#prop-badge').text($('#prop-badge').text()-1);
+            if($('#prop-badge').text() == 0){
+                $('#prop-badge').hide();
+            }
         }
-    }
+    });
 }
