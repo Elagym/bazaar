@@ -3,7 +3,7 @@
 <html>
 <head>
     <c:import url="/WEB-INF/views/includes/head.jsp"/>
-    <title>Manage reports</title>
+    <title>Gestion des abus</title>
     <script src="<c:url value="/resources/js/consultreport.js"/>"></script>
 </head>
 <body>
@@ -12,8 +12,8 @@
     <table class="table table-striped table-hover ">
         <thead>
         <tr>
-            <th>Report title</th>
-            <th>Author</th>
+            <th>Titre du signalement</th>
+            <th>Auteur</th>
             <th>Date</th>
             <th></th>
         </tr>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Offer : ${offer.title}</title>
+    <title>Offre : ${offer.title}</title>
     <c:import url="includes/head.jsp"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
@@ -16,7 +16,7 @@
 <div class="container-fluid size">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h4 style="font-weight: bold; float: right;">Expect : ${offer.expectation}</h4>
+            <h4 style="font-weight: bold; float: right;">Échange contre : ${offer.expectation}</h4>
             <h4 style="color:white;">${offer.title}</h4>
         </div>
         <div class="panel-body">
@@ -74,14 +74,15 @@
                     <%--</div>--%>
                 </div>
                 <div class="col-sm-6 col-md-6">
-                    <p>Estimation of the belonging : ${offer.estimation}€</p>
-                    <p>Phone number : ${owner.phoneNumber}</p>
-                    <p>Address : ${offer.address}</p>
-                    <p>Zip Code : ${offer.zipCode}</p>
-                    <p>Published on : ${offer.creationDate}</p>
-                    <p>Expiration date : ${offer.expirationDate}</p>
+                    <p>Estimation du bien : ${offer.estimation}€</p>
+                    <p>Téléphone : ${owner.phoneNumber}</p>
+                    <p>Adresse : ${offer.address}</p>
+                    <p>Code Zip : ${offer.zipCode}</p>
+                    <p>Publiée le : ${offer.creationDate}</p>
+                    <p>Expire le : ${offer.expirationDate}</p>
                     <sec:authorize access="isAuthenticated()">
-                        <p style="float:right;"><a href="#" data-toggle="modal" data-target="#reportModal">Report abuse <span class="glyphicon glyphicon-exclamation-sign"></span></a></p>
+                        <p style="float:right;"><a href="#" data-toggle="modal" data-target="#reportModal">Signaler un
+                            abus <span class="glyphicon glyphicon-exclamation-sign"></span></a></p>
                     </sec:authorize>
                     <!-- report modal -->
                     <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -89,7 +90,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">${offer.owner.username} - Send a report</h4>
+                                    <h4 class="modal-title" id="myModalLabel">${offer.owner.username} - Envoyer
+                                        l'alerte</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="alert" style="color: #8a6d3b;background-color: #fcf8e3;border: 1px solid #faebcc;" role="alert"><span class="glyphicon glyphicon-exclamation-sign" style="margin-right: 10px;"></span><span>Send a report only if you think that this user is going against the EULA</span></div>
@@ -100,11 +102,11 @@
                                             <div id="reportSelectDiv" class="col-sm-10">
                                                 <select id="reportSelect" name="reportSelect" class="form-control">
                                                     <option value="copyright">Copyright</option>
-                                                    <option>Item offered</option>
+                                                    <option>Bien proposé inadéquat</option>
                                                     <option>Spam</option>
-                                                    <option>Inappropriate content</option>
-                                                    <option>Content inciting hatred</option>
-                                                    <option>Other</option>
+                                                    <option>Contenu inaproprié</option>
+                                                    <option>Incitation à la haine</option>
+                                                    <option>Autre</option>
                                                 </select>
                                             </div>
                                             <script>
@@ -123,7 +125,7 @@
                                             </script>
                                         </div>
                                         <div id="reportTitle" class="form-group">
-                                            <label class="col-sm-2 control-label" for="yourTitle">Title</label>
+                                            <label class="col-sm-2 control-label" for="yourTitle">Titre</label>
                                             <div class="col-sm-10">
                                                 <input name="title" type="text" class="form-control" placeholder="Object"/>
                                             </div>
@@ -135,7 +137,9 @@
                                             </div>
                                         </div>
                                         <input type="hidden" name="offerId" value="${offer.id}"/>
-                                        <button type="submit" class="btn btn-primary" style="float:right;">Send report</button>
+                                        <button type="submit" class="btn btn-primary" style="float:right;">Signaler
+                                            abus
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -151,7 +155,8 @@
                     <c:if test="${owner.id != currentUserId}">
                         <li role="presentation"><a href="#contact" aria-controls="home" role="tab" data-toggle="tab">Contact</a></li>
                     </c:if>
-                    <li role="presentation"><a href="#owner" aria-controls="home" role="tab" data-toggle="tab">Owner profile</a></li>
+                    <li role="presentation"><a href="#owner" aria-controls="home" role="tab" data-toggle="tab">Profil du
+                        propriétaire</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -161,7 +166,7 @@
                     <c:if test="${owner.id != currentUserId}">
                         <div role="tabpanel" class="tab-pane fade " id="contact" style="padding:10px;">
                             <sec:authorize access="isAuthenticated()">
-                                <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>If you wanna know further about this offer or propose a trade, fill this form to contact the owner.</span>
+                                <span class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></span><span>Si vous souhaitez en savoir plus ou proposer une offre, contactez le propriétaire de l'annonce.</span>
                                 <form:form method="post" class="form-horizontal" style="max-width: 90%;"
                                            commandName="contactForm" enctype="multipart/form-data">
                                     <div class="form-group">
@@ -169,18 +174,18 @@
                                         <div class="col-md-10 col-sm-10">
                                             <form:radiobutton path="type"
                                                               value="question"
-                                                              checked="true"/> Ask a question
-                                            <form:radiobutton path="type" value="offer"/> Propose a trade
+                                                              checked="true"/> Poser une question
+                                            <form:radiobutton path="type" value="offer"/> Proposer un échange
                                         </div>
                                     </div>
                                     <div id="yourTitle" class="form-group">
-                                        <label class="col-sm-2 control-label" for="yourTitle">Title* </label>
+                                        <label class="col-sm-2 control-label" for="yourTitle">Titre* </label>
                                         <div class="col-sm-10">
                                             <form:input path="title" type="text" class="form-control" placeholder="Object"/>
                                         </div>
                                     </div>
                                     <div id="yourOffer" class="form-group">
-                                        <label class="col-sm-2 control-label" for="yourOffer">Your offer </label>
+                                        <label class="col-sm-2 control-label" for="yourOffer">Votre offre </label>
                                         <div class="col-sm-10">
                                             <form:input path="offer" type="text" class="form-control"
                                                         placeholder="What you give"/>
@@ -208,11 +213,11 @@
                                         </div>
                                     </div>
                                     <form:hidden path="targetId"/>
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" class="btn btn-default">Soumettre</button>
                                 </form:form>
                             </sec:authorize>
                             <sec:authorize access="isAnonymous()">
-                                <span>You must be logged in to access this category</span>
+                                <span>Vous devez être connecté pour accéder à cet onglet.</span>
                             </sec:authorize>
                         </div>
                     </c:if>
@@ -221,12 +226,12 @@
                             <img src="https://ejobba.com/app/webroot/img/default-profile.png" alt="..."
                                  class="img-thumbnail thumbnail">
                             <span class="glyphicon glyphicon-play"
-                                  style="font-size: 12px; margin-right: 5px;"></span><span>Published by :</span><span><a
+                                  style="font-size: 12px; margin-right: 5px;"></span><span>Publiée par :</span><span><a
                                 href="<c:url value="/profile/${owner.id}"/>">${owner.username}</a> </span><br/>
                             <span class="glyphicon glyphicon-play"
-                                  style="font-size: 12px; margin-right: 5px;"></span><span>Member since : ${owner.creationDate}</span><br/>
+                                  style="font-size: 12px; margin-right: 5px;"></span><span>Membre depuis : ${owner.creationDate}</span><br/>
                             <span class="glyphicon glyphicon-play"
-                                  style="font-size: 12px; margin-right: 5px;"></span><span>Feedback : </span>${thumbsUp}
+                                  style="font-size: 12px; margin-right: 5px;"></span><span>Avis : </span>${thumbsUp}
                             <span class="glyphicon glyphicon-thumbs-up"
                                   style="font-size: 12px; margin-right: 5px; color:green;"></span>${thumbsDown} <span
                                 class="glyphicon glyphicon-thumbs-down"
@@ -240,7 +245,7 @@
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                                 <span class="glyphicon glyphicon-remove"></span></button>
-                                            <h4 class="modal-title">${owner.username} - Comments</h4>
+                                            <h4 class="modal-title">${owner.username} - Commentaires</h4>
                                         </div>
                                         <div id="modalComments" class="modal-body">
 
@@ -252,7 +257,7 @@
                             <sec:authorize access="isAuthenticated()">
                                 <c:if test="${owner.id != currentUserId}">
                                     <a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
-                                       data-target="#leaveComment">Leave a comment</a>
+                                       data-target="#leaveComment">Laisser un commentaire</a>
                                 </c:if>
                             </sec:authorize>
                             <div class="modal fade" id="leaveComment">
@@ -261,7 +266,7 @@
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                                 <span class="glyphicon glyphicon-remove"></span></button>
-                                            <h4 class="modal-title">${owner.username} - Leave a comment</h4>
+                                            <h4 class="modal-title">${owner.username} - Laisser un commentaire</h4>
                                         </div>
                                         <form action="<c:url value="/offer/comment"/>" method="post" id="formComment"
                                               class="form-horizontal">
@@ -276,7 +281,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="commentTitle" class="col-xs-3 col-sm-3 col-md-3"
-                                                           style="display:inline; margin-top:5px;">Comment </label>
+                                                           style="display:inline; margin-top:5px;">Commentaire </label>
                                                     <div class="col-xs-9 col-sm-9 col-md-9"
                                                          style="display:inline; margin-top:5px;">
                                                         <input type="text" name="title" id="commentTitle"
@@ -297,7 +302,7 @@
                                                 <input type="hidden" value="${owner.id}" name="ownerId">
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Send</button>
+                                                <button type="submit" class="btn btn-primary">Envoyer</button>
                                             </div>
                                         </form>
                                     </div>

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Connectez-vous</title>
     <c:import url="includes/head.jsp"/>
 </head>
 <body>
@@ -10,18 +10,18 @@
 <div class="container-fluid size">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h4 style="color:white;">Log in</h4>
+            <h4 style="color:white;">Connectez-vous</h4>
         </div>
         <div class="panel-body">
             <form action="<c:url value="/login"/>" method="post" class="form-horizontal">
                     <div class="form-group">
-                        <label for="inputusername" class="col-lg-2 control-label">Username</label>
+                        <label for="inputusername" class="col-lg-2 control-label">Nom d'utilisateur</label>
                         <div class="col-lg-3">
                             <input type="text" class="form-control" id="inputusername" placeholder="Username" name="username">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputpassword" class="col-lg-2 control-label">Password</label>
+                        <label for="inputpassword" class="col-lg-2 control-label">Mot de passe</label>
                         <div class="col-lg-3">
                             <input type="password" class="form-control" id="inputpassword" placeholder="Password"
                                    name="password">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Connection</button>
                         </div>
                     </div>
             </form>

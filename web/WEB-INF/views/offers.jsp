@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Offers</title>
+    <title>Offres</title>
     <c:import url="includes/head.jsp"/>
     <script src="<c:url value="/resources/js/refresh.js"/>"></script>
 </head>
@@ -28,11 +28,14 @@
     <%--</div>--%>
     <%--</form>--%>
     <c:if test="${category != null}">
-        <span id="criteria"><button class="btn btn-primary btn-sm">Category : ${category.name}<span id="categorySearch" class="glyphicon glyphicon-remove" style="color:#337ab7; margin-left:5px;"></span></button></span>
+        <span id="criteria"><button class="btn btn-primary btn-sm">Catégorie : ${category.name}<span id="categorySearch"
+                                                                                                     class="glyphicon glyphicon-remove"
+                                                                                                     style="color:#337ab7; margin-left:5px;"></span>
+        </button></span>
     </c:if>
     <div class="panel panel-primary" style="margin-top:5px;">
         <div class="panel-heading">
-            <h4 style="color:white;">Offers</h4>
+            <h4 style="color:white;">Offres</h4>
         </div>
         <div id="mainPanel" class="panel-body">
             <c:forEach items="${offers}" var="offer">
@@ -46,7 +49,7 @@
                         <p>${offer.description}</p>
                     </div>
                     <div class="panel-footer">
-                        <span>Category :
+                        <span>Categories :
                             <c:set var="i" value="0"/>
                             <c:forEach items="${offer.categories}" var="category">
                                 <a href="<c:url value="/offers/cat_id=${category.id}"/>">${category.name}</a>
@@ -57,7 +60,7 @@
                                 </c:choose>
                             </c:forEach>
                         </span>
-                        <span style="float:right;">Author : <a href="#">${offer.owner.username}</a></span>
+                        <span style="float:right;">Auteur : <a href="#">${offer.owner.username}</a></span>
                     </div>
                 </div>
             </c:forEach>

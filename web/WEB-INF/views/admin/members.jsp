@@ -3,7 +3,7 @@
 <html>
 <head>
     <c:import url="/WEB-INF/views/includes/head.jsp"/>
-    <title>Title</title>
+    <title>Gestion des membres</title>
 </head>
 <body>
 <c:import url="/WEB-INF/views/includes/menu.jsp"/>
@@ -12,8 +12,8 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Username</th>
-            <th>Enabled</th>
+            <th>Nom d'utilisateur</th>
+            <th>Actif</th>
             <th>Actions</th>
         </tr>
         </thead>

@@ -69,19 +69,19 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <c:set var="uri" value="${fn:split(pageContext.request.requestURI, '/')}"/>
             <ul class="nav navbar-nav">
-                <li <c:if test="${uri[3].equals(\"index.jsp\")}"> class="active" </c:if>><a href="<c:url value="/"/>">Index</a>
+                <li <c:if test="${uri[3].equals(\"index.jsp\")}"> class="active" </c:if>><a href="<c:url value="/"/>">Accueil</a>
                 </li>
                 <li <c:if test="${uri[3].equals(\"offers.jsp\")}"> class="active" </c:if>><a
-                        href="<c:url value="/offers"/>">Offers</a></li>
+                        href="<c:url value="/offers"/>">Offres</a></li>
                 <sec:authorize access="isAuthenticated()">
                     <sec:authentication property="principal" var="menuuser"/>
                     <li <c:if test="${uri[3].equals(\"create.jsp\")}"> class="active" </c:if>>
-                        <a href="<c:url value="/user/create"/>">Create offer</a>
+                        <a href="<c:url value="/user/create"/>">Créer une offre</a>
                     </li>
                 </sec:authorize>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Categories<span class="caret"></span></a>
+                       aria-expanded="false">Catégories<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <c:forEach items="${categories}" var="category">
                             <li><a href="<c:url value="/offers/cat_id=${category.id}"/>">${category.name}</a></li>
@@ -94,11 +94,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<c:url value="/admin/managecategories"/>">Manage categories</a></li>
+                            <li><a href="<c:url value="/admin/managecategories"/>">Gestion des categories</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<c:url value="/admin/members"/>">Members</a></li>
+                            <li><a href="<c:url value="/admin/members"/>">Gestion des membres</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<c:url value="/admin/reports"/>"><span style="margin-right:10px;">Reports</span><span id="report-badge" class="badge" style="background-color:dodgerblue;"></span></a></li>
+                            <li><a href="<c:url value="/admin/reports"/>"><span style="margin-right:10px;">Gestion des abus</span><span
+                                    id="report-badge" class="badge" style="background-color:dodgerblue;"></span></a>
+                            </li>
                         </ul>
                     </li>
                 </sec:authorize>
@@ -107,14 +109,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAuthenticated()">
                     <li><a href="#" style="padding-right: 0;"><span id="prop-badge" class="badge" style="background-color:#C70D0D;" title="You have ${menuuser.newPropsCount} new propositions" data-toggle="modal" data-target="#newPropsModal" onclick="refreshProps()">${menuuser.newPropsCount}</span></a></li>
-                    <li><a href="<c:url value="/profile/${menuuser.id}"/>">My profile</a></li>
-                    <li><a href="<c:url value="/logout"/>">Log out(${menuuser.username})</a></li>
+                    <li><a href="<c:url value="/profile/${menuuser.id}"/>">Mon profil</a></li>
+                    <li><a href="<c:url value="/logout"/>">Déconnexion(${menuuser.username})</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
                     <li <c:if test="${uri[3].equals(\"signup.jsp\")}"> class="active" </c:if>><a
-                            href="<c:url value="/signup"/>">Sign up</a></li>
+                            href="<c:url value="/signup"/>">Créer un compte</a></li>
                     <li <c:if test="${uri[3].equals(\"login.jsp\")}"> class="active" </c:if>><a
-                            href="<c:url value="/login"/>">Log in</a></li>
+                            href="<c:url value="/login"/>">Se connecter</a></li>
                 </sec:authorize>
             </ul>
         </div>
@@ -125,7 +127,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">New propositions</h4>
+                            <h4 class="modal-title" id="myModalLabel">Nouvelles propositions</h4>
                         </div>
                         <div class="modal-body">
                             <table id="modalTable" class="table table-striped table-hover">

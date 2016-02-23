@@ -13,11 +13,11 @@
             <div class="error-template">
                 <h1>Oops!</h1><br>
                 <h2>404 Not Found</h2><br>
-                <h3>Sorry, an error has occured. Requested page not found!</h3>
+                <h3>Désolé, une erreur s'est produite. La page est introuvable !</h3>
                 <div class="error-actions">
                     <br>
                     <a href="<c:url value="/"/>" class="btn btn-primary btn-lg"><span
-                            class="glyphicon glyphicon-home"></span>Take Me Home </a>
+                            class="glyphicon glyphicon-home"></span>Retour à l'accueil </a>
                 </div>
             </div>
         </div>

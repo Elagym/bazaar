@@ -4,7 +4,7 @@
 <html>
 <head>
     <c:import url="/WEB-INF/views/includes/head.jsp"/>
-    <title>Create a new category</title>
+    <title>Gestion des catégories</title>
 </head>
 <body>
 <c:import url="/WEB-INF/views/includes/menu.jsp"/>
@@ -12,7 +12,7 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>Category name</th>
+        <th>Intitulé</th>
     </tr>
     </thead>
     <tbody>

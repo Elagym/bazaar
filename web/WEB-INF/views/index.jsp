@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Accueil</title>
     <c:import url="includes/head.jsp"/>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="container-fluid col-md-8">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h4 style="color:white;">Last offers</h4>
+                <h4 style="color:white;">Les dernières offres</h4>
             </div>
             <div class="panel-body">
                 <c:forEach items="${offers}" var="offer">
@@ -28,7 +28,7 @@
                             <p>${offer.description}</p>
                         </div>
                         <div class="panel-footer">
-                                <span>Category :
+                                <span>Catégories :
                                     <c:set var="i" value="0"/>
                                     <c:forEach items="${offer.categories}" var="category">
                                         <a href="<c:url value="/offers/cat_id=${category.id}"/>">${category.name}</a>
@@ -39,7 +39,8 @@
                                         </c:choose>
                                     </c:forEach>
                                 </span>
-                            <span style="float:right;">Author : <a href="<c:url value="/profile/${offer.owner.id}"/>">${offer.owner.username}</a></span>
+                            <span style="float:right;">Auteur : <a
+                                    href="<c:url value="/profile/${offer.owner.id}"/>">${offer.owner.username}</a></span>
                         </div>
                     </div>
                 </c:forEach>
@@ -62,7 +63,7 @@
         </div>
         <div class="panel panel-primary" style="width:100%;">
             <div class="panel-heading">
-                <h4 style="color:white;">Follow us !</h4>
+                <h4 style="color:white;">Suivez-nous !</h4>
             </div>
             <div class="panel-body">
                 <img src="<c:url value="/resources/images/social_icons.png"/>" style="cursor:pointer; width:200px;"/>

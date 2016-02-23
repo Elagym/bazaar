@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create an offer</title>
+    <title>Créer une nouvelle offre</title>
     <c:import url="../includes/head.jsp"/>
 </head>
 <body>
@@ -11,15 +11,15 @@
     <div class="container-fluid size">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h4 style="color:white;">Create a new offer</h4>
+                <h4 style="color:white;">Créer une nouvelle offre</h4>
             </div>
             <div class="panel-body">
                 <form:form method="post" class="form-horizontal" style="max-width: 90%;" commandName="createOfferForm" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Category </label>
+                        <label class="col-sm-2 control-label">Catégories </label>
                         <div class="col-sm-10">
                             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCats" aria-expanded="false" aria-controls="collapseCats">
-                                Toggle categories
+                                Choix des catégories
                             </button>
                             <div class="collapse" id="collapseCats">
                                 <div class="well" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-right-radius:20px;">
@@ -32,16 +32,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="title">Offer's title* </label>
+                        <label class="col-sm-2 control-label" for="title">Titre de l'offre* </label>
                         <div class="col-sm-10">
-                            <form:input type="text" class="form-control" id="title" placeholder="Title" path="title"/>
+                            <form:input type="text" class="form-control" id="title" placeholder="Titre" path="title"/>
                             <form:errors path="title"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="desc">Description* </label>
                         <div class="col-sm-10">
-                            <form:textarea class="form-control" id="desc" rows="5" placeholder="Description here" path="desc"></form:textarea>
+                            <form:textarea class="form-control" id="desc" rows="5"
+                                           placeholder="Informations supplémentaires" path="desc"></form:textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -51,27 +52,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="expectation">Expectation </label>
+                        <label class="col-sm-2 control-label" for="expectation">Échange contre </label>
                         <div class="col-sm-10">
-                            <form:input type="text" class="form-control" id="expectation" placeholder="Expectation" path="expectation"/>
+                            <form:input type="text" class="form-control" id="expectation"
+                                        placeholder="Ce que vous voulez en échange" path="expectation"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="address">Address* </label>
+                        <label class="col-sm-2 control-label" for="address">Adresse* </label>
                         <div class="col-sm-10">
-                            <form:input type="text" class="form-control" id="address" placeholder="Address" path="address"/>
+                            <form:input type="text" class="form-control" id="address" placeholder="Adresse"
+                                        path="address"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="zipcode">Zip code* </label>
+                        <label class="col-sm-2 control-label" for="zipcode">Code Zip* </label>
                         <div class="col-sm-10">
-                            <form:input type="text" class="form-control" id="zipcode" placeholder="Zip code" path="zipcode"/>
+                            <form:input type="text" class="form-control" id="zipcode" placeholder="Code Zip"
+                                        path="zipcode"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="keywords">Keywords </label>
+                        <label class="col-sm-2 control-label" for="keywords">Mots-clés </label>
                         <div class="col-sm-10">
-                            <form:input type="text" class="form-control" id="keywords" placeholder="First, second, ..." path="keywords"/>
+                            <form:input type="text" class="form-control" id="keywords" placeholder="Mots-clés"
+                                        path="keywords"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,11 +86,11 @@
                         </div>
                     </div>
                     <div id="divGroupThumbnail" class="form-group" style="visibility:hidden;">
-                        <label class="col-sm-2 control-label">Preview </label>
+                        <label class="col-sm-2 control-label">Aperçu </label>
                         <div id="dvPreview" class="col-sm-10">
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Submit</button>
+                    <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Soumettre</button>
                 </form:form>
             </div>
         </div>
